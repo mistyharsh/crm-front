@@ -1,46 +1,29 @@
 {
-  "name": "fs-adt",
-  "version": "0.2.0",
-  "description": "fs-extra exposed as TypeScript ADT",
-
-  "main": "index.js",
-  "types": "index.d.ts",
-
+  "name": "crm-front",
+  "version": "0.1.0",
+  "description": "Frontend for CRM",
+  "type": "module",
   "scripts": {
-    "build:lib": "babel src -x .ts -d dist",
-    "build:types": "tsc -p tsconfig.json",
-    "build:copy": "cp package.json LICENSE README.md ./dist",
-    "build": "npm run build:types && npm run build:lib && npm run build:copy"
+    "check:types": "tsc",
+    "build": "rspack build --env production",
+    "dev": "rspack dev --env development"
   },
-
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mistyharsh/fs-adt.git"
-  },
+  "keywords": [],
   "author": "",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/mistyharsh/fs-adt/issues"
+  "license": "SEE LICENSE IN LICENSE",
+  "volta": {
+    "node": "20.11.0"
   },
-  "homepage": "https://github.com/mistyharsh/fs-adt#readme",
-
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.7",
-    "@babel/node": "^7.8.7",
-    "@babel/preset-env": "^7.8.7",
-    "@babel/preset-typescript": "^7.8.3",
-    "@types/jest": "^25.1.4",
-    "jest": "^25.1.0",
-    "typescript": "^3.8.3"
+    "@rspack/cli": "^0.5.1",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "html-webpack-plugin": "^5.6.0",
+    "typescript": "^5.3.3"
   },
-
   "dependencies": {
-    "@hapi/joi": "^17.1.0",
-    "@types/fs-extra": "^8.1.0",
-    "@types/hapi__joi": "^16.0.12",
-    "fs-extra": "^8.1.0"
-  },
-
-  "keywords": ["fs", "fs-extra", "file", "adt", "file system", "json"]
+    "clsx": "^2.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
 }

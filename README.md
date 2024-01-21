@@ -1,2 +1,3 @@
-# fs-adt
-Idiotic wrapper to expose fs-extra as ADT
+# CRM Front
+
+A frontend with rspack for CRM.
