@@ -1,13 +1,13 @@
-import React from 'react';
+import { defaultTheme, Provider } from '@adobe/react-spectrum';
 
-export function App() {
+export type AppProps = {
+  children?: React.ReactNode;
+};
+
+export function App(props: AppProps) {
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <p>
-          Hello World!
-        </p>
-      </header>
-    </div>
+    <Provider theme={defaultTheme}>
+      {props.children}
+    </Provider>
   );
 }

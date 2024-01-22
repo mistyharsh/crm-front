@@ -1,5 +1,6 @@
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 
+const BACKEND = 'http://localhost:8890';
 
 export default function config(env) {
   const mode = env.production ? 'production' : 'development';
@@ -8,7 +9,8 @@ export default function config(env) {
   const config = {
     mode,
     entry: {
-      main: './src/main.ts',
+      main: './src/Main.tsx',
+      public: './src/Public.tsx',
     },
     output: {
       clean: true,
@@ -19,8 +21,17 @@ export default function config(env) {
     module: {
       rules: [
         {
-          test: /\.tsx$/,
+          test: /\.tsx?$/,
           loader: 'builtin:swc-loader',
+          options: {
+            jsc: {
+              transform: {
+                react: {
+                  runtime: 'automatic',
+                },
+              },
+            },
+          },
         },
       ],
     },
@@ -28,15 +39,45 @@ export default function config(env) {
       extensions: ['.tsx', '.ts', '.js'],
     },
     plugins: [
+      // App behind authentication.
       new HTMLWebpackPlugin({
         template: './index.html',
+        filename: 'index.html',
         scriptLoading: 'module',
+        chunks: ['main'],
+      }),
+
+      // App without authentication.
+      new HTMLWebpackPlugin({
+        template: './index.html',
+        filename: 'public.html',
+        scriptLoading: 'module',
+        chunks: ['public'],
       }),
     ],
     devServer: {
-      historyApiFallback: true,
       hot: true,
       port: 8891,
+
+      // Frontend routes.
+      historyApiFallback: {
+        rewrites: [
+          { from: /^\/public/, to: '/public.html' },
+          { from: /./, to: '/index.html' },
+        ],
+      },
+
+      // Backend routes.
+      proxy: {
+        '/api': {
+          target: BACKEND,
+          changeOrigin: true,
+        },
+        '/auth': {
+          target: BACKEND,
+          changeOrigin: true,
+        },
+      },
     },
     experiments: {
       outputModule: true,
