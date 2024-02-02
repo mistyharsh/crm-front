@@ -7,11 +7,10 @@ export const rootRoute = new RootRoute({
   component: Root,
 });
 
-
 export function Root() {
   return (
     <App>
-      <Heading level={1}>Public App</Heading>
+      {/* <Heading level={1}>Welcome</Heading> */}
       <Outlet />
     </App>
   );
