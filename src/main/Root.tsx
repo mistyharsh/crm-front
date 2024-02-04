@@ -10,7 +10,7 @@ export const rootRoute = new RootRoute({
 
 export function Root() {
   return (
-    <App>
+    <App colorScheme='light'>
       <Heading level={1}>Protected App</Heading>
       <Outlet />
     </App>
