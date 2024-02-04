@@ -1,53 +1,67 @@
-import React from 'react';
 import {
   Form,
   TextField,
-  ButtonGroup,
   Button,
-  Link,
-  Divider,
-  Flex,
-  Text,
 } from '@adobe/react-spectrum';
+import { useState, type FormEvent } from 'react';
 
-function LoginForm() {
+export type Credentials = {
+  email: string;
+  password: string;
+};
+
+export type LoginFormProps = {
+  onChange: (value: Credentials) => void;
+};
+
+
+export function LoginForm(props: LoginFormProps) {
+  const { onChange } = props;
+
+  const [credentials, setCredentials] = useState<Credentials>({
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (e: FormEvent) => {
+    // e.preventDefault();
+  }
+
   return (
-    <div className='loginPage'>
-      <Form validationBehavior='native' width='size-3000' height='size-3000'>
-        <TextField
-          label='Email'
-          name='email'
-          type='email'
-          isRequired
-          description='Your email id'
-        />
-        <TextField
-          label='Password'
-          name='password'
-          type='password'
-          isRequired
-          description='Password'
-        />
-        <Link href='public/forget-password/' variant='secondary' isQuiet>
-          Forget password?
-        </Link>
-        <ButtonGroup width='single-line-width'>
-          <Button
-            type='submit'
-            variant='primary'
-            width='single-line-width'
-            style='fill'
-            staticColor='black'
-          >
-            Login
-          </Button>
-        </ButtonGroup>
-        <Link href='/reset-password/$resetToken' isQuiet variant='secondary'>
-          Don't have an account? Sign-up
-        </Link>
-      </Form>
-    </div>
+    <Form
+      necessityIndicator='icon'
+      validationBehavior='native'
+      onSubmit={handleChange}>
+      <TextField
+        label='Email'
+        name='email'
+        type='email'
+        isRequired
+        description='Your email id'
+        value={credentials.email}
+        onChange={(email) => setCredentials({ ...credentials, email })}
+      />
+      <TextField
+        label='Password'
+        name='password'
+        type='password'
+        isRequired
+        description='Password'
+        value={credentials.password}
+        onChange={(email) => setCredentials({ ...credentials, email })}
+      />
+
+      <Button
+        type='submit'
+        variant='primary'
+        width='single-line-width'
+        style='fill'
+        // staticColor='black'
+        alignSelf={'center'}
+      >
+        Login
+      </Button>
+
+    </Form>
   );
 }
-
-export default LoginForm;

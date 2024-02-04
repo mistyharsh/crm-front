@@ -1,23 +1,32 @@
-import { Provider, defaultTheme } from '@adobe/react-spectrum';
+import { Provider, View, defaultTheme } from '@adobe/react-spectrum';
 import { useNavigate } from '@tanstack/react-router';
 
-import HeaderBar from '../Header/header';
+export type ColorScheme = 'light' | 'dark';
 
 export type AppProps = {
-  children?: React.ReactNode;
+  colorScheme: ColorScheme;
+  children: React.ReactNode;
 };
 
 export function App(props: AppProps) {
-  const navigate = useNavigate();
+  const { children, colorScheme } = props;
+  const navigateRoute = useNavigate();
 
-  const myNavigate = (to: string) => {
-    navigate({ to });
+  const navigate = (to: string) => {
+    navigateRoute({ to });
   };
 
   return (
-    <Provider theme={defaultTheme} router={{ navigate: myNavigate }}>
-      <HeaderBar />
-      {props.children}
+    <Provider
+      data-cl='app'
+      scale='medium'
+      theme={defaultTheme}
+      colorScheme={colorScheme}
+      router={{ navigate }}
+    >
+      <View minHeight={'100vh'}>
+        {children}
+      </View>
     </Provider>
   );
 }
