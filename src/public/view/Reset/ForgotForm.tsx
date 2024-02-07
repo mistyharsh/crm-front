@@ -1,27 +1,24 @@
-import { Form, TextField, Button } from '@adobe/react-spectrum';
-import { useState, type FormEvent } from 'react';
+import { Button, Form, TextField } from '@adobe/react-spectrum';
+
+import { FormEvent, useState } from 'react';
 
 export type Credentials = {
   email: string;
-  password: string;
 };
 
-export type LoginFormProps = {
+export type ForgotFormProps = {
   onChange: (value: Credentials) => void;
 };
 
-export function LoginForm(props: LoginFormProps) {
+export function ForgotForm(props: ForgotFormProps) {
   const { onChange } = props;
-
   const [credentials, setCredentials] = useState<Credentials>({
     email: '',
-    password: '',
   });
 
   const handleChange = (e: FormEvent) => {
     // e.preventDefault();
   };
-
   return (
     <Form
       necessityIndicator='icon'
@@ -29,33 +26,22 @@ export function LoginForm(props: LoginFormProps) {
       onSubmit={handleChange}
     >
       <TextField
-        label='Email'
+        label='Enter email id'
         name='email'
-        type='email'
+        type='text'
         isRequired
         description='Your email id'
         value={credentials.email}
         onChange={(email) => setCredentials({ ...credentials, email })}
       />
-      <TextField
-        label='Password'
-        name='password'
-        type='password'
-        isRequired
-        description='Password'
-        value={credentials.password}
-        onChange={(password) => setCredentials({ ...credentials, password })}
-      />
-
       <Button
         type='submit'
         variant='primary'
         width='single-line-width'
         style='fill'
-        // staticColor='black'
         alignSelf={'center'}
       >
-        Login
+        Submit
       </Button>
     </Form>
   );
