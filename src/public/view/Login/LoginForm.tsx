@@ -1,4 +1,4 @@
-import { Form, TextField, Button } from '@adobe/react-spectrum';
+import { Form, TextField, Button, ProgressCircle } from '@adobe/react-spectrum';
 import { useState, type FormEvent } from 'react';
 
 export type Credentials = {
@@ -7,11 +7,12 @@ export type Credentials = {
 };
 
 export type LoginFormProps = {
-  onChange: (value: Credentials) => void;
+  inProgress: boolean;
+  onSubmit: (value: Credentials) => void;
 };
 
 export function LoginForm(props: LoginFormProps) {
-  const { onChange } = props;
+  const { inProgress, onSubmit } = props;
 
   const [credentials, setCredentials] = useState<Credentials>({
     email: '',
@@ -19,7 +20,8 @@ export function LoginForm(props: LoginFormProps) {
   });
 
   const handleChange = (e: FormEvent) => {
-    // e.preventDefault();
+    e.preventDefault();
+    onSubmit(credentials);
   };
 
   return (
@@ -49,13 +51,16 @@ export function LoginForm(props: LoginFormProps) {
 
       <Button
         type='submit'
-        variant='primary'
+        variant='accent'
         width='single-line-width'
         style='fill'
-        // staticColor='black'
         alignSelf={'center'}
       >
-        Login
+        {inProgress ? (
+          <ProgressCircle size='S' staticColor='white' isIndeterminate />
+        ) : (
+          'Login'
+        )}
       </Button>
     </Form>
   );

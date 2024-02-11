@@ -1,17 +1,15 @@
 import { StrictMode } from 'react';
-import { Router, RouterProvider } from '@tanstack/react-router';
+import { RouterProvider, createRouter } from '@tanstack/react-router';
 
 import { run } from './App/run';
 import { rootRoute } from './main/Root';
 
-const routeTree = rootRoute.addChildren([
-]);
+const routeTree = rootRoute.addChildren([]);
 
-const router = new Router({
+const router = createRouter({
   routeTree,
   basepath: '/',
 });
-
 
 function Main() {
   return (

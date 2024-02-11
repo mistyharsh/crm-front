@@ -1,5 +1,6 @@
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 
+const PORT = 8891;
 const BACKEND = 'http://localhost:8890';
 
 export default function config(env) {
@@ -57,7 +58,7 @@ export default function config(env) {
     ],
     devServer: {
       hot: true,
-      port: 8891,
+      port: PORT,
 
       // Frontend routes.
       historyApiFallback: {

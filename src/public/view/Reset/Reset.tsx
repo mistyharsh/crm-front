@@ -1,11 +1,12 @@
-import { Route } from '@tanstack/react-router';
-
-import { rootRoute } from '../../Root';
 import { Divider, Flex, Heading, Link, View } from '@adobe/react-spectrum';
 import Compass from '@spectrum-icons/workflow/Compass';
+import { createRoute } from '@tanstack/react-router';
+
+import { AuthView } from '../../component/AuthView';
+import { rootRoute } from '../../Root';
 import { ResetForm } from './ResetForm';
 
-export const resetRoute = new Route({
+export const resetRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/reset-password/$resetToken',
   component: Reset,
@@ -13,16 +14,7 @@ export const resetRoute = new Route({
 
 export function Reset() {
   return (
-    <View
-      data-cl='reset-view'
-      backgroundColor={'gray-75'}
-      padding={'size-400'}
-      width={'size-5000'}
-      margin={'auto'}
-      marginTop={'size-400'}
-      borderColor={'gray-200'}
-      borderWidth={'thin'}
-    >
+    <AuthView className='reset-view'>
       <Flex direction='column'>
         <Compass size='XXL' alignSelf={'center'} marginBottom={'size-400'} />
         <Heading level={1} alignSelf='self-start'>
@@ -34,6 +26,6 @@ export function Reset() {
           Back to login
         </Link>
       </Flex>
-    </View>
+    </AuthView>
   );
 }

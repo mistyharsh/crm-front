@@ -17,7 +17,7 @@ import Button from '@spectrum-icons/workflow/Button';
 
 export type AppHeaderProps = {
   onColorSchemeChange: (colorScheme: ColorScheme) => void;
-}
+};
 
 export function AppHeader(props: AppHeaderProps) {
   const { onColorSchemeChange } = props;
@@ -32,16 +32,13 @@ export function AppHeader(props: AppHeaderProps) {
         borderColor={'gray-200'}
         borderBottomWidth={'thin'}
       >
-        <Flex
-          direction={'row'}
-          justifyContent={'end'}
-        >
-          <ActionButton onPress={() =>
-            onColorSchemeChange(colorScheme === 'dark' ? 'light' : 'dark')}
+        <Flex direction={'row'} justifyContent={'end'}>
+          <ActionButton
+            onPress={() =>
+              onColorSchemeChange(colorScheme === 'dark' ? 'light' : 'dark')
+            }
           >
-            {colorScheme === 'dark'
-              ? <Contrast />
-              : <Light />}
+            {colorScheme === 'dark' ? <Contrast /> : <Light />}
           </ActionButton>
         </Flex>
       </View>

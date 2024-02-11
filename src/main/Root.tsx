@@ -1,12 +1,11 @@
 import { Heading } from '@adobe/react-spectrum';
-import { Outlet, RootRoute } from '@tanstack/react-router';
+import { Outlet, createRootRoute } from '@tanstack/react-router';
 
 import { App } from '../App/App';
 
-export const rootRoute = new RootRoute({
+export const rootRoute = createRootRoute({
   component: Root,
 });
-
 
 export function Root() {
   return (

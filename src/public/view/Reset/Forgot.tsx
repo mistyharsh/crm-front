@@ -1,29 +1,20 @@
-import { Route } from '@tanstack/react-router';
 import { View, Flex, Heading, Divider, Link } from '@adobe/react-spectrum';
 import Compass from '@spectrum-icons/workflow/Compass';
+import { createRoute } from '@tanstack/react-router';
 
+import { AuthView } from '../../component/AuthView';
+import { rootRoute } from '../../Root';
 import { ForgotForm } from './ForgotForm';
 
-import { rootRoute } from '../../Root';
-
-export const forgetRoute = new Route({
+export const forgotRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/forget-password',
-  component: Forget,
+  component: Forgot,
 });
 
-export function Forget() {
+export function Forgot() {
   return (
-    <View
-      data-cl='forget-view'
-      backgroundColor={'gray-75'}
-      padding={'size-400'}
-      width={'size-5000'}
-      margin={'auto'}
-      marginTop={'size-400'}
-      borderColor={'gray-200'}
-      borderWidth={'thin'}
-    >
+    <AuthView className='forgot-view'>
       <Flex direction='column'>
         <Compass size='XXL' alignSelf={'center'} marginBottom={'size-400'} />
         <Heading level={1} alignSelf='self-start'>
@@ -35,6 +26,6 @@ export function Forget() {
           Back to Login
         </Link>
       </Flex>
-    </View>
+    </AuthView>
   );
 }

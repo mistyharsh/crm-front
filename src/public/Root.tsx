@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Outlet, RootRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 
@@ -8,14 +9,17 @@ export const rootRoute = new RootRoute({
   component: Root,
 });
 
+const queryClient = new QueryClient();
+
 export function Root() {
   const [scheme, setScheme] = useState<ColorScheme>('dark');
 
   return (
-    <App colorScheme={scheme}>
-      <AppHeader
-        onColorSchemeChange={setScheme} />
-      <Outlet />
-    </App>
+    <QueryClientProvider client={queryClient}>
+      <App colorScheme={scheme}>
+        <AppHeader onColorSchemeChange={setScheme} />
+        <Outlet />
+      </App>
+    </QueryClientProvider>
   );
 }

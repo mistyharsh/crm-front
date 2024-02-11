@@ -24,9 +24,7 @@ export function App(props: AppProps) {
       colorScheme={colorScheme}
       router={{ navigate }}
     >
-      <View minHeight={'100vh'}>
-        {children}
-      </View>
+      <View minHeight={'100vh'}>{children}</View>
     </Provider>
   );
 }
