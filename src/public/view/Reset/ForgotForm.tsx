@@ -1,4 +1,4 @@
-import { Button, Form, TextField } from '@adobe/react-spectrum';
+import { Button, Form, ProgressCircle, TextField } from '@adobe/react-spectrum';
 
 import { FormEvent, useState } from 'react';
 
@@ -7,17 +7,19 @@ export type Credentials = {
 };
 
 export type ForgotFormProps = {
+  inProgress: boolean;
   onChange: (value: Credentials) => void;
 };
 
 export function ForgotForm(props: ForgotFormProps) {
-  const { onChange } = props;
+  const { inProgress, onChange } = props;
   const [credentials, setCredentials] = useState<Credentials>({
     email: '',
   });
 
   const handleChange = (e: FormEvent) => {
-    // e.preventDefault();
+    e.stopPropagation();
+    onChange(credentials);
   };
   return (
     <Form
@@ -41,7 +43,11 @@ export function ForgotForm(props: ForgotFormProps) {
         style='fill'
         alignSelf={'center'}
       >
-        Submit
+        {inProgress ? (
+          <ProgressCircle size='S' staticColor='white' isIndeterminate />
+        ) : (
+          'Submit'
+        )}
       </Button>
     </Form>
   );
