@@ -4,6 +4,7 @@ import {
   Flex,
   Form,
   TextField,
+  ProgressCircle,
 } from '@adobe/react-spectrum';
 import Visiblity from '@spectrum-icons/workflow/Visibility';
 import VisiblityOff from '@spectrum-icons/workflow/VisibilityOff';
@@ -15,18 +16,21 @@ export type Credentials = {
 };
 
 export type ResetFormProps = {
-  onChange: (value: Credentials) => void;
+  inProgress: boolean;
+  onSubmit: (value: Credentials) => void;
 };
 
 export function ResetForm(props: ResetFormProps) {
-  const { onChange } = props;
-  const [credentials, setCredentials] = useState<Credentials>({
+  const { inProgress, onSubmit } = props;
+  const [userPassword, setUserPassword] = useState<Credentials>({
     password: '',
   });
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e: FormEvent) => {
-    // e.preventDefault();
+    // e.stopPropagation();
+    e.preventDefault();
+    onSubmit(userPassword);
   };
   return (
     <Form
@@ -42,8 +46,10 @@ export function ResetForm(props: ResetFormProps) {
           type={showPassword ? 'text' : 'password'}
           isRequired
           description='Your new password'
-          value={credentials.password}
-          onChange={(password) => setCredentials({ ...credentials, password })}
+          value={userPassword.password}
+          onChange={(password) =>
+            setUserPassword({ ...userPassword, password })
+          }
         />
         <ActionButton
           marginBottom={'3px'}
@@ -63,7 +69,11 @@ export function ResetForm(props: ResetFormProps) {
         style='fill'
         alignSelf={'center'}
       >
-        Reset Password
+        {inProgress ? (
+          <ProgressCircle size='S' staticColor='white' isIndeterminate />
+        ) : (
+          'Submit'
+        )}
       </Button>
     </Form>
   );
