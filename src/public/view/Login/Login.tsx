@@ -1,12 +1,15 @@
-import { Divider, Flex, Heading, Link, View } from '@adobe/react-spectrum';
+import { Divider, Flex, Heading, Link } from '@adobe/react-spectrum';
 import Compass from '@spectrum-icons/workflow/Compass';
 import { useMutation } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 import ky from 'ky';
 import { useEffect } from 'react';
 
+import { useHref } from '../../../util/location';
 import { AuthView } from '../../component/AuthView';
 import { rootRoute } from '../../Root';
+import { forgotRoute } from '../Reset/Forgot';
+import { resetRoute } from '../Reset/Reset';
 import { LoginForm, type Credentials } from './LoginForm';
 
 export const loginRoute = createRoute({
@@ -28,11 +31,13 @@ async function login(credentials: Credentials): Promise<any> {
   return response;
 }
 
+const mutationConfig = { mutationFn: login };
+
 export function Login() {
   // TODO: Add error handling
-  const { isPending, isError, isSuccess, mutate } = useMutation({
-    mutationFn: login,
-  });
+  const { isPending, isError, isSuccess, mutate } = useMutation(mutationConfig);
+  const resetHref = useHref(resetRoute, { resetToken: 'resetToken' });
+  const forgotHref = useHref(forgotRoute);
 
   useEffect(() => {
     if (isSuccess) {
@@ -53,11 +58,11 @@ export function Login() {
         </Heading>
         <LoginForm inProgress={isPending} onSubmit={handleSubmit} />
         <Divider size='S' marginTop={'size-400'} marginBottom={'size-200'} />
-        <Link href='public/forget-password/' variant='secondary' isQuiet>
-          Forget password?
+        <Link href={forgotHref} variant='secondary' isQuiet>
+          Forgot password?
         </Link>
-        <Link href='/reset-password/$resetToken' isQuiet variant='secondary'>
-          Don't have an account? Sign-up
+        <Link href={resetHref} isQuiet variant='secondary'>
+          Don't have an account? Sign-up now!
         </Link>
       </Flex>
     </AuthView>

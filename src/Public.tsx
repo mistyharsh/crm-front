@@ -14,12 +14,6 @@ const router = createRouter({
   basepath: '/public',
 });
 
-// declare module '@tanstack/react-router' {
-//   interface Register {
-//     router: typeof router;
-//   }
-// }
-
 function Public() {
   return (
     <StrictMode>

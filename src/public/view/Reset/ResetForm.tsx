@@ -11,27 +11,29 @@ import VisiblityOff from '@spectrum-icons/workflow/VisibilityOff';
 
 import { FormEvent, useState } from 'react';
 
-export type Credentials = {
+export type ResetCredentials = {
+  token: string;
   password: string;
 };
 
 export type ResetFormProps = {
   inProgress: boolean;
-  onSubmit: (value: Credentials) => void;
+  token: string;
+  onSubmit: (value: ResetCredentials) => void;
 };
 
 export function ResetForm(props: ResetFormProps) {
-  const { inProgress, onSubmit } = props;
-  const [userPassword, setUserPassword] = useState<Credentials>({
-    password: '',
-  });
+  const { inProgress, token, onSubmit } = props;
+
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e: FormEvent) => {
-    // e.stopPropagation();
+    e.stopPropagation();
     e.preventDefault();
-    onSubmit(userPassword);
+    onSubmit({ token, password });
   };
+
   return (
     <Form
       necessityIndicator='icon'
@@ -46,10 +48,8 @@ export function ResetForm(props: ResetFormProps) {
           type={showPassword ? 'text' : 'password'}
           isRequired
           description='Your new password'
-          value={userPassword.password}
-          onChange={(password) =>
-            setUserPassword({ ...userPassword, password })
-          }
+          value={password}
+          onChange={setPassword}
         />
         <ActionButton
           marginBottom={'3px'}

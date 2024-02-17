@@ -22,6 +22,7 @@ export function ForgotForm(props: ForgotFormProps) {
     e.preventDefault();
     onSubmit(userEmail);
   };
+
   return (
     <Form
       necessityIndicator='icon'
