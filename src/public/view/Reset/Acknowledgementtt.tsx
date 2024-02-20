@@ -1,4 +1,4 @@
-import { Heading } from '@adobe/react-spectrum';
+import { Heading, View } from '@adobe/react-spectrum';
 import AlertCircleFilled from '@spectrum-icons/workflow/AlertCircleFilled';
 
 export function EmailSent() {
@@ -17,12 +17,14 @@ export function ResetPasswordSuccessfull() {
   );
 }
 
-export function ResetPasswordFailed() {
+export function ResetTokenInvalid() {
   return (
-    <Heading level={1} alignSelf={'center'}>
-      404
-      <AlertCircleFilled />
+    <View>
+      <Heading level={1} alignSelf={'center'}>
+        <AlertCircleFilled />
+        404
+      </Heading>
       <Heading level={4}>Reset password link not found</Heading>
-    </Heading>
+    </View>
   );
 }
