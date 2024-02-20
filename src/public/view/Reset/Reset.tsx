@@ -5,15 +5,12 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 import ky from 'ky';
 
+import { useHref } from '../../../util/location';
 import { AuthView } from '../../component/AuthView';
 import { rootRoute } from '../../Root';
-import { useHref } from '../../../util/location';
 import { loginRoute } from '../Login/Login';
+import { ResetPasswordSuccessfull, ResetTokenInvalid } from './Acknowledgement';
 import { ResetForm, type ResetCredentials } from './ResetForm';
-import {
-  ResetPasswordFailed,
-  ResetPasswordSuccessfull,
-} from './acknowledgement';
 
 export const resetRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -33,7 +30,6 @@ async function resetPassword(payload: ResetCredentials): Promise<any> {
 
 async function getTokenInfo(token: string): Promise<any> {
   const response = await ky.get(`/auth/reset-password/${token}`).json();
-  console.log(response);
 
   return response;
 }
@@ -51,11 +47,19 @@ function useResetPassword() {
   });
 }
 
+type State = 'ValidToken' | 'InvalidToken' | 'ResetSuccess' | 'ResetFailure';
+
 export function Reset() {
   const { resetToken } = resetRoute.useParams();
   const info = useTokenInfo(resetToken);
   const reset = useResetPassword();
   const loginHref = useHref(loginRoute);
+
+  const tokenState: State = info.isSuccess ? 'ValidToken' : 'InvalidToken';
+  const resetState: State =
+    tokenState === 'ValidToken' && reset.isSuccess
+      ? 'ResetSuccess'
+      : 'ResetFailure';
 
   useEffect(() => {
     if (reset.isSuccess) {
@@ -74,17 +78,15 @@ export function Reset() {
         <Heading level={1} alignSelf='self-start'>
           Reset Password
         </Heading>
-        {info.isPending ? (
+        {tokenState === 'ValidToken' && resetState === 'ResetFailure' && (
           <ResetForm
             token={resetToken}
             inProgress={reset.isPending}
             onSubmit={reset.mutate}
           />
-        ) : info.isSuccess ? (
-          <ResetPasswordSuccessfull />
-        ) : (
-          <ResetPasswordFailed />
         )}
+        {resetState === 'ResetSuccess' && <ResetPasswordSuccessfull />}
+        {tokenState === 'InvalidToken' && <ResetTokenInvalid />}
         <Divider size='S' marginTop={'size-400'} marginBottom={'size-200'} />
         <Link href={loginHref} isQuiet variant='secondary'>
           Back to login

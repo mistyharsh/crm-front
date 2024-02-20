@@ -5,11 +5,11 @@ import { createRoute } from '@tanstack/react-router';
 import ky from 'ky';
 
 import { AuthView } from '../../component/AuthView';
+import { loginRoute } from '../Login/Login';
 import { rootRoute } from '../../Root';
 import { useHref } from '../../../util/location';
-import { EmailSent } from './acknowledgement';
+import { EmailSent } from './Acknowledgement';
 import { ForgotForm, type Credentials } from './ForgotForm';
-import { loginRoute } from '../Login/Login';
 
 export const forgotRoute = createRoute({
   getParentRoute: () => rootRoute,
