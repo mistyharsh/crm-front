@@ -9,7 +9,7 @@ export function EmailSent() {
   );
 }
 
-export function ResetPasswordSuccessfull() {
+export function ResetPasswordSuccessful() {
   return (
     <Heading level={4} alignSelf={'center'}>
       The password has been set successfully

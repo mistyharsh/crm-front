@@ -9,7 +9,7 @@ import { useHref } from '../../../util/location';
 import { AuthView } from '../../component/AuthView';
 import { rootRoute } from '../../Root';
 import { loginRoute } from '../Login/Login';
-import { ResetPasswordSuccessfull, ResetTokenInvalid } from './Acknowledgement';
+import { ResetPasswordSuccessful, ResetTokenInvalid } from './Acknowledgement';
 import { ResetForm, type ResetCredentials } from './ResetForm';
 
 export const resetRoute = createRoute({
@@ -55,9 +55,9 @@ export function Reset() {
   const reset = useResetPassword();
   const loginHref = useHref(loginRoute);
 
-  const tokenState: State = info.isSuccess ? 'ValidToken' : 'InvalidToken';
-  const resetState: State =
-    tokenState === 'ValidToken' && reset.isSuccess
+  const state: State = !info.isSuccess
+    ? 'InvalidToken'
+    : reset.isSuccess
       ? 'ResetSuccess'
       : 'ResetFailure';
 
@@ -78,15 +78,15 @@ export function Reset() {
         <Heading level={1} alignSelf='self-start'>
           Reset Password
         </Heading>
-        {tokenState === 'ValidToken' && resetState === 'ResetFailure' && (
+        {state === 'ResetFailure' && (
           <ResetForm
             token={resetToken}
             inProgress={reset.isPending}
             onSubmit={reset.mutate}
           />
         )}
-        {resetState === 'ResetSuccess' && <ResetPasswordSuccessfull />}
-        {tokenState === 'InvalidToken' && <ResetTokenInvalid />}
+        {state === 'ResetSuccess' && <ResetPasswordSuccessful />}
+        {state === 'InvalidToken' && <ResetTokenInvalid />}
         <Divider size='S' marginTop={'size-400'} marginBottom={'size-200'} />
         <Link href={loginHref} isQuiet variant='secondary'>
           Back to login
