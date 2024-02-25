@@ -3,8 +3,11 @@ import { RouterProvider, createRouter } from '@tanstack/react-router';
 
 import { run } from './App/run';
 import { rootRoute } from './main/Root';
+import { dashboardRoute } from './main/view/Dashboard/Dashboard';
 
-const routeTree = rootRoute.addChildren([]);
+const routeTree = rootRoute.addChildren([
+  dashboardRoute,
+]);
 
 const router = createRouter({
   routeTree,
