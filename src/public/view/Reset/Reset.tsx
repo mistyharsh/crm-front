@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
 import { Divider, Flex, Heading, Link } from '@adobe/react-spectrum';
 import SuccessMetric from '@spectrum-icons/workflow/SuccessMetric';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 import ky from 'ky';
+import { useEffect } from 'react';
 
 import { useHref } from '../../../util/location';
 import { AuthView } from '../../component/AuthView';
@@ -37,7 +37,7 @@ async function getTokenInfo(token: string): Promise<any> {
 function useTokenInfo(token: string) {
   return useQuery({
     queryKey: ['reset', token],
-    queryFn: ({ queryKey }) => getTokenInfo(token),
+    queryFn: () => getTokenInfo(token),
   });
 }
 
@@ -47,25 +47,42 @@ function useResetPassword() {
   });
 }
 
-type State = 'ValidToken' | 'InvalidToken' | 'ResetSuccess' | 'ResetFailure';
-
 export function Reset() {
   const { resetToken } = resetRoute.useParams();
   const info = useTokenInfo(resetToken);
   const reset = useResetPassword();
   const loginHref = useHref(loginRoute);
 
-  const state: State = !info.isSuccess
-    ? 'InvalidToken'
-    : reset.isSuccess
-      ? 'ResetSuccess'
-      : 'ResetFailure';
-
   useEffect(() => {
     if (reset.isSuccess) {
       window.location.href = '/login';
     }
   }, [reset.isSuccess]);
+
+  const render = () => {
+    if (info.isSuccess) {
+      return (
+        <ResetForm
+          token={resetToken}
+          inProgress={reset.isPending}
+          onSubmit={reset.mutate}
+        />
+      );
+    } else if (info.isError) {
+      return (
+        <ResetTokenInvalid />
+      );
+    } else if (reset.isSuccess) {
+      return (
+        <ResetPasswordSuccessful />
+      );
+    } else if (reset.isError) {
+      // TODO: Add error handling later.
+      return null;
+    }
+
+    return null;
+  };
 
   return (
     <AuthView className='reset-view'>
@@ -78,15 +95,7 @@ export function Reset() {
         <Heading level={1} alignSelf='self-start'>
           Reset Password
         </Heading>
-        {state === 'ResetFailure' && (
-          <ResetForm
-            token={resetToken}
-            inProgress={reset.isPending}
-            onSubmit={reset.mutate}
-          />
-        )}
-        {state === 'ResetSuccess' && <ResetPasswordSuccessful />}
-        {state === 'InvalidToken' && <ResetTokenInvalid />}
+        {render()}
         <Divider size='S' marginTop={'size-400'} marginBottom={'size-200'} />
         <Link href={loginHref} isQuiet variant='secondary'>
           Back to login
