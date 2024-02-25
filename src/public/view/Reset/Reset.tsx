@@ -1,14 +1,16 @@
-import { useEffect } from 'react';
 import { Divider, Flex, Heading, Link } from '@adobe/react-spectrum';
 import SuccessMetric from '@spectrum-icons/workflow/SuccessMetric';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 import ky from 'ky';
+import { useEffect } from 'react';
 
+import { useHref } from '../../../util/location';
 import { AuthView } from '../../component/AuthView';
 import { rootRoute } from '../../Root';
+import { loginRoute } from '../Login/Login';
+import { ResetPasswordSuccessful, ResetTokenInvalid } from './Acknowledgement';
 import { ResetForm, type ResetCredentials } from './ResetForm';
-
 
 export const resetRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -27,9 +29,7 @@ async function resetPassword(payload: ResetCredentials): Promise<any> {
 }
 
 async function getTokenInfo(token: string): Promise<any> {
-  const response = await ky
-    .get(`/auth/reset-password/${token}`)
-    .json();
+  const response = await ky.get(`/auth/reset-password/${token}`).json();
 
   return response;
 }
@@ -37,7 +37,7 @@ async function getTokenInfo(token: string): Promise<any> {
 function useTokenInfo(token: string) {
   return useQuery({
     queryKey: ['reset', token],
-    queryFn: ({ queryKey }) => getTokenInfo(token),
+    queryFn: () => getTokenInfo(token),
   });
 }
 
@@ -48,16 +48,41 @@ function useResetPassword() {
 }
 
 export function Reset() {
-
   const { resetToken } = resetRoute.useParams();
   const info = useTokenInfo(resetToken);
   const reset = useResetPassword();
+  const loginHref = useHref(loginRoute);
 
   useEffect(() => {
     if (reset.isSuccess) {
       window.location.href = '/login';
     }
   }, [reset.isSuccess]);
+
+  const render = () => {
+    if (info.isSuccess) {
+      return (
+        <ResetForm
+          token={resetToken}
+          inProgress={reset.isPending}
+          onSubmit={reset.mutate}
+        />
+      );
+    } else if (info.isError) {
+      return (
+        <ResetTokenInvalid />
+      );
+    } else if (reset.isSuccess) {
+      return (
+        <ResetPasswordSuccessful />
+      );
+    } else if (reset.isError) {
+      // TODO: Add error handling later.
+      return null;
+    }
+
+    return null;
+  };
 
   return (
     <AuthView className='reset-view'>
@@ -70,13 +95,9 @@ export function Reset() {
         <Heading level={1} alignSelf='self-start'>
           Reset Password
         </Heading>
-        <ResetForm
-          token={resetToken}
-          inProgress={reset.isPending}
-          onSubmit={reset.mutate}
-        />
+        {render()}
         <Divider size='S' marginTop={'size-400'} marginBottom={'size-200'} />
-        <Link href='/login' isQuiet variant='secondary'>
+        <Link href={loginHref} isQuiet variant='secondary'>
           Back to login
         </Link>
       </Flex>

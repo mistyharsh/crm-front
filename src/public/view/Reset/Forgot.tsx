@@ -5,8 +5,10 @@ import { createRoute } from '@tanstack/react-router';
 import ky from 'ky';
 
 import { AuthView } from '../../component/AuthView';
+import { loginRoute } from '../Login/Login';
 import { rootRoute } from '../../Root';
-import { EmailSent } from './EmailSent';
+import { useHref } from '../../../util/location';
+import { EmailSent } from './Acknowledgement';
 import { ForgotForm, type Credentials } from './ForgotForm';
 
 export const forgotRoute = createRoute({
@@ -36,6 +38,8 @@ export function Forgot() {
     mutate(userEmail);
   };
 
+  const loginHref = useHref(loginRoute);
+
   return (
     <AuthView className='forgot-view'>
       <Flex direction='column'>
@@ -49,7 +53,7 @@ export function Forgot() {
           <ForgotForm inProgress={isPending} onSubmit={handleChange} />
         )}
         <Divider size='S' marginTop={'size-400'} marginBottom={'size-200'} />
-        <Link href='/login' isQuiet variant='secondary'>
+        <Link href={loginHref} isQuiet variant='secondary'>
           Back to Login
         </Link>
       </Flex>
