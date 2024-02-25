@@ -1,3 +1,5 @@
+import path from 'node:path';
+
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 
 const PORT = 8891;
@@ -62,6 +64,7 @@ export default function config(env) {
 
       // Frontend routes.
       historyApiFallback: {
+        htmlAcceptHeaders: ['text/html', 'application/xhtml+xml'],
         rewrites: [
           { from: /^\/public/, to: '/public.html' },
           { from: /./, to: '/index.html' },
@@ -69,15 +72,34 @@ export default function config(env) {
       },
 
       // Backend routes.
-      proxy: {
-        '/api': {
+      proxy: [
+        {
+          context: ['/api', '/auth'],
           target: BACKEND,
           changeOrigin: true,
         },
-        '/auth': {
-          target: BACKEND,
-          changeOrigin: true,
-        },
+      ],
+
+      setupMiddlewares(middlewares, _devServer) {
+        middlewares.unshift({
+          name: 'auth-check-middleware',
+          async middleware(req, res, next) {
+            const hasExtension = !!path.extname(req.path);
+            const isPublic = req.path.startsWith('/public');
+
+            if (hasExtension || isPublic) {
+              // Request is for a file or public app route.
+              // No need to check authentication.
+              next();
+            } else {
+              // Request is for a main/protected app route.
+              // TODO: Make a real authentication check.
+              next();
+            }
+          },
+        });
+
+        return middlewares;
       },
     },
     experiments: {
