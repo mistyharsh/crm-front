@@ -1,18 +1,19 @@
-import { Provider, View, defaultTheme } from '@adobe/react-spectrum';
-import { createRootRoute, useNavigate } from '@tanstack/react-router';
-import type { ReactNode } from 'react';
+import { Provider, defaultTheme } from '@adobe/react-spectrum';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Outlet, createRootRoute, useNavigate } from '@tanstack/react-router';
+import { useState } from 'react';
+import { AppContext, type ColorScheme } from './Provider';
 
-export type ColorScheme = 'light' | 'dark';
 
-export type AppProps = {
-  colorScheme: ColorScheme;
-  children: ReactNode;
-};
+export const rootRoute = createRootRoute({
+  component: App,
+});
 
-export const rootRoute = createRootRoute({});
+const queryClient = new QueryClient();
 
-export function App(props: AppProps) {
-  const { children, colorScheme } = props;
+export function App() {
+  const [scheme, setScheme] = useState<ColorScheme>('dark');
+
   const navigateRoute = useNavigate();
 
   const navigate = (to: string) => {
@@ -20,16 +21,19 @@ export function App(props: AppProps) {
   };
 
   return (
-    <Provider
-      data-cl='app'
-      scale='medium'
-      theme={defaultTheme}
-      colorScheme={colorScheme}
-      router={{ navigate }}
-    >
-      <View minHeight={'100vh'}>
-        {children}
-      </View>
-    </Provider>
+    <AppContext.Provider value={({ setScheme })}>
+      <QueryClientProvider client={queryClient}>
+        <Provider
+          data-cl='app'
+          scale='medium'
+          minHeight={'100vh'}
+          theme={defaultTheme}
+          colorScheme={scheme}
+          router={{ navigate }}
+          >
+          <Outlet />
+        </Provider>
+      </QueryClientProvider>
+    </AppContext.Provider>
   );
 }

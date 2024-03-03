@@ -12,8 +12,8 @@ export default function config(env) {
   const config = {
     mode,
     entry: {
-      main: './src/Main.tsx',
-      public: './src/Public.tsx',
+      main: './src/main.ts',
+      public: './src/public.ts',
     },
     output: {
       clean: true,

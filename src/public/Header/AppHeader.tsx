@@ -1,10 +1,6 @@
 import {
   Header,
   ActionButton,
-  MenuTrigger,
-  Menu,
-  Item,
-  Text,
   useProvider,
   Flex,
   View,
@@ -12,8 +8,7 @@ import {
 import Contrast from '@spectrum-icons/workflow/Contrast';
 import Light from '@spectrum-icons/workflow/Light';
 
-import type { ColorScheme } from '../../App/App';
-import Button from '@spectrum-icons/workflow/Button';
+import type { ColorScheme } from '../../App/Provider';
 
 export type AppHeaderProps = {
   onColorSchemeChange: (colorScheme: ColorScheme) => void;
