@@ -1,12 +1,14 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Outlet, createRootRoute } from '@tanstack/react-router';
+import { Outlet, createRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 
-import { App, type ColorScheme } from '../App/App';
+import { App, rootRoute, type ColorScheme } from '../App/App';
 import { AppHeader } from './Header/AppHeader';
 
-export const rootRoute = createRootRoute({
+export const publicRoute = createRoute({
+  getParentRoute: () => rootRoute,
   component: Root,
+  path: '/public',
 });
 
 const queryClient = new QueryClient();

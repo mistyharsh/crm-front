@@ -1,18 +1,17 @@
 import { Flex, Heading, Divider, Link } from '@adobe/react-spectrum';
 import Login from '@spectrum-icons/workflow/Login';
 import { useMutation } from '@tanstack/react-query';
-import { createRoute } from '@tanstack/react-router';
+import { createRoute, useLinkProps } from '@tanstack/react-router';
 import ky from 'ky';
 
 import { AuthView } from '../../component/AuthView';
 import { loginRoute } from '../Login/Login';
-import { rootRoute } from '../../Root';
-import { useHref } from '../../../util/location';
+import { publicRoute } from '../../Root';
 import { EmailSent } from './Acknowledgement';
 import { ForgotForm, type Credentials } from './ForgotForm';
 
 export const forgotRoute = createRoute({
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => publicRoute,
   path: '/forgot-password',
   component: Forgot,
 });
@@ -38,7 +37,7 @@ export function Forgot() {
     mutate(userEmail);
   };
 
-  const loginHref = useHref(loginRoute);
+  const loginHref = useLinkProps({ to: loginRoute.to }).href;
 
   return (
     <AuthView className='forgot-view'>

@@ -1,12 +1,15 @@
 import { Provider, View, defaultTheme } from '@adobe/react-spectrum';
-import { useNavigate } from '@tanstack/react-router';
+import { createRootRoute, useNavigate } from '@tanstack/react-router';
+import type { ReactNode } from 'react';
 
 export type ColorScheme = 'light' | 'dark';
 
 export type AppProps = {
   colorScheme: ColorScheme;
-  children: React.ReactNode;
+  children: ReactNode;
 };
+
+export const rootRoute = createRootRoute({});
 
 export function App(props: AppProps) {
   const { children, colorScheme } = props;
@@ -24,7 +27,9 @@ export function App(props: AppProps) {
       colorScheme={colorScheme}
       router={{ navigate }}
     >
-      <View minHeight={'100vh'}>{children}</View>
+      <View minHeight={'100vh'}>
+        {children}
+      </View>
     </Provider>
   );
 }

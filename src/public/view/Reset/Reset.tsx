@@ -1,19 +1,18 @@
 import { Divider, Flex, Heading, Link } from '@adobe/react-spectrum';
 import SuccessMetric from '@spectrum-icons/workflow/SuccessMetric';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { createRoute } from '@tanstack/react-router';
+import { createRoute, useLinkProps, useNavigate, useParams } from '@tanstack/react-router';
 import ky from 'ky';
 import { useEffect } from 'react';
 
-import { useHref } from '../../../util/location';
 import { AuthView } from '../../component/AuthView';
-import { rootRoute } from '../../Root';
+import { publicRoute } from '../../Root';
 import { loginRoute } from '../Login/Login';
 import { ResetPasswordSuccessful, ResetTokenInvalid } from './Acknowledgement';
 import { ResetForm, type ResetCredentials } from './ResetForm';
 
 export const resetRoute = createRoute({
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => publicRoute,
   path: '/reset-password/$resetToken',
   component: Reset,
 });
@@ -51,7 +50,7 @@ export function Reset() {
   const { resetToken } = resetRoute.useParams();
   const info = useTokenInfo(resetToken);
   const reset = useResetPassword();
-  const loginHref = useHref(loginRoute);
+  const loginHref = useLinkProps({ to: loginRoute.to }).href;
 
   useEffect(() => {
     if (reset.isSuccess) {
