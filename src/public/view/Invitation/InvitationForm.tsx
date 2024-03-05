@@ -5,9 +5,10 @@ import {
   ProgressCircle,
   TextField,
 } from '@adobe/react-spectrum';
-import { useState } from 'react';
 
-export type Credentials = {
+import { FormEvent, useState } from 'react';
+
+export type InvitationCredentials = {
   code: string;
   password: string;
 };
@@ -15,33 +16,37 @@ export type Credentials = {
 export type InvitationFormProps = {
   inProgress: boolean;
   code: string;
-  onSubmit: (value: Credentials) => void;
+  fullName: string;
+  onSubmit: (value: InvitationCredentials) => void;
 };
 
 export function InvitationForm(props: InvitationFormProps) {
-  const { inProgress, onSubmit } = props;
-  const [credentials, setCredentials] = useState<Credentials>({
-    code: '',
-    password: '',
-  });
+  const { inProgress, code, onSubmit, fullName } = props;
+  const [password, setPassword] = useState('');
+
+  const handleChange = (e: FormEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    onSubmit({ code, password });
+  };
 
   return (
     <Form
       necessityIndicator='icon'
       validationBehavior='native'
-      onSubmit={() => console.log('inviteclaim')}
+      onSubmit={handleChange}
     >
-      <Heading level={4}>
-        Hello! TEMP to claim your invitation enter password
-      </Heading>
+      <Heading level={3}>Hello {fullName}!!</Heading>
+      <Heading level={4}>To claim your invitation enter password</Heading>
       <TextField
         label='Password'
         name='password'
         type='password'
         isRequired
         description='Password'
-        value={credentials.password}
-        onChange={(password) => setCredentials({ ...credentials, password })}
+        value={password}
+        onChange={setPassword}
       />
       <Button
         type='submit'
