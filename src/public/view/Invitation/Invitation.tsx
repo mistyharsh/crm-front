@@ -8,39 +8,39 @@ import { useHref } from '../../../util/location';
 import { AuthView } from '../../component/AuthView';
 import { rootRoute } from '../../Root';
 import { loginRoute } from '../Login/Login';
-import { Credentials, InvitationForm } from './InvitationForm';
+import { InvitationCredentials, InvitationForm } from './InvitationForm';
 
 export const invitationRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/invitation/$code',
+  path: '/claim-invitation/$code',
   component: ClaimInvitation,
 });
 
-async function invitation(credentials: Credentials): Promise<any> {
+async function claimInvitation(payload: InvitationCredentials): Promise<any> {
   const response = await ky
-    .post('/auth/invitation', {
-      json: {},
+    .post('/auth/claim-invitation', {
+      json: payload,
     })
     .json();
 
   return response;
 }
 async function getCodeInfo(code: string): Promise<any> {
-  const response = await ky.get(`/auth/reset-password/${code}`).json();
+  const response = await ky.get(`/auth/claim-invitation/${code}`).json();
 
   return response;
 }
 
 function useCodeInfo(code: string) {
   return useQuery({
-    queryKey: ['reset', code],
+    queryKey: ['claim', code],
     queryFn: ({ queryKey }) => getCodeInfo(code),
   });
 }
 
 function useInvitationInfo() {
   return useMutation({
-    mutationFn: invitation,
+    mutationFn: claimInvitation,
   });
 }
 
@@ -49,7 +49,10 @@ export function ClaimInvitation() {
   const info = useCodeInfo(code);
   const claimInfo = useInvitationInfo();
   const loginHref = useHref(loginRoute);
-
+  let fullName: string;
+  if (info.data) {
+    fullName = `${info.data.firstName} ${info.data.lastName}`.toUpperCase();
+  }
   return (
     <AuthView className='claim-invitation-view'>
       <Flex direction='column'>
@@ -59,6 +62,7 @@ export function ClaimInvitation() {
         </Heading>
         <InvitationForm
           code={code}
+          fullName={fullName}
           inProgress={claimInfo.isPending}
           onSubmit={claimInfo.mutate}
         />
