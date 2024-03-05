@@ -1,19 +1,18 @@
 import { Divider, Flex, Heading, Link } from '@adobe/react-spectrum';
 import Compass from '@spectrum-icons/workflow/Compass';
 import { useMutation } from '@tanstack/react-query';
-import { createRoute } from '@tanstack/react-router';
+import { createRoute, getRouteApi, useLinkProps } from '@tanstack/react-router';
 import ky from 'ky';
 import { useEffect } from 'react';
 
-import { useHref } from '../../../util/location';
 import { AuthView } from '../../component/AuthView';
-import { rootRoute } from '../../Root';
+import { publicRoute } from '../../rootRoute';
 import { forgotRoute } from '../Reset/Forgot';
 import { resetRoute } from '../Reset/Reset';
 import { LoginForm, type Credentials } from './LoginForm';
 
 export const loginRoute = createRoute({
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => publicRoute,
   path: '/login',
   component: Login,
 });
@@ -31,13 +30,14 @@ async function login(credentials: Credentials): Promise<any> {
   return response;
 }
 
-const mutationConfig = { mutationFn: login };
-
 export function Login() {
   // TODO: Add error handling
-  const { isPending, isError, isSuccess, mutate } = useMutation(mutationConfig);
-  const resetHref = useHref(resetRoute, { resetToken: 'resetToken' });
-  const forgotHref = useHref(forgotRoute);
+  const { isPending, isError, isSuccess, mutate } = useMutation({ mutationFn: login });
+  const { href: forgotHref } = useLinkProps({ to: forgotRoute.to });
+  const { href: resetHref } = useLinkProps({
+    to: resetRoute.to,
+    params: { resetToken: 'resetToken' },
+  });
 
   useEffect(() => {
     if (isSuccess) {
