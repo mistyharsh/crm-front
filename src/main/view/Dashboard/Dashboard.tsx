@@ -1,6 +1,6 @@
 import { createRoute } from '@tanstack/react-router';
 
-import { mainRoute } from '../../rootRoute';
+import { mainRoute } from '../../mainRoute';
 
 
 export const dashboardRoute = createRoute({

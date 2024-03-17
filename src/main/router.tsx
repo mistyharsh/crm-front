@@ -1,12 +1,12 @@
-import { StrictMode } from 'react';
-import { RouterProvider, createRouter } from '@tanstack/react-router';
+import { createRouter } from '@tanstack/react-router';
 
 import { rootRoute } from '../App/App';
-
-import { mainRoute } from './rootRoute';
+import { mainRoute } from './mainRoute';
 import { dashboardRoute } from './view/Dashboard/Dashboard';
+import { homeRoute } from './view/Home/Home';
 
 export const mainTree = mainRoute.addChildren([
+  homeRoute,
   dashboardRoute,
 ]);
 

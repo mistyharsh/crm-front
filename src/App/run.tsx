@@ -10,7 +10,7 @@ export type RunOptions = {
 
 export type StrictAppProps = {
   router: Router;
-}
+};
 
 export function withStrictMode(props: StrictAppProps) {
   return function StrictApp() {

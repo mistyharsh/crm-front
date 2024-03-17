@@ -6,7 +6,7 @@ import ky from 'ky';
 import { useEffect } from 'react';
 
 import { AuthView } from '../../component/AuthView';
-import { publicRoute } from '../../rootRoute';
+import { publicRoute } from '../../publicRoute';
 import { loginRoute } from '../Login/Login';
 import { ResetPasswordSuccessful, ResetTokenInvalid } from './Acknowledgement';
 import { ResetForm, type ResetCredentials } from './ResetForm';

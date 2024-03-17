@@ -4,6 +4,7 @@ import { rootRoute } from './App/App';
 import { mainTree } from './main/router';
 import { publicTree } from './public/router';
 
+
 // This file is only for type checking and not for bundling.
 // We have two different types of routers, one for Main and another for Public app.
 // With `@tanstack/react-router`, we need to use module augmentation to add the type

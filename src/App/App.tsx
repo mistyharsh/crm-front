@@ -17,7 +17,9 @@ export function App() {
   const navigateRoute = useNavigate();
 
   const navigate = (to: string) => {
-    navigateRoute({ to });
+    navigateRoute({
+      to: to as any,
+    });
   };
 
   return (
