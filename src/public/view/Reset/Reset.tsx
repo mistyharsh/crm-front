@@ -1,7 +1,12 @@
 import { Divider, Flex, Heading, Link } from '@adobe/react-spectrum';
 import SuccessMetric from '@spectrum-icons/workflow/SuccessMetric';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { createRoute, useLinkProps, useNavigate, useParams } from '@tanstack/react-router';
+import {
+  createRoute,
+  useLinkProps,
+  useNavigate,
+  useParams,
+} from '@tanstack/react-router';
 import ky from 'ky';
 import { useEffect } from 'react';
 
@@ -68,13 +73,9 @@ export function Reset() {
         />
       );
     } else if (info.isError) {
-      return (
-        <ResetTokenInvalid />
-      );
+      return <ResetTokenInvalid />;
     } else if (reset.isSuccess) {
-      return (
-        <ResetPasswordSuccessful />
-      );
+      return <ResetPasswordSuccessful />;
     } else if (reset.isError) {
       // TODO: Add error handling later.
       return null;

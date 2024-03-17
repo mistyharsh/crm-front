@@ -4,7 +4,6 @@ import { Outlet, createRootRoute, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { AppContext, type ColorScheme } from './Provider';
 
-
 export const rootRoute = createRootRoute({
   component: App,
 });
@@ -23,7 +22,7 @@ export function App() {
   };
 
   return (
-    <AppContext.Provider value={({ setScheme })}>
+    <AppContext.Provider value={{ setScheme }}>
       <QueryClientProvider client={queryClient}>
         <Provider
           data-cl='app'
@@ -32,7 +31,7 @@ export function App() {
           theme={defaultTheme}
           colorScheme={scheme}
           router={{ navigate }}
-          >
+        >
           <Outlet />
         </Provider>
       </QueryClientProvider>

@@ -1,7 +1,7 @@
 import { initGraphQLTada } from 'gql.tada';
-
-import type { introspection } from './graphql-env';
 import { GraphQLClient } from 'graphql-request';
+
+import type { introspection } from './gen/graphql-env';
 
 export const graphql = initGraphQLTada<{
   introspection: introspection;
@@ -9,6 +9,5 @@ export const graphql = initGraphQLTada<{
 
 export type { FragmentOf, ResultOf, VariablesOf } from 'gql.tada';
 export { readFragment } from 'gql.tada';
-
 
 export const client = new GraphQLClient('/api/graphql');

@@ -19,7 +19,7 @@ export function withStrictMode(props: StrictAppProps) {
         <RouterProvider router={props.router} />
       </StrictMode>
     );
-  }
+  };
 }
 
 export function run(options: RunOptions) {

@@ -5,7 +5,6 @@ import { useContext } from 'react';
 import { AppContext } from '../App/Provider';
 import { AppHeader } from './Header/AppHeader';
 
-
 export function PublicApp() {
   const app = useContext(AppContext);
 

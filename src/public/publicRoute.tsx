@@ -9,13 +9,10 @@ export const publicRoute = createRoute({
   path: '/public',
 });
 
-
 export const homeRoute = createRoute({
   getParentRoute: () => publicRoute,
   path: '/',
   component: function ToLogin() {
-    return (
-      <Navigate to='/public/login' />
-    );
+    return <Navigate to='/public/login' />;
   },
 });

@@ -1,5 +1,5 @@
 {
-  "name": "crm-front",
+  "name": "@clobwise/crm-front",
   "version": "0.1.0",
   "description": "Frontend for CRM",
   "type": "module",
@@ -7,6 +7,7 @@
     "check:types": "tsc",
     "build": "rspack build --env production",
     "dev": "rspack dev --env development",
+    "dev:gql": "graphql-codegen --c ./scripts/codegen.ts",
     "format": "prettier --write ./src"
   },
   "keywords": [],
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@0no-co/graphqlsp": "^1.6.0",
+    "@graphql-codegen/cli": "^5.0.2",
     "@rspack/cli": "^0.5.7",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
