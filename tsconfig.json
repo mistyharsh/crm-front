@@ -27,6 +27,14 @@
     /* Type Checking */
     "strict": true,
     "skipLibCheck": true,
+
+    "plugins": [
+      {
+        "name": "@0no-co/graphqlsp",
+        "schema": "./schema.graphql",
+        "tadaOutputLocation": "./src/gen/graphql-env.d.ts"
+      }
+    ]
   },
   "include": ["./src/**/*"],
 }

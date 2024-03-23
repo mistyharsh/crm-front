@@ -9,10 +9,7 @@ import { publicTree } from './public/router';
 // With `@tanstack/react-router`, we need to use module augmentation to add the type
 // for the top-level functions like hooks. Without module augmentation, providing types
 // is nearly impossible.
-const routeTree = rootRoute.addChildren([
-  publicTree,
-  mainTree,
-]);
+const routeTree = rootRoute.addChildren([publicTree, mainTree]);
 
 const router = createRouter({
   routeTree,

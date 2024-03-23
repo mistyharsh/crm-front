@@ -1,12 +1,12 @@
 import { Divider, Flex, Heading, Link } from '@adobe/react-spectrum';
 import Compass from '@spectrum-icons/workflow/Compass';
 import { useMutation } from '@tanstack/react-query';
-import { createRoute, getRouteApi, useLinkProps } from '@tanstack/react-router';
+import { createRoute, useLinkProps } from '@tanstack/react-router';
 import ky from 'ky';
 import { useEffect } from 'react';
 
 import { AuthView } from '../../component/AuthView';
-import { publicRoute } from '../../rootRoute';
+import { publicRoute } from '../../publicRoute';
 import { forgotRoute } from '../Reset/Forgot';
 import { resetRoute } from '../Reset/Reset';
 import { LoginForm, type Credentials } from './LoginForm';
@@ -32,7 +32,9 @@ async function login(credentials: Credentials): Promise<any> {
 
 export function Login() {
   // TODO: Add error handling
-  const { isPending, isError, isSuccess, mutate } = useMutation({ mutationFn: login });
+  const { isPending, isError, isSuccess, mutate } = useMutation({
+    mutationFn: login,
+  });
   const { href: forgotHref } = useLinkProps({ to: forgotRoute.to });
   const { href: resetHref } = useLinkProps({
     to: resetRoute.to,

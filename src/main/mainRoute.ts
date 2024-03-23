@@ -1,10 +1,10 @@
 import { createRoute } from '@tanstack/react-router';
 
 import { rootRoute } from '../App/App';
-import { PublicApp } from './Public';
+import { MainApp } from './Main';
 
-export const publicRoute = createRoute({
+export const mainRoute = createRoute({
   getParentRoute: () => rootRoute,
-  component: PublicApp,
-  path: '/public',
+  component: MainApp,
+  id: 'MainApp',
 });

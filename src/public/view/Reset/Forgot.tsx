@@ -5,7 +5,7 @@ import { createRoute, useLinkProps } from '@tanstack/react-router';
 import ky from 'ky';
 
 import { AuthView } from '../../component/AuthView';
-import { publicRoute } from '../../rootRoute';
+import { publicRoute } from '../../publicRoute';
 import { loginRoute } from '../Login/Login';
 import { EmailSent } from './Acknowledgement';
 import { ForgotForm, type Credentials } from './ForgotForm';
