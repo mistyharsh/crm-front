@@ -28,31 +28,3 @@ export function ResetTokenInvalid() {
     </View>
   );
 }
-
-export function ClaimInvitationSuccessful() {
-  return (
-    <Heading level={2} alignSelf={'center'}>
-      The Invitation has been claimed!!
-    </Heading>
-  );
-}
-
-export function ClaimInvitationFailed() {
-  return (
-    <Heading level={2} alignSelf={'center'}>
-      Failed to claim the Invitation!!!!
-    </Heading>
-  );
-}
-
-export function ClaimInvitationInvalid() {
-  return (
-    <View>
-      <Heading level={1} alignSelf={'center'}>
-        <AlertCircleFilled />
-        404
-      </Heading>
-      <Heading level={4}>Reset password link not found</Heading>
-    </View>
-  );
-}

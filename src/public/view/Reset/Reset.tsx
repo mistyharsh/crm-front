@@ -10,13 +10,10 @@ import {
 import ky from 'ky';
 import { useEffect } from 'react';
 
-import {
-  ResetPasswordSuccessful,
-  ResetTokenInvalid,
-} from '../../component/Acknowledgement';
 import { AuthView } from '../../component/AuthView';
 import { publicRoute } from '../../publicRoute';
 import { loginRoute } from '../Login/Login';
+import { ResetPasswordSuccessful, ResetTokenInvalid } from './Acknowledgement';
 import { ResetForm, type ResetCredentials } from './ResetForm';
 
 export const resetRoute = createRoute({
@@ -26,15 +23,11 @@ export const resetRoute = createRoute({
 });
 
 async function resetPassword(payload: ResetCredentials): Promise<any> {
-  console.log('reset pass0wd');
-
   const response = await ky
     .post('/auth/reset-password', {
       json: payload,
     })
     .json();
-
-  console.log('REspoens:- ', response);
 
   return response;
 }
@@ -65,17 +58,13 @@ export function Reset() {
   const loginHref = useLinkProps({ to: loginRoute.to }).href;
 
   useEffect(() => {
-    console.log('reset:- ', reset);
     if (reset.isSuccess) {
       window.location.href = '/login';
     }
-  }, [reset]);
+  }, [reset.isSuccess]);
 
   const render = () => {
-    if (info.isLoading) {
-      return <Heading level={2}>Loading....</Heading>;
-    }
-    if (info.isSuccess && info.data) {
+    if (info.isSuccess) {
       return (
         <ResetForm
           token={resetToken}
@@ -83,7 +72,7 @@ export function Reset() {
           onSubmit={reset.mutate}
         />
       );
-    } else if (info.isError || !info.data) {
+    } else if (info.isError) {
       return <ResetTokenInvalid />;
     } else if (reset.isSuccess) {
       return <ResetPasswordSuccessful />;
