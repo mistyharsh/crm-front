@@ -7,7 +7,7 @@ import ky from 'ky';
 import { AuthView } from '../../component/AuthView';
 import { publicRoute } from '../../publicRoute';
 import { loginRoute } from '../Login/Login';
-import { EmailSent } from './Acknowledgement';
+import { EmailSent } from '../../component/Acknowledgement';
 import { ForgotForm, type Credentials } from './ForgotForm';
 
 export const forgotRoute = createRoute({
