@@ -25,16 +25,13 @@ export const resetRoute = createRoute({
   component: Reset,
 });
 
-async function resetPassword(payload: ResetCredentials): Promise<any> {
-  console.log('reset pass0wd');
+async function resetPassword(payload: ResetCredentials): Promise<any> 
 
   const response = await ky
     .post('/auth/reset-password', {
       json: payload,
     })
     .json();
-
-  console.log('REspoens:- ', response);
 
   return response;
 }
@@ -65,7 +62,6 @@ export function Reset() {
   const loginHref = useLinkProps({ to: loginRoute.to }).href;
 
   useEffect(() => {
-    console.log('reset:- ', reset);
     if (reset.isSuccess) {
       window.location.href = '/login';
     }
