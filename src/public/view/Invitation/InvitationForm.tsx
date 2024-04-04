@@ -1,10 +1,4 @@
-import {
-  Button,
-  Form,
-  Heading,
-  ProgressCircle,
-  TextField,
-} from '@adobe/react-spectrum';
+import { Button, Form, Heading, TextField } from '@adobe/react-spectrum';
 
 import { FormEvent, useState } from 'react';
 
@@ -14,18 +8,16 @@ export type InvitationCredentials = {
 };
 
 export type InvitationFormProps = {
-  inProgress: boolean;
   code: string;
   fullName: string;
   onSubmit: (value: InvitationCredentials) => void;
 };
 
 export function InvitationForm(props: InvitationFormProps) {
-  const { inProgress, code, onSubmit, fullName } = props;
+  const { code, onSubmit, fullName } = props;
   const [password, setPassword] = useState('');
 
   const handleChange = (e: FormEvent) => {
-    e.stopPropagation();
     e.preventDefault();
 
     onSubmit({ code, password });
@@ -55,11 +47,7 @@ export function InvitationForm(props: InvitationFormProps) {
         style='fill'
         alignSelf={'center'}
       >
-        {inProgress ? (
-          <ProgressCircle size='S' staticColor='white' isIndeterminate />
-        ) : (
-          'Submit'
-        )}
+        'Submit'
       </Button>
     </Form>
   );
