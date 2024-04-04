@@ -22,7 +22,8 @@ export const resetRoute = createRoute({
   component: Reset,
 });
 
-async function resetPassword(payload: ResetCredentials): Promise<any> {
+async function resetPassword(payload: ResetCredentials): Promise<any> 
+
   const response = await ky
     .post('/auth/reset-password', {
       json: payload,
