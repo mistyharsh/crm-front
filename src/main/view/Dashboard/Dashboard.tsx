@@ -4,7 +4,7 @@ import { mainRoute } from '../../mainRoute';
 
 export const dashboardRoute = createRoute({
   getParentRoute: () => mainRoute,
-  path: '/dashboard',
+  path: '/workspaces/$tenantId/dashboard',
   component: Dashboard,
 });
 

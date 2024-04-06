@@ -272,7 +272,7 @@ export type introspection = {
             ]
           },
           {
-            "name": "createOrganization",
+            "name": "createContactOrganization",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -289,6 +289,41 @@ export type introspection = {
                   "ofType": {
                     "kind": "INPUT_OBJECT",
                     "name": "OrganizationInput",
+                    "ofType": null
+                  }
+                }
+              },
+              {
+                "name": "tenantId",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "createContactPerson",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Person",
+                "ofType": null
+              }
+            },
+            "args": [
+              {
+                "name": "input",
+                "type": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "PersonInput",
                     "ofType": null
                   }
                 }

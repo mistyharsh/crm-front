@@ -4,6 +4,7 @@ import { createRoute } from '@tanstack/react-router';
 import { client, graphql } from '../../../graphql';
 import { mainRoute } from '../../mainRoute';
 import { TenantList } from './TenantList';
+import { Heading, View } from '@adobe/react-spectrum';
 
 export const homeRoute = createRoute({
   getParentRoute: () => mainRoute,
@@ -40,10 +41,18 @@ export function Home() {
   }
 
   return (
-    <div>
-      <h1>Home</h1>
-      <p>This is home route.</p>
+    <View
+      data-cl='home'
+      backgroundColor={'gray-75'}
+      padding={'size-400'}
+      width={'size-6000'}
+      margin={'auto'}
+      marginTop={'size-400'}
+      borderColor={'gray-200'}
+      borderWidth={'thin'}
+    >
+      <Heading level={2} marginBottom={'size-200'}>Select Workspace</Heading>
       <TenantList tenants={tenantList} />
-    </div>
+    </View>
   );
 }
