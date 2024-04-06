@@ -1,6 +1,6 @@
 import { Item, ListView, Text } from '@adobe/react-spectrum';
 import SocialNetwork from '@spectrum-icons/workflow/SocialNetwork';
-import { useLinkProps, useRouter } from '@tanstack/react-router';
+import { useRouter } from '@tanstack/react-router';
 
 import type { Tenant } from '../../../gen/Api';
 
@@ -22,13 +22,6 @@ export function TenantList(props: TenantListProps) {
       aria-label='Select workspace'
       children={(t) => {
         const { href } = router.buildLocation({
-          to: '/workspaces/$tenantId/dashboard',
-          params: {
-            tenantId: t.id.toString(),
-          },
-        });
-
-        const url = useLinkProps({
           to: '/workspaces/$tenantId/dashboard',
           params: {
             tenantId: t.id.toString(),
