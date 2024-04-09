@@ -77,7 +77,6 @@ export function Reset() {
   };
 
   const render = () => {
-    console.log(reset);
     //If the info is still loading
     if (info.isLoading) {
       return <Heading level={2}>Loading....</Heading>;
