@@ -28,7 +28,7 @@ export function ResetForm(props: ResetFormProps) {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleChange = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.stopPropagation();
     e.preventDefault();
     onSubmit({ token, password });
@@ -38,7 +38,7 @@ export function ResetForm(props: ResetFormProps) {
     <Form
       necessityIndicator='icon'
       validationBehavior='native'
-      onSubmit={handleChange}
+      onSubmit={handleSubmit}
     >
       <Flex alignItems={'center'}>
         <TextField

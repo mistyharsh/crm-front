@@ -29,6 +29,17 @@ export function ResetTokenInvalid() {
   );
 }
 
+export function ResetPasswordFailed() {
+  return (
+    <View>
+      <Heading level={1} alignSelf={'center'}>
+        <AlertCircleFilled />
+        Failed to reset the password! Try again.
+      </Heading>
+    </View>
+  );
+}
+
 export function ClaimInvitationSuccessful() {
   return (
     <Heading level={2} alignSelf={'center'}>

@@ -1,10 +1,8 @@
 import { Divider, Flex, Heading, Link } from '@adobe/react-spectrum';
 import Engagement from '@spectrum-icons/workflow/Engagement';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { createRoute, useLinkProps } from '@tanstack/react-router';
 import ky from 'ky';
-
-import { useState } from 'react';
 
 import { client, graphql } from '../../../graphql';
 import {
@@ -36,47 +34,61 @@ function useGetCodeInfo(code: string) {
   });
 }
 
-const claimingMutation = graphql(`
+const claimMutation = graphql(`
   mutation CLaimMutatioin($code: String!, $password: String!) {
     claimInvitation(inviteCode: $code, password: $password)
   }
 `);
 
-function useClaimInvitation(inviteCode: string, password: string) {
+function claimInvitation(invitationCredentials: InvitationCredentials) {
   return client.request({
-    document: claimingMutation,
-    variables: { code: inviteCode, password: password },
+    document: claimMutation,
+    variables: {
+      code: invitationCredentials.code,
+      password: invitationCredentials.password,
+    },
   });
 }
 
-export type claimeStateType = 'claimed' | 'error' | 'pending';
+function useClaimInvitation() {
+  return useMutation({
+    mutationFn: (invitationCredentials: InvitationCredentials) => {
+      return claimInvitation(invitationCredentials);
+    },
+  });
+}
 
 export function ClaimInvitation() {
-  const [claimedState, setClaimedState] = useState<claimeStateType>('pending');
   const { code } = invitationRoute.useParams();
   const info = useGetCodeInfo(code);
   const loginHref = useLinkProps({ to: loginRoute.to }).href;
-  let fullName: string;
+  const claim = useClaimInvitation();
 
-  const handleSubmit = async (credentials: InvitationCredentials) => {
-    try {
-      const claim = await useClaimInvitation(
-        credentials.code,
-        credentials.password
-      );
-      setClaimedState('claimed');
-    } catch (error) {
-      setClaimedState('error');
-    }
+  const handleSubmit = (credentials: InvitationCredentials) => {
+    claim.mutate(credentials);
   };
 
   const render = () => {
-    if (claimedState === 'pending') {
-      if (info.isLoading) {
-        return <Heading level={2}>Loading....</Heading>;
+    //If the info is being retrieved
+    if (info.isLoading) {
+      return <Heading level={2}>Loading....</Heading>;
+    } else if (info.isError || !info.data) {
+      return <ClaimInvitationInvalid />;
+    } else if (info.isSuccess && info.data) {
+      //If claim failed
+      if (claim.isError) {
+        return <ClaimInvitationFailed />;
       }
-      if (info.isSuccess && info.data) {
-        fullName = `${info.data.firstName} ${info.data.lastName}`.toUpperCase();
+
+      //If claim succeeded
+      else if (claim.isSuccess) {
+        return <ClaimInvitationSuccessful />;
+      }
+
+      //If claiming is still pending
+      else {
+        const fullName =
+          `${info.data.firstName} ${info.data.lastName}`.toUpperCase();
         return (
           <InvitationForm
             code={code}
@@ -84,14 +96,9 @@ export function ClaimInvitation() {
             onSubmit={handleSubmit}
           />
         );
-      } else if (info.error || !info.data) {
-        return <ClaimInvitationInvalid />;
       }
-    } else if (claimedState === 'error') {
-      return <ClaimInvitationFailed />;
-    } else {
-      return <ClaimInvitationSuccessful />;
     }
+    return null;
   };
   return (
     <AuthView className='claim-invitation-view'>
