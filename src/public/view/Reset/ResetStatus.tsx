@@ -9,7 +9,7 @@ export function EmailSent() {
   );
 }
 
-export function ResetPasswordSuccessful() {
+export function SuccessfulReset() {
   return (
     <Heading level={4} alignSelf={'center'}>
       The password has been set successfully
@@ -17,7 +17,7 @@ export function ResetPasswordSuccessful() {
   );
 }
 
-export function ResetTokenInvalid() {
+export function InvalidResetToken() {
   return (
     <View>
       <Heading level={1} alignSelf={'center'}>
@@ -25,6 +25,17 @@ export function ResetTokenInvalid() {
         404
       </Heading>
       <Heading level={4}>Reset password link not found</Heading>
+    </View>
+  );
+}
+
+export function FailedResetPassword() {
+  return (
+    <View>
+      <Heading level={1} alignSelf={'center'}>
+        <AlertCircleFilled />
+        Failed to reset the password! Try again.
+      </Heading>
     </View>
   );
 }
