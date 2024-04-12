@@ -9,7 +9,7 @@ export function EmailSent() {
   );
 }
 
-export function ResetPasswordSuccessful() {
+export function SuccessfulReset() {
   return (
     <Heading level={4} alignSelf={'center'}>
       The password has been set successfully
@@ -17,7 +17,7 @@ export function ResetPasswordSuccessful() {
   );
 }
 
-export function ResetTokenInvalid() {
+export function InvalidResetToken() {
   return (
     <View>
       <Heading level={1} alignSelf={'center'}>
@@ -29,41 +29,13 @@ export function ResetTokenInvalid() {
   );
 }
 
-export function ResetPasswordFailed() {
+export function FailedResetPassword() {
   return (
     <View>
       <Heading level={1} alignSelf={'center'}>
         <AlertCircleFilled />
         Failed to reset the password! Try again.
       </Heading>
-    </View>
-  );
-}
-
-export function ClaimInvitationSuccessful() {
-  return (
-    <Heading level={2} alignSelf={'center'}>
-      The Invitation has been claimed!!
-    </Heading>
-  );
-}
-
-export function ClaimInvitationFailed() {
-  return (
-    <Heading level={2} alignSelf={'center'}>
-      Failed to claim the Invitation!!!!
-    </Heading>
-  );
-}
-
-export function ClaimInvitationInvalid() {
-  return (
-    <View>
-      <Heading level={1} alignSelf={'center'}>
-        <AlertCircleFilled />
-        404
-      </Heading>
-      <Heading level={4}>Reset password link not found</Heading>
     </View>
   );
 }

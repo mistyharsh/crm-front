@@ -1,20 +1,19 @@
 import { Button, Form, Heading, TextField } from '@adobe/react-spectrum';
-
 import { FormEvent, useState } from 'react';
 
-export type InvitationCredentials = {
+export type Credentials = {
   code: string;
   password: string;
 };
 
 export type InvitationFormProps = {
   code: string;
-  fullName: string;
-  onSubmit: (value: InvitationCredentials) => void;
+  name: string;
+  onSubmit: (value: Credentials) => void;
 };
 
 export function InvitationForm(props: InvitationFormProps) {
-  const { code, onSubmit, fullName } = props;
+  const { code, onSubmit, name: fullName } = props;
   const [password, setPassword] = useState('');
 
   const handleChange = (e: FormEvent) => {
@@ -47,7 +46,7 @@ export function InvitationForm(props: InvitationFormProps) {
         style='fill'
         alignSelf={'center'}
       >
-        'Submit'
+        Submit
       </Button>
     </Form>
   );

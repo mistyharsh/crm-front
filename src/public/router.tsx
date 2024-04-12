@@ -2,7 +2,7 @@ import { createRouter } from '@tanstack/react-router';
 
 import { rootRoute } from '../App/App';
 import { homeRoute, publicRoute } from './publicRoute';
-import { invitationRoute } from './view/Invitation/Invitation';
+import { invitationRoute } from './view/Invitation/Claim';
 import { loginRoute } from './view/Login/Login';
 import { forgotRoute } from './view/Reset/Forgot';
 import { resetRoute } from './view/Reset/Reset';

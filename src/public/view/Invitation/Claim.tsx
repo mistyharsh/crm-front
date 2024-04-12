@@ -5,15 +5,15 @@ import { createRoute, useLinkProps } from '@tanstack/react-router';
 import ky from 'ky';
 
 import { client, graphql } from '../../../graphql';
-import {
-  ClaimInvitationFailed,
-  ClaimInvitationInvalid,
-  ClaimInvitationSuccessful,
-} from '../../component/Acknowledgement';
 import { AuthView } from '../../component/AuthView';
 import { publicRoute } from '../../publicRoute';
 import { loginRoute } from '../Login/Login';
-import { InvitationCredentials, InvitationForm } from './InvitationForm';
+import {
+  FailedInvitationClaim,
+  InvalidInvitation,
+  SuccessfulInvitationClaim,
+} from './ClaimStatus';
+import { Credentials, InvitationForm } from './InvitationForm';
 
 export const invitationRoute = createRoute({
   getParentRoute: () => publicRoute,
@@ -21,6 +21,7 @@ export const invitationRoute = createRoute({
   component: ClaimInvitation,
 });
 
+// TODO: Add proper type safety.
 async function getCodeInfo(code: string): Promise<any> {
   const response = await ky.get(`/auth/invitations/${code}`).json();
 
@@ -40,19 +41,19 @@ const claimMutation = graphql(`
   }
 `);
 
-function claimInvitation(invitationCredentials: InvitationCredentials) {
+function claimInvitation(credentials: Credentials) {
   return client.request({
     document: claimMutation,
     variables: {
-      code: invitationCredentials.code,
-      password: invitationCredentials.password,
+      code: credentials.code,
+      password: credentials.password,
     },
   });
 }
 
 function useClaimInvitation() {
   return useMutation({
-    mutationFn: (invitationCredentials: InvitationCredentials) => {
+    mutationFn: (invitationCredentials: Credentials) => {
       return claimInvitation(invitationCredentials);
     },
   });
@@ -60,46 +61,40 @@ function useClaimInvitation() {
 
 export function ClaimInvitation() {
   const { code } = invitationRoute.useParams();
-  const info = useGetCodeInfo(code);
   const loginHref = useLinkProps({ to: loginRoute.to }).href;
+
+  const info = useGetCodeInfo(code);
   const claim = useClaimInvitation();
 
-  const handleSubmit = (credentials: InvitationCredentials) => {
+  const handleSubmit = (credentials: Credentials) => {
     claim.mutate(credentials);
   };
 
   const render = () => {
-    //If the info is being retrieved
+    // If the info is being retrieved
     if (info.isLoading) {
       return <Heading level={2}>Loading....</Heading>;
-    } else if (info.isError || !info.data) {
-      return <ClaimInvitationInvalid />;
-    } else if (info.isSuccess && info.data) {
-      //If claim failed
-      if (claim.isError) {
-        return <ClaimInvitationFailed />;
-      }
-
-      //If claim succeeded
-      else if (claim.isSuccess) {
-        return <ClaimInvitationSuccessful />;
-      }
-
-      //If claiming is still pending
-      else {
-        const fullName =
-          `${info.data.firstName} ${info.data.lastName}`.toUpperCase();
-        return (
-          <InvitationForm
-            code={code}
-            fullName={fullName}
-            onSubmit={handleSubmit}
-          />
-        );
-      }
+    } else if (info.isError) {
+      return <InvalidInvitation />;
+    } else if (claim.isError) {
+      return <FailedInvitationClaim />;
+    } else if (claim.isSuccess) {
+      return <SuccessfulInvitationClaim />;
     }
-    return null;
+
+    const { firstName, lastName } = info.data;
+    const fullName = `${firstName} ${lastName}`;
+
+    return (
+      <InvitationForm
+        code={code}
+        name={fullName}
+        onSubmit={handleSubmit}
+      />
+    );
   };
+
+
   return (
     <AuthView className='claim-invitation-view'>
       <Flex direction='column'>

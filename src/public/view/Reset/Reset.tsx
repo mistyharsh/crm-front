@@ -4,21 +4,19 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import {
   createRoute,
   useLinkProps,
-  useNavigate,
-  useParams,
 } from '@tanstack/react-router';
 import ky from 'ky';
 import { useEffect } from 'react';
 
-import {
-  ResetPasswordFailed,
-  ResetPasswordSuccessful,
-  ResetTokenInvalid,
-} from '../../component/Acknowledgement';
 import { AuthView } from '../../component/AuthView';
 import { publicRoute } from '../../publicRoute';
 import { loginRoute } from '../Login/Login';
 import { ResetForm, type ResetCredentials } from './ResetForm';
+import {
+  FailedResetPassword,
+  SuccessfulReset,
+  InvalidResetToken,
+} from './ResetStatus';
 
 export const resetRoute = createRoute({
   getParentRoute: () => publicRoute,
@@ -26,6 +24,7 @@ export const resetRoute = createRoute({
   component: Reset,
 });
 
+// TODO: Types
 async function resetPassword(payload: ResetCredentials): Promise<any> {
   const response = await ky
     .post('/auth/reset-password', {
@@ -39,7 +38,7 @@ async function resetPassword(payload: ResetCredentials): Promise<any> {
   return response;
 }
 
-async function getTokenInfo(token: string): Promise<any> {
+async function getTokenInfo(token: string) {
   const response = await ky.get(`/auth/reset-password/${token}`).json();
 
   return response;
@@ -77,37 +76,23 @@ export function Reset() {
   };
 
   const render = () => {
-    //If the info is still loading
     if (info.isLoading) {
       return <Heading level={2}>Loading....</Heading>;
+    } else if (info.isError) {
+      return <InvalidResetToken />;
+    } else if (reset.isSuccess) {
+      return <SuccessfulReset />;
+    } else if (reset.isError) {
+      return <FailedResetPassword />;
     }
 
-    //If the token is invalid
-    else if (info.isError) {
-      return <ResetTokenInvalid />;
-    }
-
-    //If token is valid
-    else if (info.isSuccess) {
-      //If reseting password successful
-      if (reset.isSuccess) {
-        return <ResetPasswordSuccessful />;
-      }
-      //If failed to reset password
-      else if (reset.isError) {
-        return <ResetPasswordFailed />;
-      }
-      //Else
-      else {
-        return (
-          <ResetForm
-            token={resetToken}
-            inProgress={reset.isPending}
-            onSubmit={handleSubmit}
-          />
-        );
-      }
-    } else return null;
+    return (
+      <ResetForm
+        token={resetToken}
+        inProgress={reset.isPending}
+        onSubmit={handleSubmit}
+      />
+    );
   };
 
   return (
