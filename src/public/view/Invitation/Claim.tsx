@@ -1,8 +1,10 @@
 import { Divider, Flex, Heading, Link } from '@adobe/react-spectrum';
 import Engagement from '@spectrum-icons/workflow/Engagement';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { createRoute, useLinkProps } from '@tanstack/react-router';
+import { createRoute, useLinkProps, useNavigate } from '@tanstack/react-router';
 import ky from 'ky';
+
+import { useEffect } from 'react';
 
 import { client, graphql } from '../../../graphql';
 import { AuthView } from '../../component/AuthView';
@@ -65,6 +67,17 @@ export function ClaimInvitation() {
 
   const info = useGetCodeInfo(code);
   const claim = useClaimInvitation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (claim.isSuccess) {
+      const timeout = setTimeout(() => {
+        navigate({ to: loginHref, replace: true });
+      }, 3000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [claim.isSuccess]);
 
   const handleSubmit = (credentials: Credentials) => {
     claim.mutate(credentials);
@@ -86,14 +99,9 @@ export function ClaimInvitation() {
     const fullName = `${firstName} ${lastName}`;
 
     return (
-      <InvitationForm
-        code={code}
-        name={fullName}
-        onSubmit={handleSubmit}
-      />
+      <InvitationForm code={code} name={fullName} onSubmit={handleSubmit} />
     );
   };
-
 
   return (
     <AuthView className='claim-invitation-view'>

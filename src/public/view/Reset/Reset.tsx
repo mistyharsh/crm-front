@@ -1,10 +1,7 @@
 import { Divider, Flex, Heading, Link } from '@adobe/react-spectrum';
 import SuccessMetric from '@spectrum-icons/workflow/SuccessMetric';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import {
-  createRoute,
-  useLinkProps,
-} from '@tanstack/react-router';
+import { createRoute, useLinkProps, useNavigate } from '@tanstack/react-router';
 import ky from 'ky';
 import { useEffect } from 'react';
 
@@ -62,12 +59,16 @@ export function Reset() {
   const info = useTokenInfo(resetToken);
   const reset = useResetPassword();
   const loginHref = useLinkProps({ to: loginRoute.to }).href;
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (reset.isSuccess) {
-      setTimeout(() => {
-        window.location.href = '/public/login';
+    if (reset.isSuccess && navigate) {
+      const timeout = setTimeout(() => {
+        console.log('dsaf');
+        navigate({ to: loginHref, replace: true });
       }, 3000);
+
+      return () => clearTimeout(timeout);
     }
   }, [reset.isSuccess]);
 
