@@ -24,16 +24,30 @@ export const invitationRoute = createRoute({
 });
 
 // TODO: Add proper type safety.
-async function getCodeInfo(code: string): Promise<any> {
-  const response = await ky.get(`/auth/invitations/${code}`).json();
+const claimInvitationQuery = graphql(`
+  query ClaimQuery($code: String!) {
+    getInvitation(invitationCode: $code) {
+      id
+      email
+      firstName
+      lastName
+    }
+  }
+`);
 
-  return response;
+function claimQuery(invitationCode: string) {
+  return client.request({
+    document: claimInvitationQuery,
+    variables: {
+      code: invitationCode,
+    },
+  });
 }
 
 function useGetCodeInfo(code: string) {
   return useQuery({
     queryKey: ['claim', code],
-    queryFn: () => getCodeInfo(code),
+    queryFn: () => claimQuery(code),
   });
 }
 
@@ -69,6 +83,8 @@ export function ClaimInvitation() {
   const claim = useClaimInvitation();
   const navigate = useNavigate();
 
+  console.log(info);
+
   useEffect(() => {
     if (claim.isSuccess) {
       const timeout = setTimeout(() => {
@@ -95,7 +111,8 @@ export function ClaimInvitation() {
       return <SuccessfulInvitationClaim />;
     }
 
-    const { firstName, lastName } = info.data;
+    const firstName = info.data.getInvitation.firstName;
+    const lastName = info.data.getInvitation.lastName;
     const fullName = `${firstName} ${lastName}`;
 
     return (

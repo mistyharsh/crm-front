@@ -7,7 +7,7 @@ export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> =
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string | number; }
+  ID: { input: string; output: string; }
   String: { input: string; output: string; }
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
@@ -32,6 +32,20 @@ export type AddressInput = {
   street: Scalars['String']['input'];
 };
 
+export type Contact = ContactOrg | ContactPerson;
+
+export type ContactOrg = {
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
+export type ContactPerson = {
+  familyName: Scalars['String']['output'];
+  givenName: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  middleName: Scalars['String']['output'];
+};
+
 export type Email = {
   address: Scalars['String']['output'];
   isPrimary: Scalars['Boolean']['output'];
@@ -42,12 +56,24 @@ export type EmailInput = {
   isPrimary: Scalars['Boolean']['input'];
 };
 
+export type Invitation = {
+  email: Scalars['String']['output'];
+  firstName: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  lastName: Scalars['String']['output'];
+};
+
 export type Mutation = {
   acceptInvitation: Scalars['Boolean']['output'];
   claimInvitation: Scalars['Boolean']['output'];
-  createOrganization: Organization;
+  /** Create a new organization type contact */
+  createContactOrganization: Organization;
+  /** Create a new individual type contact */
+  createContactPerson: Person;
   createTenant: NewTenantResponse;
+  forgotPassword: Scalars['Boolean']['output'];
   inviteUser: Scalars['Boolean']['output'];
+  resetPassword: Scalars['Boolean']['output'];
 };
 
 
@@ -62,8 +88,14 @@ export type MutationClaimInvitationArgs = {
 };
 
 
-export type MutationCreateOrganizationArgs = {
+export type MutationCreateContactOrganizationArgs = {
   input: OrganizationInput;
+  tenantId: Scalars['String']['input'];
+};
+
+
+export type MutationCreateContactPersonArgs = {
+  input: PersonInput;
   tenantId: Scalars['String']['input'];
 };
 
@@ -73,9 +105,20 @@ export type MutationCreateTenantArgs = {
 };
 
 
+export type MutationForgotPasswordArgs = {
+  userName: Scalars['String']['input'];
+};
+
+
 export type MutationInviteUserArgs = {
   input: NewInvitationInput;
   tenantId: Scalars['String']['input'];
+};
+
+
+export type MutationResetPasswordArgs = {
+  newPassword: Scalars['String']['input'];
+  resetToken: Scalars['String']['input'];
 };
 
 export type NewInvitationInput = {
@@ -114,10 +157,15 @@ export type OrganizationInput = {
   phones: Array<PhoneInput>;
 };
 
+export type Page = {
+  number: Scalars['Int']['input'];
+  size: Scalars['Int']['input'];
+};
+
 export type Person = {
   dob?: Maybe<Scalars['Date']['output']>;
   familyName: Scalars['String']['output'];
-  givenName1: Scalars['String']['output'];
+  givenName: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   middleName: Scalars['String']['output'];
 };
@@ -146,14 +194,39 @@ export type PhoneInput = {
 };
 
 export type Query = {
+  /** Get all contacts */
+  getContacts: Array<Contact>;
+  getInvitation: Invitation;
+  getResetToken: ResetPasswordRequest;
   getTenants: Array<Tenant>;
   getUsers: Array<User>;
   hello: Scalars['String']['output'];
 };
 
 
+export type QueryGetContactsArgs = {
+  page: Page;
+  tenantId: Scalars['String']['input'];
+};
+
+
+export type QueryGetInvitationArgs = {
+  invitationCode: Scalars['String']['input'];
+};
+
+
+export type QueryGetResetTokenArgs = {
+  resetToken: Scalars['String']['input'];
+};
+
+
 export type QueryGetUsersArgs = {
   tenantId: Scalars['String']['input'];
+};
+
+export type ResetPasswordRequest = {
+  id: Scalars['ID']['output'];
+  userId: Scalars['ID']['output'];
 };
 
 export type Tenant = {
