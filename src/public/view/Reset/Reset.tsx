@@ -41,9 +41,7 @@ function resetPassword(credentials: ResetCredentials) {
 
 function useResetPassword() {
   return useMutation({
-    mutationFn: (credentials: ResetCredentials) => {
-      return resetPassword(credentials);
-    },
+    mutationFn: resetPassword,
   });
 }
 
@@ -82,7 +80,6 @@ export function Reset() {
   useEffect(() => {
     if (reset.isSuccess && navigate) {
       const timeout = setTimeout(() => {
-        console.log('dsaf');
         navigate({ to: loginHref, replace: true });
       }, 3000);
 

@@ -23,7 +23,6 @@ export const invitationRoute = createRoute({
   component: ClaimInvitation,
 });
 
-// TODO: Add proper type safety.
 const claimInvitationQuery = graphql(`
   query ClaimQuery($code: String!) {
     getInvitation(invitationCode: $code) {
@@ -69,9 +68,7 @@ function claimInvitation(credentials: Credentials) {
 
 function useClaimInvitation() {
   return useMutation({
-    mutationFn: (invitationCredentials: Credentials) => {
-      return claimInvitation(invitationCredentials);
-    },
+    mutationFn: claimInvitation,
   });
 }
 
@@ -82,8 +79,6 @@ export function ClaimInvitation() {
   const info = useGetCodeInfo(code);
   const claim = useClaimInvitation();
   const navigate = useNavigate();
-
-  console.log(info);
 
   useEffect(() => {
     if (claim.isSuccess) {
