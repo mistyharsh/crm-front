@@ -4,6 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { createRoute, useLinkProps } from '@tanstack/react-router';
 import ky from 'ky';
 
+import { client, graphql } from '../../../graphql';
 import { AuthView } from '../../component/AuthView';
 import { publicRoute } from '../../publicRoute';
 import { loginRoute } from '../Login/Login';
@@ -16,21 +17,24 @@ export const forgotRoute = createRoute({
   component: Forgot,
 });
 
-async function forgot(userEmail: Credentials): Promise<any> {
-  const response = await ky
-    .post('/auth/forgot-password', {
-      json: {
-        username: userEmail.email,
-      },
-    })
-    .json();
+const forgotPasswordMutation = graphql(`
+  mutation ForgotPasswordMutatuin($userName: String!) {
+    forgotPassword(userName: $userName)
+  }
+`);
 
-  return response;
+function forgotPassword(credentials: Credentials) {
+  return client.request({
+    document: forgotPasswordMutation,
+    variables: {
+      userName: credentials.email,
+    },
+  });
 }
 
 export function Forgot() {
   const { isPending, isError, isSuccess, mutate } = useMutation({
-    mutationFn: forgot,
+    mutationFn: forgotPassword,
   });
 
   const handleChange = (userEmail: Credentials) => {

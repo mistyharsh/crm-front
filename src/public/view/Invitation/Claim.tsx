@@ -1,8 +1,10 @@
 import { Divider, Flex, Heading, Link } from '@adobe/react-spectrum';
 import Engagement from '@spectrum-icons/workflow/Engagement';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { createRoute, useLinkProps } from '@tanstack/react-router';
+import { createRoute, useLinkProps, useNavigate } from '@tanstack/react-router';
 import ky from 'ky';
+
+import { useEffect } from 'react';
 
 import { client, graphql } from '../../../graphql';
 import { AuthView } from '../../component/AuthView';
@@ -21,17 +23,30 @@ export const invitationRoute = createRoute({
   component: ClaimInvitation,
 });
 
-// TODO: Add proper type safety.
-async function getCodeInfo(code: string): Promise<any> {
-  const response = await ky.get(`/auth/invitations/${code}`).json();
+const claimInvitationQuery = graphql(`
+  query ClaimQuery($code: String!) {
+    getInvitation(invitationCode: $code) {
+      id
+      email
+      firstName
+      lastName
+    }
+  }
+`);
 
-  return response;
+function claimQuery(invitationCode: string) {
+  return client.request({
+    document: claimInvitationQuery,
+    variables: {
+      code: invitationCode,
+    },
+  });
 }
 
 function useGetCodeInfo(code: string) {
   return useQuery({
     queryKey: ['claim', code],
-    queryFn: () => getCodeInfo(code),
+    queryFn: () => claimQuery(code),
   });
 }
 
@@ -53,9 +68,7 @@ function claimInvitation(credentials: Credentials) {
 
 function useClaimInvitation() {
   return useMutation({
-    mutationFn: (invitationCredentials: Credentials) => {
-      return claimInvitation(invitationCredentials);
-    },
+    mutationFn: claimInvitation,
   });
 }
 
@@ -65,6 +78,17 @@ export function ClaimInvitation() {
 
   const info = useGetCodeInfo(code);
   const claim = useClaimInvitation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (claim.isSuccess) {
+      const timeout = setTimeout(() => {
+        navigate({ to: loginHref, replace: true });
+      }, 3000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [claim.isSuccess]);
 
   const handleSubmit = (credentials: Credentials) => {
     claim.mutate(credentials);
@@ -82,18 +106,14 @@ export function ClaimInvitation() {
       return <SuccessfulInvitationClaim />;
     }
 
-    const { firstName, lastName } = info.data;
+    const firstName = info.data.getInvitation.firstName;
+    const lastName = info.data.getInvitation.lastName;
     const fullName = `${firstName} ${lastName}`;
 
     return (
-      <InvitationForm
-        code={code}
-        name={fullName}
-        onSubmit={handleSubmit}
-      />
+      <InvitationForm code={code} name={fullName} onSubmit={handleSubmit} />
     );
   };
-
 
   return (
     <AuthView className='claim-invitation-view'>

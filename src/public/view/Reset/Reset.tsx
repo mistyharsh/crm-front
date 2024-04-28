@@ -1,13 +1,11 @@
 import { Divider, Flex, Heading, Link } from '@adobe/react-spectrum';
 import SuccessMetric from '@spectrum-icons/workflow/SuccessMetric';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import {
-  createRoute,
-  useLinkProps,
-} from '@tanstack/react-router';
+import { createRoute, useLinkProps, useNavigate } from '@tanstack/react-router';
 import ky from 'ky';
 import { useEffect } from 'react';
 
+import { client, graphql } from '../../../graphql';
 import { AuthView } from '../../component/AuthView';
 import { publicRoute } from '../../publicRoute';
 import { loginRoute } from '../Login/Login';
@@ -25,29 +23,19 @@ export const resetRoute = createRoute({
 });
 
 // TODO: Types
-async function resetPassword(payload: ResetCredentials): Promise<any> {
-  const response = await ky
-    .post('/auth/reset-password', {
-      json: {
-        token: payload.token,
-        newPassword: payload.password,
-      },
-    })
-    .json();
+const resetPasswordMutation = graphql(`
+  mutation ResetPasswordMutation($token: String!, $newPassword: String!) {
+    resetPassword(resetToken: $token, newPassword: $newPassword)
+  }
+`);
 
-  return response;
-}
-
-async function getTokenInfo(token: string) {
-  const response = await ky.get(`/auth/reset-password/${token}`).json();
-
-  return response;
-}
-
-function useTokenInfo(token: string) {
-  return useQuery({
-    queryKey: ['reset', token],
-    queryFn: () => getTokenInfo(token),
+function resetPassword(credentials: ResetCredentials) {
+  return client.request({
+    document: resetPasswordMutation,
+    variables: {
+      token: credentials.token,
+      newPassword: credentials.password,
+    },
   });
 }
 
@@ -57,17 +45,45 @@ function useResetPassword() {
   });
 }
 
+const resetPasswordQuery = graphql(`
+  query ResetPasswordQuery($token: String!) {
+    getResetToken(resetToken: $token) {
+      id
+      userId
+    }
+  }
+`);
+
+function getTokenInfo(resetToken: string) {
+  return client.request({
+    document: resetPasswordQuery,
+    variables: {
+      token: resetToken,
+    },
+  });
+}
+
+function useTokenInfo(token: string) {
+  return useQuery({
+    queryKey: ['reset', token],
+    queryFn: () => getTokenInfo(token),
+  });
+}
+
 export function Reset() {
   const { resetToken } = resetRoute.useParams();
   const info = useTokenInfo(resetToken);
   const reset = useResetPassword();
   const loginHref = useLinkProps({ to: loginRoute.to }).href;
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (reset.isSuccess) {
-      setTimeout(() => {
-        window.location.href = '/public/login';
+    if (reset.isSuccess && navigate) {
+      const timeout = setTimeout(() => {
+        navigate({ to: loginHref, replace: true });
       }, 3000);
+
+      return () => clearTimeout(timeout);
     }
   }, [reset.isSuccess]);
 
