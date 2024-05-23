@@ -3,12 +3,12 @@ import { useQuery } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 
 import { client, graphql } from '../../../graphql';
-import { publicRoute } from '../../publicRoute';
-import { UserList } from './TenantList';
+import { mainRoute } from '../../mainRoute';
+import { UserList } from './UserList';
 
 export const tenantRoute = createRoute({
-  getParentRoute: () => publicRoute,
-  path: '/tenants/$tenantId',
+  getParentRoute: () => mainRoute,
+  path: '/users/$tenantId',
   component: TenantUsers,
 });
 
@@ -42,7 +42,8 @@ export function TenantUsers() {
   const { tenantId } = tenantRoute.useParams();
 
   const users = useGetUserQuery(tenantId);
-  console.log(users);
+  console.log('asdfs:- ', users);
+
   if (users.isLoading) return <>Help</>;
 
   if (users.isSuccess)
@@ -58,7 +59,7 @@ export function TenantUsers() {
         borderWidth={'thin'}
       >
         <Heading level={2} marginBottom={'size-200'}>
-          Select Workspace
+          Tenants
         </Heading>
         <UserList users={users.data.getUsers} />
       </View>

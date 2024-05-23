@@ -7,6 +7,23 @@ export type UserListProps = {
   users: User[];
 };
 
+export type UserListItemProps = {
+  user: User;
+};
+
+export const UserListItem = (props: UserListItemProps) => {
+  const { user } = props;
+  const { firstName, lastName } = user;
+
+  return (
+    <>
+      <SocialNetwork slot='illustration' />
+      <Text>{firstName}</Text>
+      <Text>{lastName}</Text>
+    </>
+  );
+};
+
 export function UserList(props: UserListProps) {
   const { users } = props;
 
@@ -26,20 +43,3 @@ export function UserList(props: UserListProps) {
     />
   );
 }
-
-export type UserListItemProps = {
-  user: User;
-};
-
-export const UserListItem = (props: UserListItemProps) => {
-  const { user } = props;
-  const { firstName, lastName } = user;
-
-  return (
-    <>
-      <SocialNetwork slot='illustration' />
-      <Text>{firstName}</Text>
-      <Text>{lastName}</Text>
-    </>
-  );
-};
