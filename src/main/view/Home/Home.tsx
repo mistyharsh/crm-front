@@ -1,10 +1,10 @@
+import { Heading, View } from '@adobe/react-spectrum';
 import { useQuery } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 
 import { client, graphql } from '../../../graphql';
 import { mainRoute } from '../../mainRoute';
 import { TenantList } from './TenantList';
-import { Heading, View } from '@adobe/react-spectrum';
 
 export const homeRoute = createRoute({
   getParentRoute: () => mainRoute,
@@ -14,7 +14,7 @@ export const homeRoute = createRoute({
 
 const query = graphql(`
   query TenantList {
-    getTenants {
+    getMyTenants {
       id
       name
       description
@@ -25,7 +25,7 @@ const query = graphql(`
 function useTenantList() {
   return useQuery({
     queryKey: ['tenantList'],
-    queryFn: () => client.request(query).then((data) => data.getTenants),
+    queryFn: () => client.request(query).then((data) => data.getMyTenants),
   });
 }
 

@@ -2,7 +2,6 @@ import { Divider, Flex, Heading, Link } from '@adobe/react-spectrum';
 import Engagement from '@spectrum-icons/workflow/Engagement';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { createRoute, useLinkProps, useNavigate } from '@tanstack/react-router';
-import ky from 'ky';
 
 import { useEffect } from 'react';
 
