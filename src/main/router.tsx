@@ -2,10 +2,14 @@ import { createRouter } from '@tanstack/react-router';
 
 import { rootRoute } from '../App/App';
 import { mainRoute } from './mainRoute';
-import { dashboardRoute } from './view/Dashboard/Dashboard';
+import { workspaceRoute } from './view/Workspace/workspaceRoute';
 import { homeRoute } from './view/Home/Home';
+import { dashboardRoute } from './view/Workspace/Dashboard';
+import { newContactRoute } from './view/Contact/NewContact';
 
-export const mainTree = mainRoute.addChildren([homeRoute, dashboardRoute]);
+const tree = workspaceRoute.addChildren([dashboardRoute, newContactRoute]);
+
+export const mainTree = mainRoute.addChildren([homeRoute, tree]);
 
 const routeTree = rootRoute.addChildren([mainTree]);
 
