@@ -12,8 +12,8 @@ export default function config(env) {
   const config = {
     mode,
     entry: {
-      main: './src/main.ts',
-      public: './src/public.ts',
+      main: './src/main/Main.ts',
+      public: './src/public/Public.ts',
     },
     output: {
       clean: true,
@@ -40,6 +40,9 @@ export default function config(env) {
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
+      extensionAlias: {
+        '.js': ['.js', '.ts', '.tsx'],
+      },
     },
     plugins: [
       // App behind authentication.

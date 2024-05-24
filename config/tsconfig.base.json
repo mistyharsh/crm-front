@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    /* For project references */
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "incremental": true,
+
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+
+    /* Bundler mode */
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": false,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+
+    // This is needed for the `import React from 'react'` syntax.
+    // Also, intellisense will not work for Adobe Spectrum libraries.
+    "allowSyntheticDefaultImports": true,
+    "noEmit": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Interop Constraints */
+    "verbatimModuleSyntax": true,
+  },
+  "include": ["ui/**/*"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
