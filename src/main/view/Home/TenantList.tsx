@@ -4,7 +4,6 @@ import { useRouter } from '@tanstack/react-router';
 
 import type { Tenant } from '../../../gen/Api';
 
-
 export type TenantListProps = {
   tenants: Tenant[];
 };
@@ -22,7 +21,7 @@ export function TenantList(props: TenantListProps) {
       aria-label='Select workspace'
       children={(t) => {
         const { href } = router.buildLocation({
-          to: '/workspaces/$tenantId/dashboard',
+          to: '/workspaces/$tenantId/',
           params: {
             tenantId: t.id.toString(),
           },

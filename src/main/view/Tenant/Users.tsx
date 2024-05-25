@@ -5,8 +5,9 @@ import { createRoute } from '@tanstack/react-router';
 import { client, graphql } from '../../../graphql';
 import { mainRoute } from '../../mainRoute';
 import { UserList } from './UserList';
+import { FailedGettingUsers } from './UsersListStatus';
 
-export const tenantRoute = createRoute({
+export const userListRoute = createRoute({
   getParentRoute: () => mainRoute,
   path: '/users/$tenantId',
   component: TenantUsers,
@@ -39,29 +40,34 @@ function useGetUserQuery(tenantId: string) {
 }
 
 export function TenantUsers() {
-  const { tenantId } = tenantRoute.useParams();
+  const { tenantId } = userListRoute.useParams();
 
   const users = useGetUserQuery(tenantId);
-  console.log('asdfs:- ', users);
 
-  if (users.isLoading) return <>Help</>;
-
-  if (users.isSuccess)
-    return (
-      <View
-        data-cl='home'
-        backgroundColor={'gray-75'}
-        padding={'size-400'}
-        width={'size-6000'}
-        margin={'auto'}
-        marginTop={'size-400'}
-        borderColor={'gray-200'}
-        borderWidth={'thin'}
-      >
-        <Heading level={2} marginBottom={'size-200'}>
-          Tenants
-        </Heading>
-        <UserList users={users.data.getUsers} />
-      </View>
-    );
+  const render = () => {
+    if (users.isLoading) {
+      return <Heading level={2}>Loading....</Heading>;
+    } else if (users.isError) {
+      return <FailedGettingUsers />;
+    } else if (users.isSuccess) {
+      return <UserList users={users.data.getUsers} />;
+    }
+  };
+  return (
+    <View
+      data-cl='home'
+      backgroundColor={'gray-75'}
+      padding={'size-400'}
+      width={'size-6000'}
+      margin={'auto'}
+      marginTop={'size-400'}
+      borderColor={'gray-200'}
+      borderWidth={'thin'}
+    >
+      <Heading level={2} marginBottom={'size-200'}>
+        Tenants
+      </Heading>
+      {render()}
+    </View>
+  );
 }
