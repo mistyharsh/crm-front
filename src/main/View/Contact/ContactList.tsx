@@ -1,7 +1,7 @@
 import { Item, ListView, Text } from '@adobe/react-spectrum';
 import SocialNetwork from '@spectrum-icons/workflow/SocialNetwork';
 
-import { Contact } from '../../../gen/Api';
+import type { Contact } from '#shared/gen/Api.js';
 
 export type ContactListProps = {
   contacts: Contact[];
@@ -13,7 +13,8 @@ export type ContactListItemProps = {
 
 export const ContactListItem = (props: ContactListItemProps) => {
   const { contact } = props;
-  if (contact.name) {
+
+  if ('name' in contact) {
     return (
       <>
         <SocialNetwork slot='illustration' />

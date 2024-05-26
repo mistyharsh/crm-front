@@ -2,15 +2,15 @@ import { Heading, View } from '@adobe/react-spectrum';
 import { useQuery } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 
-import { Page } from '../../../gen/Api';
-import { client, graphql } from '../../../graphql';
-import { mainRoute } from '../../mainRoute';
-import { ContactList } from './ContactList';
-import { FailedGettingContacts } from './ContactListStatus';
+import type { Page } from '#shared/gen/Api.js';
+import { client, graphql } from '#shared/graphql.js';
+import { workspaceRoute } from '../Workspace/WorkspaceRoute.js';
+import { ContactList } from './ContactList.js';
+import { FailedGettingContacts } from './ContactListStatus.js';
 
 export const contactListRoute = createRoute({
-  getParentRoute: () => mainRoute,
-  path: '/contacts/$tenantId',
+  getParentRoute: () => workspaceRoute,
+  path: '/contacts',
   component: Contacts,
 });
 

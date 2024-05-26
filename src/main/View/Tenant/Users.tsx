@@ -2,13 +2,13 @@ import { Heading, View } from '@adobe/react-spectrum';
 import { useQuery } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 
-import { client, graphql } from '../../../graphql';
-import { mainRoute } from '../../mainRoute';
-import { UserList } from './UserList';
-import { FailedGettingUsers } from './UsersListStatus';
+import { client, graphql } from '#shared/graphql.js';
+import { rootRoute } from '../../RootRoute.js';
+import { UserList } from './UserList.js';
+import { FailedGettingUsers } from './UsersListStatus.js';
 
 export const userListRoute = createRoute({
-  getParentRoute: () => mainRoute,
+  getParentRoute: () => rootRoute,
   path: '/users/$tenantId',
   component: TenantUsers,
 });
