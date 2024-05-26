@@ -1,6 +1,6 @@
 import { createRoute } from '@tanstack/react-router';
 
-import { workspaceRoute } from '../Workspace/WWorkspaceRoute.js';
+import { workspaceRoute } from '../Workspace/WorkspaceRoute.js';
 import { OrgContactForm } from './OrgContactForm.js';
 
 export type NewContactProps = {};
