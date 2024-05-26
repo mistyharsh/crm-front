@@ -11,16 +11,16 @@ import { useContext } from 'react';
 
 import { AppContext } from '#shared/App/Provider.js';
 
-export type AppHeaderProps = {};
+export type MainAppHeaderProps = {};
 
-export function AppHeader(_props: AppHeaderProps) {
+export function MainAppHeader(_props: MainAppHeaderProps) {
   const app = useContext(AppContext);
   const { colorScheme } = useProvider();
 
   const onColorSchemeChange = app.setScheme;
 
   return (
-    <Header>
+    <Header data-cl='main-header'>
       <View
         backgroundColor={'gray-50'}
         padding={'size-100'}
