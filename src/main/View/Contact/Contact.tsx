@@ -69,7 +69,6 @@ export function Contacts() {
       data-cl='home'
       backgroundColor={'gray-75'}
       padding={'size-400'}
-      width={'size-6000'}
       margin={'auto'}
       marginTop={'size-400'}
       borderColor={'gray-200'}
