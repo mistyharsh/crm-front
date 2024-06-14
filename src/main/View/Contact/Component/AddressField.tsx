@@ -1,25 +1,27 @@
-import type { AddressInput } from '#shared/gen/Api.js';
-import { Button, Flex, TextField } from '@adobe/react-spectrum';
+import { Button, Flex, TextField, View } from '@adobe/react-spectrum';
 
-export type AddressProps = {
+import type { AddressInput } from '#shared/gen/Api.js';
+import { update } from '#shared/Util/Array.js';
+
+export type AddressFieldProps = {
   value: AddressInput;
   onChange: (address: AddressInput) => void;
 };
-export type AddressListProps = {
+export type AddressListFieldProps = {
   value: AddressInput[];
-  onChange: (addresses: AddressInput[]) => void;
+  onChange: (addressList: AddressInput[]) => void;
 };
 
-export function AddressField({ value, onChange }: AddressProps) {
+export function AddressField(props: AddressFieldProps) {
+  const { value, onChange } = props;
   return (
-    <Flex key={Math.random()}>
+    <Flex>
       <TextField
         label='House'
         value={value.house}
         onChange={(house) => {
           onChange({ ...value, house });
         }}
-        alignSelf={'flex-start'}
       />
       <TextField
         label='Street'
@@ -27,7 +29,6 @@ export function AddressField({ value, onChange }: AddressProps) {
         onChange={(street) => {
           onChange({ ...value, street });
         }}
-        alignSelf={'flex-start'}
       />
       <TextField
         label='Landmark'
@@ -35,7 +36,6 @@ export function AddressField({ value, onChange }: AddressProps) {
         onChange={(landmark) => {
           onChange({ ...value, landmark });
         }}
-        alignSelf={'flex-start'}
       />
       <TextField
         label='Postal Code'
@@ -43,41 +43,39 @@ export function AddressField({ value, onChange }: AddressProps) {
         onChange={(postalCodeId) => {
           onChange({ ...value, postalCodeId });
         }}
-        alignSelf={'flex-start'}
       />
     </Flex>
   );
 }
 
-export function AddressListField({ value, onChange }: AddressListProps) {
-  const handleAddAddress = () => {
-    const updatedAddress = value.concat({
+export function AddressListField(props: AddressListFieldProps) {
+  const addAddress = () => {
+    const updatedAddress = props.value.concat({
       house: '',
       street: '',
       landmark: '',
       postalCodeId: '',
     });
-    onChange(updatedAddress);
+
+    props.onChange(updatedAddress);
   };
 
-  const handleAddressChange = (index: number, newAddress: AddressInput) => {
-    const updatedAddress = value.map((address, idx) =>
-      idx === index ? newAddress : address
-    );
-    onChange(updatedAddress);
+  const updatedAddress = (index: number, newAddress: AddressInput) => {
+    props.onChange(update(props.value, index, newAddress));
   };
 
   return (
-    <>
-      <Button onPress={handleAddAddress} variant='secondary'>
+    <View>
+      <Button onPress={addAddress} variant='secondary'>
         Add
       </Button>
-      {value.map((address, index) => (
+      {props.value.map((address, index) => (
         <AddressField
+          key={`address-${index}`}
           value={address}
-          onChange={(newAddress) => handleAddressChange(index, newAddress)}
+          onChange={(newAddress) => updatedAddress(index, newAddress)}
         />
       ))}
-    </>
+    </View>
   );
 }

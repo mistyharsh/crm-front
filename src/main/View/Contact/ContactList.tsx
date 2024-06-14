@@ -6,6 +6,7 @@ import {
   TableHeader,
   TableView,
   Text,
+  View,
 } from '@adobe/react-spectrum';
 import SocialNetwork from '@spectrum-icons/workflow/SocialNetwork';
 
@@ -24,18 +25,18 @@ export const ContactListItem = (props: ContactListItemProps) => {
 
   if ('name' in contact) {
     return (
-      <>
+      <View>
         <SocialNetwork slot='illustration' />
         <Text>{contact.name}</Text>
-      </>
+      </View>
     );
   }
 
   return (
-    <>
+    <View>
       <SocialNetwork slot='illustration' />
       <Text>{`${contact.givenName} ${contact.middleName} ${contact.familyName}`}</Text>
-    </>
+    </View>
   );
 };
 

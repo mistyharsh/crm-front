@@ -1,30 +1,32 @@
-import { Button, Checkbox, Flex, TextField } from '@adobe/react-spectrum';
+import { Button, Checkbox, Flex, TextField, View } from '@adobe/react-spectrum';
 
 import type { EmailInput, PhoneInput } from '#shared/gen/Api.js';
+import { update } from '#shared/Util/Array.js';
 
-export type EmailProps = {
+export type EmailFieldProps = {
   value: EmailInput;
   onChange: (mail: EmailInput) => void;
 };
 
-export type EmailListProps = {
+export type EmailListFieldProps = {
   value: EmailInput[];
   onChange: (mail: EmailInput[]) => void;
 };
 
-export type PhoneProps = {
+export type PhoneFieldProps = {
   value: PhoneInput;
   onChange: (phone: PhoneInput) => void;
 };
 
-export type PhoneListProps = {
+export type PhoneListFieldProps = {
   value: PhoneInput[];
   onChange: (phone: PhoneInput[]) => void;
 };
 
-export function EmailField({ value, onChange }: EmailProps) {
+export function EmailField(props: EmailFieldProps) {
+  const { value, onChange } = props;
   return (
-    <Flex key={value.address}>
+    <Flex>
       <TextField
         label='Email'
         value={value.address}
@@ -41,37 +43,40 @@ export function EmailField({ value, onChange }: EmailProps) {
   );
 }
 
-export function EmailListField({ value, onChange }: EmailListProps) {
-  const handleAddEmail = () => {
-    const updateEmail = value.concat({ address: '', isPrimary: false });
+export function EmailListField(props: EmailListFieldProps) {
+  const { value, onChange } = props;
+  const addEmail = () => {
+    const updateEmail = value.concat({
+      address: '',
+      isPrimary: false,
+    });
     onChange(updateEmail);
   };
 
   const handlEmailChange = (index: number, newEmail: EmailInput) => {
-    const updatedEmail = value.map((email, idx) =>
-      idx === index ? newEmail : email
-    );
-    onChange(updatedEmail);
+    onChange(update(value, index, newEmail));
   };
 
   return (
-    <>
-      <Button onPress={handleAddEmail} variant='secondary'>
+    <View>
+      <Button onPress={addEmail} variant='secondary'>
         Add Email
       </Button>
       {value.map((email, index) => (
         <EmailField
+          key={`email-${index}`}
           value={email}
           onChange={(newEmail) => handlEmailChange(index, newEmail)}
         />
       ))}
-    </>
+    </View>
   );
 }
 
-export function PhonesField({ value, onChange }: PhoneProps) {
+export function PhoneField(props: PhoneFieldProps) {
+  const { value, onChange } = props;
   return (
-    <Flex key={Math.random()}>
+    <Flex>
       <Flex>
         <TextField
           label='Country Id'
@@ -95,34 +100,33 @@ export function PhonesField({ value, onChange }: PhoneProps) {
   );
 }
 
-export function PhoneListFields({ value, onChange }: PhoneListProps) {
-  const handleAddPhone = () => {
-    const updatePhone = value.concat({
+export function PhoneListField(props: PhoneListFieldProps) {
+  const { value, onChange } = props;
+  const addPhone = () => {
+    const updatedPhone = value.concat({
       countryId: '',
       number: '',
       isPrimary: true,
     });
-    onChange(updatePhone);
-  };
-
-  const handlPhoneChange = (index: number, newPhone: PhoneInput) => {
-    const updatedPhone = value.map((phone, idx) =>
-      idx === index ? newPhone : phone
-    );
     onChange(updatedPhone);
   };
 
+  const updatePhone = (index: number, newPhone: PhoneInput) => {
+    onChange(update(value, index, newPhone));
+  };
+
   return (
-    <>
-      <Button onPress={handleAddPhone} variant='secondary'>
+    <View>
+      <Button onPress={addPhone} variant='secondary'>
         Add Phone Number
       </Button>
       {value.map((phone, index) => (
-        <PhonesField
+        <PhoneField
+          key={`phone-${index}`}
           value={phone}
-          onChange={(newPhone) => handlPhoneChange(index, newPhone)}
+          onChange={(newPhone) => updatePhone(index, newPhone)}
         />
       ))}
-    </>
+    </View>
   );
 }

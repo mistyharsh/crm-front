@@ -1,4 +1,4 @@
-import { Item, ListView, Text } from '@adobe/react-spectrum';
+import { Item, ListView, Text, View } from '@adobe/react-spectrum';
 import SocialNetwork from '@spectrum-icons/workflow/SocialNetwork';
 
 import type { User } from '#shared/gen/Api.js';
@@ -16,11 +16,11 @@ export const UserListItem = (props: UserListItemProps) => {
   const { firstName, lastName } = user;
 
   return (
-    <>
+    <View>
       <SocialNetwork slot='illustration' />
       <Text>{firstName}</Text>
       <Text>{lastName}</Text>
-    </>
+    </View>
   );
 };
 

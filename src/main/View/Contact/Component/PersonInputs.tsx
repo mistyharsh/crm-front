@@ -6,25 +6,36 @@ import {
   Picker,
   TextField,
   Button,
+  View,
 } from '@adobe/react-spectrum';
 
 import type { PersonInput } from '#shared/gen/Api.js';
+import { update } from '#shared/Util/Array.js';
 import { AddressListField } from './AddressField';
-import { EmailListField, PhoneListFields } from './ContactInformationFields';
+import { EmailListField, PhoneListField } from './ContactInformationFields';
 
-export type PersonProps = {
+export type PersonFieldProps = {
   value: PersonInput;
   onChange: (person: PersonInput) => void;
 };
 
-export type PersonListProps = {
+export type PersonListFieldProps = {
   value: PersonInput[];
   onChange: (person: PersonInput[]) => void;
 };
 
-export function PersonField({ value, onChange }: PersonProps) {
+export function PersonField(props: PersonFieldProps) {
+  const { value, onChange } = props;
+  const updateDate = (dob: any) => {
+    const month = dob.month < 10 ? `0${dob.month}` : dob.month;
+    const day = dob.day < 10 ? `0${dob.day}` : dob.day;
+    dob = `${dob.year}-${month}-${day}`;
+
+    onChange({ ...value, dob });
+  };
+
   return (
-    <Flex direction={'column'} key={Math.random()}>
+    <Flex direction={'column'}>
       <Flex justifyContent={'space-between'}>
         <TextField
           label='Given Name'
@@ -47,7 +58,8 @@ export function PersonField({ value, onChange }: PersonProps) {
       </Flex>
       <DatePicker
         label='Date of Birth'
-        onChange={(dob) => onChange({ ...value, dob })}
+        // value={value.dob}
+        onChange={(dob) => updateDate(dob)}
       />
       <Picker
         label='Gender'
@@ -60,7 +72,7 @@ export function PersonField({ value, onChange }: PersonProps) {
         <Item key='Other'>Other</Item>
         <Item key='unknown'>Unknown</Item>
       </Picker>
-      <PhoneListFields
+      <PhoneListField
         value={value.phones}
         onChange={(phones) => onChange({ ...value, phones })}
       />
@@ -77,8 +89,9 @@ export function PersonField({ value, onChange }: PersonProps) {
   );
 }
 
-export function PersonListField({ value, onChange }: PersonListProps) {
-  const handleAddNewField = () => {
+export function PersonListField(props: PersonListFieldProps) {
+  const { value, onChange } = props;
+  const addNewField = () => {
     const updateEmail = value.concat({
       givenName: '',
       middleName: '',
@@ -92,24 +105,22 @@ export function PersonListField({ value, onChange }: PersonListProps) {
     onChange(updateEmail);
   };
 
-  const handlPersonChange = (index: number, newPerson: PersonInput) => {
-    const updatedPerson = value.map((person, idx) =>
-      idx === index ? newPerson : person
-    );
-    onChange(updatedPerson);
+  const updatePerson = (index: number, newPerson: PersonInput) => {
+    onChange(update(value, index, newPerson));
   };
 
   return (
-    <>
-      <Button onPress={handleAddNewField} variant='secondary'>
+    <View>
+      <Button onPress={addNewField} variant='secondary'>
         Add Person
       </Button>
       {value.map((person, index) => (
         <PersonField
+          key={`person-${index}`}
           value={person}
-          onChange={(newPerson) => handlPersonChange(index, newPerson)}
+          onChange={(newPerson) => updatePerson(index, newPerson)}
         />
       ))}
-    </>
+    </View>
   );
 }

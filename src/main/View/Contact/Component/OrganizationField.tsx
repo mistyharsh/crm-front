@@ -5,10 +5,8 @@ export type OrganizationNameProps = {
   onChange: (name: string) => void;
 };
 
-export function OrganizationNameInput({
-  value,
-  onChange,
-}: OrganizationNameProps) {
+export function OrganizationNameInput(props: OrganizationNameProps) {
+  const { value, onChange } = props;
   return (
     <TextField label='Organization Name' value={value} onChange={onChange} />
   );

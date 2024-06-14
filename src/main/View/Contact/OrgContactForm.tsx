@@ -6,7 +6,7 @@ import { type OrganizationInput } from '#shared/gen/Api.js';
 import { AddressListField } from './Component/AddressField';
 import {
   EmailListField,
-  PhoneListFields,
+  PhoneListField,
 } from './Component/ContactInformationFields';
 import { OrganizationNameInput } from './Component/OrganizationField';
 import { PersonListField } from './Component/PersonInputs';
@@ -47,7 +47,7 @@ export function OrgContactForm(_props: OrgContactFormProps) {
         value={value.emails}
         onChange={(emails) => onInput({ ...value, emails })}
       />
-      <PhoneListFields
+      <PhoneListField
         value={value.phones}
         onChange={(phones) => onInput({ ...value, phones })}
       />

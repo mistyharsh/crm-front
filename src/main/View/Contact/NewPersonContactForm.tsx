@@ -5,54 +5,34 @@ import { createRoute } from '@tanstack/react-router';
 
 import { useState } from 'react';
 
-import type { OrganizationInput } from '#shared/gen/Api.js';
+import type { PersonInput } from '#shared/gen/Api.js';
 import { client, graphql } from '#shared/graphql.js';
 import { workspaceRoute } from '../Workspace/WorkspaceRoute.js';
-import { OrgContactForm } from './OrgContactForm.js';
+import { PersonContactForm } from './PersonContactForm.js';
 
 export type NewContactProps = {};
 
-export const newContactRoute = createRoute({
+export const newPersonContactRoute = createRoute({
   getParentRoute: () => workspaceRoute,
-  path: '/new-contact',
+  path: '/new-person-contact',
   component: NewContact,
 });
 
-const createContactOrganization = graphql(`
-  mutation CreateContactOrg($input: OrganizationInput!, $tenantId: String!) {
-    createContactOrganization(input: $input, tenantId: $tenantId) {
-      addresses {
-        house
-        isPrimary
-        landmark
-        postalCodeId
-        street
-      }
-      emails {
-        address
-        isPrimary
-      }
+const CreateContactPerson = graphql(`
+  mutation CreateContactPerson($input: PersonInput!, $tenantId: String!) {
+    createContactPerson(input: $input, tenantId: $tenantId) {
+      dob
+      familyName
+      givenName
       id
-      name
-      people {
-        dob
-        familyName
-        givenName
-        id
-        middleName
-      }
-      phones {
-        countryId
-        isPrimary
-        number
-      }
+      middleName
     }
   }
 `);
 
-function createContactOrgMutation(input: OrganizationInput, tenantId: string) {
+function createContactPersonMutation(input: PersonInput, tenantId: string) {
   return client.request({
-    document: createContactOrganization,
+    document: CreateContactPerson,
     variables: {
       input,
       tenantId,
@@ -60,26 +40,26 @@ function createContactOrgMutation(input: OrganizationInput, tenantId: string) {
   });
 }
 
-function useCreateContactOrgMutation(
-  input: OrganizationInput,
-  tenantId: string
-) {
+function useCreateContactPersonMutation(input: PersonInput, tenantId: string) {
   return useMutation({
-    mutationFn: () => createContactOrgMutation(input, tenantId),
+    mutationFn: () => createContactPersonMutation(input, tenantId),
   });
 }
 
 export function NewContact(_props: NewContactProps) {
-  const [formData, setFormData] = useState<OrganizationInput>({
+  const [formData, setFormData] = useState<PersonInput>({
     addresses: [],
     emails: [],
-    name: '',
-    people: [],
+    dob: '',
+    familyName: '',
+    givenName: '',
+    middleName: '',
+    gender: '',
     phones: [],
   });
-  const { tenantId } = newContactRoute.useParams();
+  const { tenantId } = newPersonContactRoute.useParams();
 
-  const contacts = useCreateContactOrgMutation(formData, tenantId);
+  const contacts = useCreateContactPersonMutation(formData, tenantId);
 
   const handleSubmit = () => {
     contacts.mutate();
@@ -103,9 +83,9 @@ export function NewContact(_props: NewContactProps) {
           marginBottom={'size-400'}
         />
         <Heading level={1} alignSelf={'self-start'}>
-          New Contact Organizations
+          New Contact Person
         </Heading>
-        <OrgContactForm
+        <PersonContactForm
           value={formData}
           onSubmit={handleSubmit}
           onInput={setFormData}

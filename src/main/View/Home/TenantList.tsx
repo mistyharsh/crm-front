@@ -1,4 +1,4 @@
-import { Item, ListView, Text } from '@adobe/react-spectrum';
+import { Item, ListView, Text, View } from '@adobe/react-spectrum';
 import SocialNetwork from '@spectrum-icons/workflow/SocialNetwork';
 import { useRouter } from '@tanstack/react-router';
 
@@ -46,10 +46,10 @@ export const TenantListItem = (props: TenantListItemProps) => {
   const { name, description } = tenant;
 
   return (
-    <>
+    <View>
       <SocialNetwork slot='illustration' />
       <Text>{name}</Text>
       <Text slot='description'>{description}</Text>
-    </>
+    </View>
   );
 };
