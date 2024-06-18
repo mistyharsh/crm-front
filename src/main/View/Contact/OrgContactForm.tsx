@@ -3,23 +3,27 @@ import { Button, ButtonGroup, Form, Heading } from '@adobe/react-spectrum';
 import { type FormEvent } from 'react';
 
 import { type OrganizationInput } from '#shared/gen/Api.js';
-import { AddressListField } from './Component/AddressField';
+import { AddressListField } from './Component/AddressField.js';
 import {
   EmailListField,
   PhoneListField,
-} from './Component/ContactInformationFields';
-import { OrganizationNameInput } from './Component/OrganizationField';
-import { PersonListField } from './Component/PersonInputs';
+} from './Component/ContactInformationFields.js';
+import { OrganizationNameInput } from './Component/OrganizationField.js';
+import { PersonListField } from './Component/PersonInputs.js';
+import type { OrgInputFormApi } from './UseOrgContactForm.js';
 
 export type OrgContactFormProps = {
-  value: OrganizationInput;
   tenantId: string;
+  form: OrgInputFormApi;
+  value: OrganizationInput;
   onInput: (value: OrganizationInput) => void;
   onSubmit: (value: OrganizationInput, tenantId: string) => void;
 };
 
 export function OrgContactForm(_props: OrgContactFormProps) {
-  const { value, onInput, tenantId, onSubmit } = _props;
+  const { tenantId, form, value, onInput, onSubmit } = _props;
+
+  const { Field } = form;
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -33,11 +37,28 @@ export function OrgContactForm(_props: OrgContactFormProps) {
       onSubmit={handleSubmit}
     >
       <Heading level={2}>Organization Information</Heading>
-      <OrganizationNameInput
-        value={value.name}
-        onChange={(name) => onInput({ ...value, name })}
+
+      <Field
+        name='name'
+        children={({ state, handleChange }) => (
+          <OrganizationNameInput
+            value={state.value}
+            onChange={handleChange}
+          />
+        )}
       />
+
       <Heading level={3}>Address</Heading>
+      <Field
+        name='addresses'
+        children={({ state, handleChange }) => (
+          <AddressListField
+            value={state.value}
+            onChange={handleChange}
+          />
+        )}
+      />
+
       <AddressListField
         value={value.addresses}
         onChange={(addresses) => onInput({ ...value, addresses })}

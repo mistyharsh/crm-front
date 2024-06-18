@@ -7,6 +7,7 @@ export type AddressFieldProps = {
   value: AddressInput;
   onChange: (address: AddressInput) => void;
 };
+
 export type AddressListFieldProps = {
   value: AddressInput[];
   onChange: (addressList: AddressInput[]) => void;
@@ -14,6 +15,7 @@ export type AddressListFieldProps = {
 
 export function AddressField(props: AddressFieldProps) {
   const { value, onChange } = props;
+
   return (
     <Flex>
       <TextField
@@ -49,19 +51,21 @@ export function AddressField(props: AddressFieldProps) {
 }
 
 export function AddressListField(props: AddressListFieldProps) {
+  const { value, onChange } = props;
+
   const addAddress = () => {
-    const updatedAddress = props.value.concat({
+    const updatedAddress = value.concat({
       house: '',
       street: '',
       landmark: '',
       postalCodeId: '',
     });
 
-    props.onChange(updatedAddress);
+    onChange(updatedAddress);
   };
 
   const updatedAddress = (index: number, newAddress: AddressInput) => {
-    props.onChange(update(props.value, index, newAddress));
+    onChange(update(value, index, newAddress));
   };
 
   return (
@@ -69,7 +73,7 @@ export function AddressListField(props: AddressListFieldProps) {
       <Button onPress={addAddress} variant='secondary'>
         Add
       </Button>
-      {props.value.map((address, index) => (
+      {value.map((address, index) => (
         <AddressField
           key={`address-${index}`}
           value={address}
