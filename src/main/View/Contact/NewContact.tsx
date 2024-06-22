@@ -2,7 +2,6 @@ import { Flex, Heading, View } from '@adobe/react-spectrum';
 import PersonalizationField from '@spectrum-icons/workflow/PersonalizationField';
 import { useMutation } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
-import { useState } from 'react';
 
 import type { OrganizationInput } from '#shared/gen/Api.js';
 import { client, graphql } from '#shared/graphql.js';
@@ -70,25 +69,13 @@ function useCreateContactOrgMutation(
 }
 
 export function NewContact(_props: NewContactProps) {
-  // TODO: Not required anymore.
-  const [formData, setFormData] = useState<OrganizationInput>({
-    addresses: [],
-    emails: [],
-    name: '',
-    people: [],
-    phones: [],
-  });
-  const handleSubmit = () => {
-    contacts.mutate();
-  };
-
   const { tenantId } = newContactRoute.useParams();
-
-  const contacts = useCreateContactOrgMutation(formData, tenantId);
 
   const form = useOrgContactForm(() => {
     contacts.mutate();
   });
+
+  const contacts = useCreateContactOrgMutation(form.state.values, tenantId);
 
   return (
     <View
@@ -110,13 +97,7 @@ export function NewContact(_props: NewContactProps) {
         <Heading level={1} alignSelf={'self-start'}>
           New Contact Organizations
         </Heading>
-        <OrgContactForm
-          form={form}
-          value={formData}
-          onSubmit={handleSubmit}
-          onInput={setFormData}
-          tenantId={tenantId}
-        />
+        <OrgContactForm form={form} />
       </Flex>
     </View>
   );

@@ -3,12 +3,11 @@ import PersonalizationField from '@spectrum-icons/workflow/PersonalizationField'
 import { useMutation } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 
-import { useState } from 'react';
-
 import type { PersonInput } from '#shared/gen/Api.js';
 import { client, graphql } from '#shared/graphql.js';
 import { workspaceRoute } from '../Workspace/WorkspaceRoute.js';
 import { PersonContactForm } from './PersonContactForm.js';
+import { usePersonContactForm } from './UsePersonContactForm.js';
 
 export type NewContactProps = {};
 
@@ -47,23 +46,13 @@ function useCreateContactPersonMutation(input: PersonInput, tenantId: string) {
 }
 
 export function NewContact(_props: NewContactProps) {
-  const [formData, setFormData] = useState<PersonInput>({
-    addresses: [],
-    emails: [],
-    dob: '',
-    familyName: '',
-    givenName: '',
-    middleName: '',
-    gender: '',
-    phones: [],
-  });
   const { tenantId } = newPersonContactRoute.useParams();
 
-  const contacts = useCreateContactPersonMutation(formData, tenantId);
-
-  const handleSubmit = () => {
+  const form = usePersonContactForm(() => {
     contacts.mutate();
-  };
+  });
+
+  const contacts = useCreateContactPersonMutation(form.state.values, tenantId);
 
   return (
     <View
@@ -85,12 +74,7 @@ export function NewContact(_props: NewContactProps) {
         <Heading level={1} alignSelf={'self-start'}>
           New Contact Person
         </Heading>
-        <PersonContactForm
-          value={formData}
-          onSubmit={handleSubmit}
-          onInput={setFormData}
-          tenantId={tenantId}
-        />
+        <PersonContactForm form={form} />
       </Flex>
     </View>
   );

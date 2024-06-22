@@ -24,54 +24,142 @@ export type PersonListFieldProps = {
   onChange: (person: PersonInput[]) => void;
 };
 
-export function PersonField(props: PersonFieldProps) {
+export type PersonGivenNameFiledProp = {
+  value: string;
+  onChange: (givenName: string) => void;
+};
+
+export type PersonMiddleNameFiledProp = {
+  value: string;
+  onChange: (middleName: string) => void;
+};
+
+export type PersonFamilyNameFiledProp = {
+  value: string;
+  onChange: (familyName: string) => void;
+};
+
+export type PersonDateOfBirthFieldProp = {
+  value: string;
+  onChange: (value: string) => void;
+};
+
+export type PersonGenderFieldProp = {
+  value: string;
+  onChange: (gender: string) => void;
+};
+
+export function PersonGivenNameFiled(props: PersonGivenNameFiledProp) {
   const { value, onChange } = props;
+  return (
+    <>
+      <TextField
+        label='Given Name'
+        alignSelf={'flex-start'}
+        value={value}
+        onChange={onChange}
+      />
+    </>
+  );
+}
+export function PersonMiddleNameFiled(props: PersonMiddleNameFiledProp) {
+  const { value, onChange } = props;
+  return (
+    <>
+      <TextField
+        label='Middle Name'
+        alignSelf={'flex-start'}
+        value={value}
+        onChange={onChange}
+      />
+    </>
+  );
+}
+export function PersonFamilyNameFiled(props: PersonFamilyNameFiledProp) {
+  const { value, onChange } = props;
+  return (
+    <>
+      <TextField
+        label='Family Name'
+        alignSelf={'flex-start'}
+        value={value}
+        onChange={onChange}
+      />
+    </>
+  );
+}
+
+export function PersonDateOfBirthField(props: PersonDateOfBirthFieldProp) {
+  const { value, onChange } = props;
+
   const updateDate = (dob: any) => {
     const month = dob.month < 10 ? `0${dob.month}` : dob.month;
     const day = dob.day < 10 ? `0${dob.day}` : dob.day;
     dob = `${dob.year}-${month}-${day}`;
-
-    onChange({ ...value, dob });
+    return dob;
   };
 
   return (
-    <Flex direction={'column'}>
-      <Flex justifyContent={'space-between'}>
-        <TextField
-          label='Given Name'
-          alignSelf={'flex-start'}
-          value={value.givenName}
-          onChange={(givenName) => onChange({ ...value, givenName })}
-        />
-        <TextField
-          label='Middle Name'
-          value={value.middleName || ''}
-          onChange={(middleName) => onChange({ ...value, middleName })}
-          alignSelf={'center'}
-        />
-        <TextField
-          label='Family Name'
-          value={value.familyName}
-          onChange={(familyName) => onChange({ ...value, familyName })}
-          alignSelf={'flex-end'}
-        />
-      </Flex>
+    <>
       <DatePicker
         label='Date of Birth'
         // value={value.dob}
-        onChange={(dob) => updateDate(dob)}
+        onChange={(dob) => onChange(updateDate(dob))}
       />
+    </>
+  );
+}
+
+export function PersonGenderField(props: PersonGenderFieldProp) {
+  const { value, onChange } = props;
+  const convertKey = (gender: any) => {
+    return `${gender}`;
+  };
+
+  return (
+    <>
       <Picker
         label='Gender'
         alignSelf={'flex-start'}
-        selectedKey={value.gender}
-        onSelectionChange={(gender) => onChange({ ...value, gender })}
+        selectedKey={value}
+        onSelectionChange={(gender) => onChange(convertKey(gender))}
       >
         <Item key='male'>Male</Item>
         <Item key='female'>Female</Item>
         <Item key='Other'>Other</Item>
         <Item key='unknown'>Unknown</Item>
       </Picker>
+    </>
+  );
+}
+
+export function PersonField(props: PersonFieldProps) {
+  const { value, onChange } = props;
+
+  return (
+    <Flex direction={'column'}>
+      <Flex justifyContent={'space-between'}>
+        <PersonGivenNameFiled
+          value={value.givenName}
+          onChange={(givenName) => onChange({ ...value, givenName })}
+        />
+        <PersonMiddleNameFiled
+          value={value.givenName}
+          onChange={(middleName) => onChange({ ...value, middleName })}
+        />
+        <PersonFamilyNameFiled
+          value={value.givenName}
+          onChange={(familyName) => onChange({ ...value, familyName })}
+        />
+      </Flex>
+      <PersonDateOfBirthField
+        value={value.dob}
+        onChange={(dob) => onChange({ ...value, dob })}
+      />
+      <PersonGenderField
+        value={value.gender}
+        onChange={(gender) => onChange({ ...value, gender })}
+      />
       <PhoneListField
         value={value.phones}
         onChange={(phones) => onChange({ ...value, phones })}
