@@ -22,10 +22,12 @@ export function OrgContactForm(_props: OrgContactFormProps) {
     <Form
       necessityIndicator='icon'
       validationBehavior='native'
-      onSubmit={form.handleSubmit}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <Heading level={2}>Organization Information</Heading>
-
       <Field
         name='name'
         children={({ state, handleChange }) => (

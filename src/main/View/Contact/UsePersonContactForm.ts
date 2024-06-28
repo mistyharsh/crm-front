@@ -10,11 +10,11 @@ import type {
 export type PersonInputFormApi = FormApi<PersonInputModel>;
 
 export type PersonInputModel = {
-  dob?: string | null;
+  dob: string;
   gender: string;
   familyName: string;
   givenName: string;
-  middleName?: string | null;
+  middleName: string;
   addresses: AddressInput[];
   emails: EmailInput[];
   phones: PhoneInput[];

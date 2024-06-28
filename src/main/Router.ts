@@ -7,12 +7,14 @@ import { newPersonContactRoute } from './View/Contact/NewPersonContactForm.js';
 import { homeRoute } from './View/Home/Home.js';
 import { dashboardRoute } from './View/Workspace/Dashboard.js';
 import { workspaceRoute } from './View/Workspace/WorkspaceRoute.js';
+import { userListRoute } from './View/Tenant/Users.js';
 
 export const routeTree = rootRoute.addChildren([
   homeRoute,
   workspaceRoute.addChildren([
     dashboardRoute,
     contactListRoute,
+    userListRoute,
     newContactRoute,
     newPersonContactRoute,
   ]),

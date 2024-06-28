@@ -8,10 +8,10 @@ import {
 
 import {
   PersonDateOfBirthField,
-  PersonFamilyNameFiled,
+  PersonFamilyNameField,
   PersonGenderField,
-  PersonGivenNameFiled,
-  PersonMiddleNameFiled,
+  PersonGivenNameField,
+  PersonMiddleNameField,
 } from './Component/PersonInputs';
 import type { PersonInputFormApi } from './UsePersonContactForm';
 import {
@@ -33,20 +33,23 @@ export function PersonContactForm(_props: PersonContactFormProps) {
     <Form
       necessityIndicator='icon'
       validationBehavior='native'
-      onSubmit={form.handleSubmit}
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
     >
       <Heading level={2}>Person Information</Heading>
       <Flex justifyContent={'space-between'}>
         <Field
           name='givenName'
           children={({ state, handleChange }) => (
-            <PersonGivenNameFiled value={state.value} onChange={handleChange} />
+            <PersonGivenNameField value={state.value} onChange={handleChange} />
           )}
         />
         <Field
           name='middleName'
           children={({ state, handleChange }) => (
-            <PersonMiddleNameFiled
+            <PersonMiddleNameField
               value={state.value}
               onChange={handleChange}
             />
@@ -55,7 +58,7 @@ export function PersonContactForm(_props: PersonContactFormProps) {
         <Field
           name='familyName'
           children={({ state, handleChange }) => (
-            <PersonFamilyNameFiled
+            <PersonFamilyNameField
               value={state.value}
               onChange={handleChange}
             />

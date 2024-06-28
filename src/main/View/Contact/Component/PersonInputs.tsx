@@ -24,17 +24,17 @@ export type PersonListFieldProps = {
   onChange: (person: PersonInput[]) => void;
 };
 
-export type PersonGivenNameFiledProp = {
+export type PersonGivenNameFieldProp = {
   value: string;
   onChange: (givenName: string) => void;
 };
 
-export type PersonMiddleNameFiledProp = {
+export type PersonMiddleNameFieldProp = {
   value: string;
   onChange: (middleName: string) => void;
 };
 
-export type PersonFamilyNameFiledProp = {
+export type PersonFamilyNameFieldProp = {
   value: string;
   onChange: (familyName: string) => void;
 };
@@ -49,7 +49,7 @@ export type PersonGenderFieldProp = {
   onChange: (gender: string) => void;
 };
 
-export function PersonGivenNameFiled(props: PersonGivenNameFiledProp) {
+export function PersonGivenNameField(props: PersonGivenNameFieldProp) {
   const { value, onChange } = props;
   return (
     <>
@@ -62,7 +62,7 @@ export function PersonGivenNameFiled(props: PersonGivenNameFiledProp) {
     </>
   );
 }
-export function PersonMiddleNameFiled(props: PersonMiddleNameFiledProp) {
+export function PersonMiddleNameField(props: PersonMiddleNameFieldProp) {
   const { value, onChange } = props;
   return (
     <>
@@ -75,7 +75,7 @@ export function PersonMiddleNameFiled(props: PersonMiddleNameFiledProp) {
     </>
   );
 }
-export function PersonFamilyNameFiled(props: PersonFamilyNameFiledProp) {
+export function PersonFamilyNameField(props: PersonFamilyNameFieldProp) {
   const { value, onChange } = props;
   return (
     <>
@@ -139,15 +139,15 @@ export function PersonField(props: PersonFieldProps) {
   return (
     <Flex direction={'column'}>
       <Flex justifyContent={'space-between'}>
-        <PersonGivenNameFiled
+        <PersonGivenNameField
           value={value.givenName}
           onChange={(givenName) => onChange({ ...value, givenName })}
         />
-        <PersonMiddleNameFiled
+        <PersonMiddleNameField
           value={value.givenName}
           onChange={(middleName) => onChange({ ...value, middleName })}
         />
-        <PersonFamilyNameFiled
+        <PersonFamilyNameField
           value={value.givenName}
           onChange={(familyName) => onChange({ ...value, familyName })}
         />
