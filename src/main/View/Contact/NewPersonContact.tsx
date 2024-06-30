@@ -9,12 +9,12 @@ import { workspaceRoute } from '../Workspace/WorkspaceRoute.js';
 import { PersonContactForm } from './PersonContactForm.js';
 import { usePersonContactForm } from './UsePersonContactForm.js';
 
-export type NewContactProps = {};
+export type NewPersonContactProps = {};
 
 export const newPersonContactRoute = createRoute({
   getParentRoute: () => workspaceRoute,
-  path: '/new-person-contact',
-  component: NewContact,
+  path: '/contacts/new/individual',
+  component: NewPersonContact,
 });
 
 const CreateContactPerson = graphql(`
@@ -45,7 +45,7 @@ function useCreateContactPersonMutation(input: PersonInput, tenantId: string) {
   });
 }
 
-export function NewContact(_props: NewContactProps) {
+export function NewPersonContact(_props: NewPersonContactProps) {
   const { tenantId } = newPersonContactRoute.useParams();
 
   const form = usePersonContactForm(() => {

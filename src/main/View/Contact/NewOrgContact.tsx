@@ -9,15 +9,15 @@ import { workspaceRoute } from '../Workspace/WorkspaceRoute.js';
 import { OrgContactForm } from './OrgContactForm.js';
 import { useOrgContactForm } from './UseOrgContactForm.js';
 
-export type NewContactProps = {};
+export type NewOrgContactProps = {};
 
 export const newContactRoute = createRoute({
   getParentRoute: () => workspaceRoute,
-  path: '/new-contact',
-  component: NewContact,
+  path: '/contacts/new/organization',
+  component: NewOrgContact,
 });
 
-const createContactOrganization = graphql(`
+const query = graphql(`
   mutation CreateContactOrg($input: OrganizationInput!, $tenantId: String!) {
     createContactOrganization(input: $input, tenantId: $tenantId) {
       addresses {
@@ -49,9 +49,9 @@ const createContactOrganization = graphql(`
   }
 `);
 
-function createContactOrgMutation(input: OrganizationInput, tenantId: string) {
+function createContactOrg(input: OrganizationInput, tenantId: string) {
   return client.request({
-    document: createContactOrganization,
+    document: query,
     variables: {
       input,
       tenantId,
@@ -59,23 +59,23 @@ function createContactOrgMutation(input: OrganizationInput, tenantId: string) {
   });
 }
 
-function useCreateContactOrgMutation(
+function useCreateOrg(
   input: OrganizationInput,
   tenantId: string
 ) {
   return useMutation({
-    mutationFn: () => createContactOrgMutation(input, tenantId),
+    mutationFn: () => createContactOrg(input, tenantId),
   });
 }
 
-export function NewContact(_props: NewContactProps) {
+export function NewOrgContact(_props: NewOrgContactProps) {
   const { tenantId } = newContactRoute.useParams();
 
   const form = useOrgContactForm(() => {
     contacts.mutate();
   });
 
-  const contacts = useCreateContactOrgMutation(form.state.values, tenantId);
+  const contacts = useCreateOrg(form.state.values, tenantId);
 
   return (
     <View
