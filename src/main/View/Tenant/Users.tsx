@@ -1,4 +1,4 @@
-import { Heading, View } from '@adobe/react-spectrum';
+import { Flex, Heading, View } from '@adobe/react-spectrum';
 import { useQuery } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 
@@ -6,10 +6,12 @@ import { client, graphql } from '#shared/graphql.js';
 import { rootRoute } from '../../RootRoute.js';
 import { UserList } from './UserList.js';
 import { FailedGettingUsers } from './UsersListStatus.js';
+import { workspaceRoute } from '../Workspace/WorkspaceRoute.js';
+import { Sidebar } from '../../../Shell/Sidebar.js';
 
 export const userListRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/users/$tenantId',
+  getParentRoute: () => workspaceRoute,
+  path: '/users/',
   component: TenantUsers,
 });
 
@@ -54,20 +56,14 @@ export function TenantUsers() {
     }
   };
   return (
-    <View
-      data-cl='home'
-      backgroundColor={'gray-75'}
-      padding={'size-400'}
-      width={'size-6000'}
-      margin={'auto'}
-      marginTop={'size-400'}
-      borderColor={'gray-200'}
-      borderWidth={'thin'}
-    >
-      <Heading level={2} marginBottom={'size-200'}>
-        Tenants
-      </Heading>
-      {render()}
-    </View>
+    <Flex>
+      <Sidebar />
+      <View data-cl='home' padding={'size-400'} width={'size-6000'}>
+        <Heading level={2} marginBottom={'size-200'}>
+          Tenants
+        </Heading>
+        {render()}
+      </View>
+    </Flex>
   );
 }

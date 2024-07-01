@@ -4,6 +4,6 @@
     "rootDir": ".",
     "outDir": "../../dist/main"
   },
-  "include": ["./**/*"],
+  "include": ["./**/*", "../../Shell/Sidebar.tsx"],
   "references": [{ "path": "../shared/tsconfig.json" }]
 }

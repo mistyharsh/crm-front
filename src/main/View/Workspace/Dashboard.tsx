@@ -1,6 +1,7 @@
-import { Link } from '@adobe/react-spectrum';
+import { Flex, Link } from '@adobe/react-spectrum';
 import { createRoute, useLinkProps } from '@tanstack/react-router';
 
+import { Sidebar } from '../../../Shell/Sidebar.js';
 import { rootRoute } from '../../RootRoute.js';
 import { newContactRoute } from '../Contact/NewContact.js';
 import { workspaceRoute } from './WorkspaceRoute.js';
@@ -20,11 +21,14 @@ export function Dashboard() {
   }).href;
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>This is a protected route.</p>
-      <Link href={mainRouteHref}>Go back</Link>
-      <Link href={newContactHref}>New Contact</Link>
-    </div>
+    <Flex>
+      <Sidebar />
+      <div>
+        <h1>Dashboard</h1>
+        <p>This is a protected route.</p>
+        <Link href={mainRouteHref}>Go back</Link>
+        <Link href={newContactHref}>New Contact</Link>
+      </div>
+    </Flex>
   );
 }
