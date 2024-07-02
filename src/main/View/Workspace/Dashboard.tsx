@@ -2,7 +2,7 @@ import { Link } from '@adobe/react-spectrum';
 import { createRoute, useLinkProps } from '@tanstack/react-router';
 
 import { rootRoute } from '../../RootRoute.js';
-import { newContactRoute } from '../Contact/NewContact.js';
+import { newContactRoute } from '../Contact/NewOrgContact.js';
 import { workspaceRoute } from './WorkspaceRoute.js';
 
 export const dashboardRoute = createRoute({
