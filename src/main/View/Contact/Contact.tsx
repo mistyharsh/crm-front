@@ -1,4 +1,4 @@
-import { Flex, Heading, View } from '@adobe/react-spectrum';
+import { Heading, View } from '@adobe/react-spectrum';
 import { useQuery } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 
@@ -7,7 +7,6 @@ import { client, graphql } from '#shared/graphql.js';
 import { workspaceRoute } from '../Workspace/WorkspaceRoute.js';
 import { ContactList } from './ContactList.js';
 import { FailedGettingContacts } from './ContactListStatus.js';
-import { Sidebar } from '../../../Shell/Sidebar.js';
 
 export const contactListRoute = createRoute({
   getParentRoute: () => workspaceRoute,
@@ -66,19 +65,17 @@ export function Contacts() {
   };
 
   return (
-    <Flex>
-      <Sidebar />
-      <View
-        data-cl='home'
-        padding={'size-400'}
-        borderColor={'gray-200'}
-        width={'100%'}
-      >
-        <Heading level={2} marginBottom={'size-200'}>
-          Contacts
-        </Heading>
-        {render()}
-      </View>
-    </Flex>
+    <View
+      data-cl='home'
+      padding={'size-400'}
+      borderColor={'gray-200'}
+      width={'size-9000'}
+      backgroundColor={'gray-75'}
+    >
+      <Heading level={1} marginBottom={'size-200'}>
+        Contacts
+      </Heading>
+      {render()}
+    </View>
   );
 }

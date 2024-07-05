@@ -22,7 +22,7 @@ export function MainAppHeader(_props: MainAppHeaderProps) {
   return (
     <Header data-cl='main-header'>
       <View
-        backgroundColor={'gray-50'}
+        backgroundColor={'gray-75'}
         padding={'size-100'}
         borderColor={'gray-200'}
         borderBottomWidth={'thin'}
