@@ -61,13 +61,12 @@ export function Dashboard() {
   }).href;
 
   return (
-    <View margin={'size-500'}>
-      <View flex borderWidth={'thick'} width={'25%'} borderRadius={'medium'}>
+    <View width={'size-3000'}>
+      <View flex borderWidth={'thick'} borderRadius={'medium'}>
         <Flex
           direction={'column'}
           justifyContent={'center'}
           alignItems={'center'}
-          margin={'size-100'}
         >
           <Heading level={1}>Total Contacts</Heading>
           <Heading level={3}>{contacts.data?.getContacts.length}</Heading>

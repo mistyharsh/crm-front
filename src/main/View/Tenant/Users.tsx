@@ -54,7 +54,7 @@ export function TenantUsers() {
     }
   };
   return (
-    <View data-cl='home' padding={'size-400'} width={'size-6000'}>
+    <View data-cl='home' width={'size-6000'}>
       <Heading level={2} marginBottom={'size-200'}>
         Users
       </Heading>

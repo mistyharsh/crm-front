@@ -37,6 +37,12 @@ export default function config(env) {
           },
         },
       ],
+
+      parser: {
+        'css/auto': {
+          namedExports: false,
+        },
+      },
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
