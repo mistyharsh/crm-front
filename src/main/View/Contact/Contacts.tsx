@@ -67,14 +67,12 @@ export function Contacts() {
   return (
     <View
       data-cl='home'
-      backgroundColor={'gray-75'}
       padding={'size-400'}
-      margin={'auto'}
-      marginTop={'size-400'}
       borderColor={'gray-200'}
-      borderWidth={'thin'}
+      width={'size-9000'}
+      backgroundColor={'gray-75'}
     >
-      <Heading level={2} marginBottom={'size-200'}>
+      <Heading level={1} marginBottom={'size-200'}>
         Contacts
       </Heading>
       {render()}

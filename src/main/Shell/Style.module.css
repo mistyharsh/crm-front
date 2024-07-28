@@ -1,0 +1,36 @@
+.shell {
+  display: grid;
+  height: 100dvh;
+
+  grid-template-columns: 1fr;
+}
+
+.scrollArea {
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  padding: 1rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hamburgerButton {
+  background-color: pink;
+  height: 500px;
+}
+
+@media screen and (min-width: 1024px) {
+  .shell {
+    grid-template-columns: 256px 1fr;
+  }
+
+  .hamburgerButton {
+    display: none !important;
+  }
+}

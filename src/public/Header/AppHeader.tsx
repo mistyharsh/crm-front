@@ -7,6 +7,7 @@ import {
 } from '@adobe/react-spectrum';
 import Contrast from '@spectrum-icons/workflow/Contrast';
 import Light from '@spectrum-icons/workflow/Light';
+
 import { useContext } from 'react';
 
 import { AppContext } from '#shared/App/Provider.js';
@@ -22,7 +23,7 @@ export function AppHeader(_props: AppHeaderProps) {
   return (
     <Header>
       <View
-        backgroundColor={'gray-50'}
+        backgroundColor={'gray-75'}
         padding={'size-100'}
         borderColor={'gray-200'}
         borderBottomWidth={'thin'}

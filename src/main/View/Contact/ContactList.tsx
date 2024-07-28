@@ -46,7 +46,6 @@ export function ContactList(props: ContactListProps) {
   const columns = [
     { name: 'Name', uid: 'name' },
     { name: 'Type', uid: 'type' },
-    { name: 'Name', uid: 'name' },
     { name: 'Given Name', uid: 'givenName' },
     { name: 'Family Name', uid: 'familyName' },
     { name: 'Middle Name', uid: 'middleName' },
@@ -63,11 +62,7 @@ export function ContactList(props: ContactListProps) {
   return (
     <TableView aria-label='Table view for contacts'>
       <TableHeader columns={columns}>
-        {(column) => (
-          <Column key={column.uid} align={'start'}>
-            {column.name}
-          </Column>
-        )}
+        {(column) => <Column key={column.uid}>{column.name}</Column>}
       </TableHeader>
       <TableBody items={rows}>
         {(item) => <Row>{(columnKey) => <Cell>{item[columnKey]}</Cell>}</Row>}

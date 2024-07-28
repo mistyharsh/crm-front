@@ -1,13 +1,10 @@
-import { Outlet } from '@tanstack/react-router';
-
 import { App } from '#shared/App/App.js';
-import { MainAppHeader } from './Header/AppHeader.js';
+import { Shell } from './Shell/Shell.js';
 
 export function MainApp() {
   return (
     <App>
-      <MainAppHeader />
-      <Outlet />
+      <Shell />
     </App>
   );
 }

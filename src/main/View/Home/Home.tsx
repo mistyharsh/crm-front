@@ -46,10 +46,7 @@ export function Home() {
       backgroundColor={'gray-75'}
       padding={'size-400'}
       width={'size-6000'}
-      margin={'auto'}
       marginTop={'size-400'}
-      borderColor={'gray-200'}
-      borderWidth={'thin'}
     >
       <Heading level={2} marginBottom={'size-200'}>
         Select Workspace
