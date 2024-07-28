@@ -1,9 +1,9 @@
 import { createRouter } from '@tanstack/react-router';
 
 import { rootRoute } from './RootRoute.js';
-import { contactListRoute } from './View/Contact/Contact.js';
-import { newContactRoute } from './View/Contact/NewContact.js';
-import { newPersonContactRoute } from './View/Contact/NewPersonContactForm.js';
+import { contactListRoute } from './View/Contact/Contacts.js';
+import { newContactRoute } from './View/Contact/NewOrgContact.js';
+import { newPersonContactRoute } from './View/Contact/NewPersonContact.js';
 import { homeRoute } from './View/Home/Home.js';
 import { dashboardRoute } from './View/Workspace/Dashboard.js';
 import { workspaceRoute } from './View/Workspace/WorkspaceRoute.js';

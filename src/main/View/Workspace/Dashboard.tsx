@@ -5,7 +5,7 @@ import { createRoute, useLinkProps } from '@tanstack/react-router';
 import type { Page } from '#shared/gen/Api.js';
 import { client, graphql } from '#shared/graphql.js';
 import { rootRoute } from '../../RootRoute.js';
-import { newContactRoute } from '../Contact/NewContact.js';
+import { newContactRoute } from '../Contact/NewOrgContact.js';
 import { workspaceRoute } from './WorkspaceRoute.js';
 
 export const dashboardRoute = createRoute({

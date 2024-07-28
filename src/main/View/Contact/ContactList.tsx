@@ -52,7 +52,10 @@ export function ContactList(props: ContactListProps) {
   ];
 
   const rows = contacts.map((contact) => {
-    if (contact.name === undefined) return { ...contact, type: 'Organization' };
+    if (contact.name === undefined) {
+      return { ...contact, type: 'Organization' };
+    }
+
     return { ...contact, type: 'Organization People' };
   });
 
