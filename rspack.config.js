@@ -17,7 +17,7 @@ export default function config(env) {
     },
     output: {
       clean: true,
-      path: './dist',
+      path: path.join(process.cwd(), './dist'),
       module: true,
     },
     target: 'web',
@@ -41,6 +41,11 @@ export default function config(env) {
       parser: {
         'css/auto': {
           namedExports: false,
+        },
+      },
+      generator: {
+        'css/auto': {
+          localIdentName: '[id]-[local]',
         },
       },
     },
@@ -112,6 +117,7 @@ export default function config(env) {
       },
     },
     experiments: {
+      css: true,
       outputModule: true,
     },
   };

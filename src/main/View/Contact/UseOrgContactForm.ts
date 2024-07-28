@@ -1,5 +1,11 @@
 import { useForm, type FormApi } from '@tanstack/react-form';
-import type { AddressInput, EmailInput, OrganizationInput, PersonInput, PhoneInput } from '#shared/gen/Api.js';
+import type {
+  AddressInput,
+  EmailInput,
+  OrganizationInput,
+  PersonInput,
+  PhoneInput,
+} from '#shared/gen/Api.js';
 
 export type OrgInputFormApi = FormApi<OrganizationInputModel>;
 
@@ -19,7 +25,9 @@ const emptyValue: OrganizationInputModel = {
   phones: [],
 };
 
-export function useOrgContactForm(onSubmit: (value: OrganizationInput) => void): FormApi<OrganizationInputModel> {
+export function useOrgContactForm(
+  onSubmit: (value: OrganizationInput) => void
+): FormApi<OrganizationInputModel> {
   return useForm<OrganizationInputModel>({
     defaultValues: emptyValue,
     onSubmit: ({ value }) => {

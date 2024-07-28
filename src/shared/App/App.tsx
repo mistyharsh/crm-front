@@ -29,7 +29,7 @@ export function App(props: AppProps) {
         <Provider
           data-cl='app'
           scale='medium'
-          minHeight={'100vh'}
+          minHeight={'100dvh'}
           theme={defaultTheme}
           colorScheme={scheme}
           router={{ navigate }}
