@@ -17,7 +17,7 @@
   "author": "",
   "license": "SEE LICENSE IN LICENSE",
   "volta": {
-    "node": "20.11.0"
+    "node": "22.5.1"
   },
   "dependencies": {
     "@adobe/react-spectrum": "^3.36.1",

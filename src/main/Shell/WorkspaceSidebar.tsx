@@ -4,7 +4,7 @@ import UsersIcon from '@spectrum-icons/workflow/User';
 import ContactsIcon from '@spectrum-icons/workflow/UsersAdd';
 import { useLinkProps, useParams } from '@tanstack/react-router';
 
-import { contactListRoute } from '../View/Contact/Contact.js';
+import { contactListRoute } from '../View/Contact/Contacts.js';
 import { userListRoute } from '../View/Tenant/Users.js';
 import { dashboardRoute } from '../View/Workspace/Dashboard.js';
 
