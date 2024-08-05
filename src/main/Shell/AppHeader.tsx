@@ -32,7 +32,7 @@ export function AppHeader(props: HeaderProps) {
       borderBottomWidth={'thin'}
     >
       <ActionButton
-        UNSAFE_className={style.hamburgerButton}
+        UNSAFE_className={style.navButton}
         onPress={() => onSidebar(!isSidebar)}
       >
         <Rail />

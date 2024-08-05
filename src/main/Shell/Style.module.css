@@ -20,17 +20,12 @@
   align-items: center;
 }
 
-.hamburgerButton {
-  background-color: pink;
-  height: 500px;
-}
-
 @media screen and (min-width: 1024px) {
   .shell {
     grid-template-columns: 256px 1fr;
   }
 
-  .hamburgerButton {
-    display: none !important;
+  .navButton {
+    display: none;
   }
 }
