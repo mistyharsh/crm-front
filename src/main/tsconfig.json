@@ -5,5 +5,8 @@
     "outDir": "../../dist/main"
   },
   "include": ["./**/*"],
-  "references": [{ "path": "../shared/tsconfig.json" }]
+  "references": [
+    { "path": "../shared/tsconfig.json" },
+    { "path": "../api/tsconfig.json" }
+  ]
 }

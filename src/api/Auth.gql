@@ -1,0 +1,19 @@
+query Claim($code: String!) {
+  getInvitation(invitationCode: $code) {
+    id
+    email
+    firstName
+    lastName
+  }
+}
+
+mutation ForgotPassword($userName: String!) {
+  forgotPassword(userName: $userName)
+}
+
+query ResetPassword($token: String!) {
+  getResetToken(resetToken: $token) {
+    id
+    userId
+  }
+}

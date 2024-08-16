@@ -1,20 +1,13 @@
 {
   "compilerOptions": {
     "noEmit": true,
-    "strict": true,
-
-    "plugins": [
-      {
-        "name": "@0no-co/graphqlsp",
-        "schema": "./schema.graphql",
-        "tadaOutputLocation": "./src/shared/gen/graphql-env.d.ts"
-      }
-    ]
+    "strict": true
   },
   "references": [
+    { "path": "./src/api/tsconfig.json" },
     { "path": "./src/shared/tsconfig.json" },
     { "path": "./src/main/tsconfig.json" },
     { "path": "./src/public/tsconfig.json" }
   ],
-  "include": [],
+  "include": []
 }

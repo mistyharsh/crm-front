@@ -59,10 +59,7 @@ function createContactOrg(input: OrganizationInput, tenantId: string) {
   });
 }
 
-function useCreateOrg(
-  input: OrganizationInput,
-  tenantId: string
-) {
+function useCreateOrg(input: OrganizationInput, tenantId: string) {
   return useMutation({
     mutationFn: () => createContactOrg(input, tenantId),
   });

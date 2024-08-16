@@ -7,10 +7,13 @@
     "check:types": "tsc -b tsconfig.json",
     "build": "rspack build --env production",
     "dev": "rspack dev --env development",
-    "dev:gql": "graphql-codegen --c ./scripts/codegen.ts",
-    "dev:format": "prettier --write ./src"
+    "dev:gql": "npm run dev:gqlGen && npm run dev:gqlFormat",
+    "dev:gqlGen": "NODE_OPTIONS='--import tsx' graphql-codegen --c ./script/Codegen.ts",
+    "dev:gqlFormat": "prettier --write ./src/api",
+    "dev:format": "prettier --write ."
   },
   "imports": {
+    "#api/*": "./src/api/*",
     "#shared/*": "./src/shared/*"
   },
   "keywords": [],
@@ -36,14 +39,17 @@
     "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {
-    "@0no-co/graphqlsp": "^1.12.3",
     "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/typed-document-node": "^5.0.9",
+    "@graphql-codegen/typescript": "^4.0.9",
+    "@graphql-codegen/typescript-operations": "^4.2.3",
     "@rspack/cli": "^0.7.5",
     "@rspack/core": "^0.7.5",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "html-webpack-plugin": "^5.6.0",
     "prettier": "^3.2.5",
+    "tsx": "^4.17.0",
     "typescript": "^5.4.5"
   }
 }

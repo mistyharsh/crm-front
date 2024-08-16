@@ -33,15 +33,9 @@ export function Sidebar(props: SidebarProps) {
   }).href;
 
   return (
-    <View
-      elementType='nav'
-      UNSAFE_className={clsx(style.sidebar, state)}
-    >
+    <View elementType='nav' UNSAFE_className={clsx(style.sidebar, state)}>
       {state === 'open' && (
-        <div
-          onClick={onBackdrop}
-          className={clsx(style.overlay)}>
-        </div>
+        <div onClick={onBackdrop} className={clsx(style.overlay)}></div>
       )}
       <Flex
         direction={'column'}

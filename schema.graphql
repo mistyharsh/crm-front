@@ -55,10 +55,17 @@ type Mutation {
   acceptInvitation(inviteId: String!): Boolean!
   claimInvitation(inviteCode: String!, password: String!): Boolean!
 
-  """Create a new organization type contact"""
-  createContactOrganization(input: OrganizationInput!, tenantId: String!): Organization!
+  """
+  Create a new organization type contact
+  """
+  createContactOrganization(
+    input: OrganizationInput!
+    tenantId: String!
+  ): Organization!
 
-  """Create a new individual type contact"""
+  """
+  Create a new individual type contact
+  """
   createContactPerson(input: PersonInput!, tenantId: String!): Person!
   createTenant(input: NewTenantInput!): NewTenantResponse!
   forgotPassword(userName: String!): Boolean!
@@ -139,7 +146,9 @@ input PhoneInput {
 }
 
 type Query {
-  """Get all contacts"""
+  """
+  Get all contacts
+  """
   getContacts(page: Page!, tenantId: String!): [Contact!]!
   getInvitation(invitationCode: String!): Invitation!
   getMyTenants: [Tenant!]!

@@ -1,5 +1,0 @@
-{
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  "C_Cpp.intelliSenseEngineFallback": "disabled"
-}

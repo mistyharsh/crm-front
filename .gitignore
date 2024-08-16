@@ -10,7 +10,6 @@ node_modules/
 .stylelintcache
 *.tsbuildinfo
 
-
 # Output of 'npm pack'
 *.tgz
 
@@ -24,3 +23,6 @@ node_modules/
 
 # Generated artifacts
 dist
+
+# Editor
+.vscode

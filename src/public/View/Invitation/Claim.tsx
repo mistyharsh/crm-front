@@ -33,6 +33,7 @@ const claimInvitationQuery = graphql(`
   }
 `);
 
+
 function claimQuery(invitationCode: string) {
   return client.request({
     document: claimInvitationQuery,

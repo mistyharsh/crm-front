@@ -9,8 +9,7 @@ export function useSidebar(): UseSidebarProps {
   const isDesktop = useMediaQuery('(min-width: 1024px)');
   const [open, setOpen] = useState(false);
 
-  const state: SidebarState =
-    isDesktop ? 'static' : open ? 'open' : 'closed';
+  const state: SidebarState = isDesktop ? 'static' : open ? 'open' : 'closed';
 
   useEffect(() => {
     if (!isDesktop) {
