@@ -1,0 +1,15 @@
+query Tenants {
+  getMyTenants {
+    id
+    name
+    description
+  }
+}
+
+query GetUsers($tenantId: String!) {
+  getUsers(tenantId: $tenantId) {
+    firstName
+    lastName
+    id
+  }
+}

@@ -2,7 +2,7 @@ import { Heading, View } from '@adobe/react-spectrum';
 import { useQuery } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 
-import { client, graphql } from '#shared/graphql.js';
+import { execute } from '#api/Client.js';
 import { rootRoute } from '../../RootRoute.js';
 import { TenantList } from './TenantList.js';
 
@@ -12,20 +12,10 @@ export const homeRoute = createRoute({
   path: '/',
 });
 
-const query = graphql(`
-  query TenantList {
-    getMyTenants {
-      id
-      name
-      description
-    }
-  }
-`);
-
 function useTenantList() {
   return useQuery({
-    queryKey: ['tenantList'],
-    queryFn: () => client.request(query).then((data) => data.getMyTenants),
+    queryKey: ['Tenants'],
+    queryFn: () => execute('Tenants').then((data) => data.getMyTenants),
   });
 }
 

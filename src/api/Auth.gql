@@ -1,4 +1,4 @@
-query Claim($code: String!) {
+query Invitation($code: String!) {
   getInvitation(invitationCode: $code) {
     id
     email
@@ -7,13 +7,21 @@ query Claim($code: String!) {
   }
 }
 
-mutation ForgotPassword($userName: String!) {
-  forgotPassword(userName: $userName)
-}
-
-query ResetPassword($token: String!) {
+query GetResetTokenInfo($token: String!) {
   getResetToken(resetToken: $token) {
     id
     userId
   }
+}
+
+mutation ForgotPassword($userName: String!) {
+  forgotPassword(userName: $userName)
+}
+
+mutation Claim($code: String!, $password: String!) {
+  claimInvitation(inviteCode: $code, password: $password)
+}
+
+mutation ResetPassword($token: String!, $newPassword: String!) {
+  resetPassword(resetToken: $token, newPassword: $newPassword)
 }

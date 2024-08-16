@@ -4,10 +4,10 @@ import { useMutation } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 
 import type { OrganizationInput } from '#shared/gen/Api.js';
-import { client, graphql } from '#shared/graphql.js';
 import { workspaceRoute } from '../Workspace/WorkspaceRoute.js';
 import { OrgContactForm } from './OrgContactForm.js';
 import { useOrgContactForm } from './UseOrgContactForm.js';
+import { execute } from '#api/Client.js';
 
 export type NewOrgContactProps = {};
 
@@ -17,51 +17,9 @@ export const newContactRoute = createRoute({
   component: NewOrgContact,
 });
 
-const query = graphql(`
-  mutation CreateContactOrg($input: OrganizationInput!, $tenantId: String!) {
-    createContactOrganization(input: $input, tenantId: $tenantId) {
-      addresses {
-        house
-        isPrimary
-        landmark
-        postalCodeId
-        street
-      }
-      emails {
-        address
-        isPrimary
-      }
-      id
-      name
-      people {
-        dob
-        familyName
-        givenName
-        id
-        middleName
-      }
-      phones {
-        countryId
-        isPrimary
-        number
-      }
-    }
-  }
-`);
-
-function createContactOrg(input: OrganizationInput, tenantId: string) {
-  return client.request({
-    document: query,
-    variables: {
-      input,
-      tenantId,
-    },
-  });
-}
-
 function useCreateOrg(input: OrganizationInput, tenantId: string) {
   return useMutation({
-    mutationFn: () => createContactOrg(input, tenantId),
+    mutationFn: () => execute('CreateContactOrg', { input, tenantId }),
   });
 }
 

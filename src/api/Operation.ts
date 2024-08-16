@@ -87,11 +87,11 @@ export type PhoneInput = {
   number: Scalars['String']['input'];
 };
 
-export type ClaimQueryVariables = Exact<{
+export type InvitationQueryVariables = Exact<{
   code: Scalars['String']['input'];
 }>;
 
-export type ClaimQuery = {
+export type InvitationQuery = {
   getInvitation: {
     id: string;
     email: string;
@@ -100,27 +100,110 @@ export type ClaimQuery = {
   };
 };
 
+export type GetResetTokenInfoQueryVariables = Exact<{
+  token: Scalars['String']['input'];
+}>;
+
+export type GetResetTokenInfoQuery = {
+  getResetToken: { id: string; userId: string };
+};
+
 export type ForgotPasswordMutationVariables = Exact<{
   userName: Scalars['String']['input'];
 }>;
 
 export type ForgotPasswordMutation = { forgotPassword: boolean };
 
-export type ResetPasswordQueryVariables = Exact<{
-  token: Scalars['String']['input'];
+export type ClaimMutationVariables = Exact<{
+  code: Scalars['String']['input'];
+  password: Scalars['String']['input'];
 }>;
 
-export type ResetPasswordQuery = {
-  getResetToken: { id: string; userId: string };
+export type ClaimMutation = { claimInvitation: boolean };
+
+export type ResetPasswordMutationVariables = Exact<{
+  token: Scalars['String']['input'];
+  newPassword: Scalars['String']['input'];
+}>;
+
+export type ResetPasswordMutation = { resetPassword: boolean };
+
+export type GetContactsQueryVariables = Exact<{
+  page: Page;
+  tenantId: Scalars['String']['input'];
+}>;
+
+export type GetContactsQuery = {
+  getContacts: Array<
+    | { id: string; name: string }
+    | { id: string; givenName: string; familyName: string; middleName: string }
+  >;
 };
 
-const ClaimDocument = {
+export type CreateContactOrgMutationVariables = Exact<{
+  input: OrganizationInput;
+  tenantId: Scalars['String']['input'];
+}>;
+
+export type CreateContactOrgMutation = {
+  createContactOrganization: {
+    id: string;
+    name: string;
+    addresses: Array<{
+      house: string;
+      isPrimary: boolean;
+      landmark: string;
+      postalCodeId?: string | null;
+      street: string;
+    }>;
+    emails: Array<{ address: string; isPrimary: boolean }>;
+    people: Array<{
+      dob?: any | null;
+      familyName: string;
+      givenName: string;
+      id: string;
+      middleName: string;
+    }>;
+    phones: Array<{ countryId: string; isPrimary: boolean; number: string }>;
+  };
+};
+
+export type CreateContactPersonMutationVariables = Exact<{
+  input: PersonInput;
+  tenantId: Scalars['String']['input'];
+}>;
+
+export type CreateContactPersonMutation = {
+  createContactPerson: {
+    dob?: any | null;
+    familyName: string;
+    givenName: string;
+    id: string;
+    middleName: string;
+  };
+};
+
+export type TenantsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type TenantsQuery = {
+  getMyTenants: Array<{ id: string; name: string; description: string }>;
+};
+
+export type GetUsersQueryVariables = Exact<{
+  tenantId: Scalars['String']['input'];
+}>;
+
+export type GetUsersQuery = {
+  getUsers: Array<{ firstName: string; lastName: string; id: string }>;
+};
+
+const InvitationDocument = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'Claim' },
+      name: { kind: 'Name', value: 'Invitation' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
@@ -164,7 +247,62 @@ const ClaimDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<ClaimQuery, ClaimQueryVariables>;
+} as unknown as DocumentNode<InvitationQuery, InvitationQueryVariables>;
+const GetResetTokenInfoDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetResetTokenInfo' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'token' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'getResetToken' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'resetToken' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'token' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'userId' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetResetTokenInfoQuery,
+  GetResetTokenInfoQueryVariables
+>;
 const ForgotPasswordDocument = {
   kind: 'Document',
   definitions: [
@@ -213,12 +351,76 @@ const ForgotPasswordDocument = {
   ForgotPasswordMutation,
   ForgotPasswordMutationVariables
 >;
+const ClaimDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'Claim' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'code' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'password' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'claimInvitation' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'inviteCode' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'code' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'password' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'password' },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ClaimMutation, ClaimMutationVariables>;
 const ResetPasswordDocument = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
-      operation: 'query',
+      operation: 'mutation',
       name: { kind: 'Name', value: 'ResetPassword' },
       variableDefinitions: [
         {
@@ -235,13 +437,27 @@ const ResetPasswordDocument = {
             },
           },
         },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'newPassword' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
       ],
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
           {
             kind: 'Field',
-            name: { kind: 'Name', value: 'getResetToken' },
+            name: { kind: 'Name', value: 'resetPassword' },
             arguments: [
               {
                 kind: 'Argument',
@@ -251,12 +467,121 @@ const ResetPasswordDocument = {
                   name: { kind: 'Name', value: 'token' },
                 },
               },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'newPassword' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'newPassword' },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  ResetPasswordMutation,
+  ResetPasswordMutationVariables
+>;
+const GetContactsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetContacts' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'page' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Page' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'tenantId' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'getContacts' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'page' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'page' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'tenantId' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'tenantId' },
+                },
+              },
             ],
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'userId' } },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'ContactOrg' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'ContactPerson' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'givenName' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'familyName' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'middleName' },
+                      },
+                    ],
+                  },
+                },
               ],
             },
           },
@@ -264,13 +589,346 @@ const ResetPasswordDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<ResetPasswordQuery, ResetPasswordQueryVariables>;
+} as unknown as DocumentNode<GetContactsQuery, GetContactsQueryVariables>;
+const CreateContactOrgDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'CreateContactOrg' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'input' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'OrganizationInput' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'tenantId' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'createContactOrganization' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'input' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'input' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'tenantId' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'tenantId' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'addresses' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'house' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'isPrimary' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'landmark' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'postalCodeId' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'street' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'emails' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'address' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'isPrimary' },
+                      },
+                    ],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'people' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'dob' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'familyName' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'givenName' },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'middleName' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'phones' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'countryId' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'isPrimary' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'number' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CreateContactOrgMutation,
+  CreateContactOrgMutationVariables
+>;
+const CreateContactPersonDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'CreateContactPerson' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'input' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'PersonInput' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'tenantId' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'createContactPerson' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'input' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'input' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'tenantId' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'tenantId' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'dob' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'familyName' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'givenName' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'middleName' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CreateContactPersonMutation,
+  CreateContactPersonMutationVariables
+>;
+const TenantsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'Tenants' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'getMyTenants' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<TenantsQuery, TenantsQueryVariables>;
+const GetUsersDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetUsers' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'tenantId' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'getUsers' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'tenantId' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'tenantId' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'firstName' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'lastName' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetUsersQuery, GetUsersQueryVariables>;
 
 export const Query = {
-  Claim: ClaimDocument,
-  ResetPassword: ResetPasswordDocument,
+  Invitation: InvitationDocument,
+  GetResetTokenInfo: GetResetTokenInfoDocument,
+  GetContacts: GetContactsDocument,
+  Tenants: TenantsDocument,
+  GetUsers: GetUsersDocument,
 };
 
 export const Mutation = {
   ForgotPassword: ForgotPasswordDocument,
+  Claim: ClaimDocument,
+  ResetPassword: ResetPasswordDocument,
+  CreateContactOrg: CreateContactOrgDocument,
+  CreateContactPerson: CreateContactPersonDocument,
 };
+
+export const Operations = { ...Query, ...Mutation };

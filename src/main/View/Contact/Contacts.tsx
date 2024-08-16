@@ -3,10 +3,10 @@ import { useQuery } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 
 import type { Page } from '#shared/gen/Api.js';
-import { client, graphql } from '#shared/graphql.js';
 import { workspaceRoute } from '../Workspace/WorkspaceRoute.js';
 import { ContactList } from './ContactList.js';
 import { FailedGettingContacts } from './ContactListStatus.js';
+import { execute } from '#api/Client.js';
 
 export const contactListRoute = createRoute({
   getParentRoute: () => workspaceRoute,
@@ -14,44 +14,15 @@ export const contactListRoute = createRoute({
   component: Contacts,
 });
 
-const getContacts = graphql(`
-  query GetContacts($page: Page!, $tenantId: String!) {
-    getContacts(page: $page, tenantId: $tenantId) {
-      ... on ContactOrg {
-        id
-        name
-      }
-
-      ... on ContactPerson {
-        id
-        givenName
-        familyName
-        middleName
-      }
-    }
-  }
-`);
-
-function getContactQuery(page: Page, tenantId: string) {
-  return client.request({
-    document: getContacts,
-    variables: {
-      page,
-      tenantId,
-    },
-  });
-}
-
 function useGetContactQuery(page: Page, tenantId: string) {
   return useQuery({
     queryKey: ['contacts', page, tenantId],
-    queryFn: () => getContactQuery(page, tenantId),
+    queryFn: () => execute('GetContacts', { page, tenantId }),
   });
 }
 
 export function Contacts() {
   const { tenantId } = contactListRoute.useParams();
-
   const contacts = useGetContactQuery({ number: 0, size: 50 }, tenantId);
 
   const render = () => {

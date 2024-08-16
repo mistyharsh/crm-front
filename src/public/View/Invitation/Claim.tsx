@@ -5,7 +5,7 @@ import { createRoute, useLinkProps, useNavigate } from '@tanstack/react-router';
 
 import { useEffect } from 'react';
 
-import { client, graphql } from '#shared/graphql.js';
+import { execute } from '#api/Client.js';
 import { AuthView } from '../../Component/AuthView.js';
 import { rootRoute } from '../../RootRoute.js';
 import { loginRoute } from '../Login/Login.js';
@@ -22,53 +22,16 @@ export const invitationRoute = createRoute({
   component: ClaimInvitation,
 });
 
-const claimInvitationQuery = graphql(`
-  query ClaimQuery($code: String!) {
-    getInvitation(invitationCode: $code) {
-      id
-      email
-      firstName
-      lastName
-    }
-  }
-`);
-
-
-function claimQuery(invitationCode: string) {
-  return client.request({
-    document: claimInvitationQuery,
-    variables: {
-      code: invitationCode,
-    },
-  });
-}
-
-function useGetCodeInfo(code: string) {
+function useInvitation(code: string) {
   return useQuery({
     queryKey: ['claim', code],
-    queryFn: () => claimQuery(code),
+    queryFn: () => execute('Invitation', { code }),
   });
 }
 
-const claimMutation = graphql(`
-  mutation CLaimMutatioin($code: String!, $password: String!) {
-    claimInvitation(inviteCode: $code, password: $password)
-  }
-`);
-
-function claimInvitation(credentials: Credentials) {
-  return client.request({
-    document: claimMutation,
-    variables: {
-      code: credentials.code,
-      password: credentials.password,
-    },
-  });
-}
-
-function useClaimInvitation() {
+function useClaim() {
   return useMutation({
-    mutationFn: claimInvitation,
+    mutationFn:  (credentials: Credentials) => execute('Claim', credentials),
   });
 }
 
@@ -76,8 +39,8 @@ export function ClaimInvitation() {
   const { code } = invitationRoute.useParams();
   const loginHref = useLinkProps({ to: loginRoute.to }).href;
 
-  const info = useGetCodeInfo(code);
-  const claim = useClaimInvitation();
+  const info = useInvitation(code);
+  const claim = useClaim();
   const navigate = useNavigate();
 
   useEffect(() => {

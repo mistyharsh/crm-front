@@ -4,7 +4,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { createRoute, useLinkProps, useNavigate } from '@tanstack/react-router';
 import { useEffect } from 'react';
 
-import { client, graphql } from '#shared/graphql.js';
+import { execute } from '#api/Client.js';
 import { AuthView } from '../../Component/AuthView.js';
 import { rootRoute } from '../../RootRoute.js';
 import { loginRoute } from '../Login/Login.js';
@@ -21,51 +21,19 @@ export const resetRoute = createRoute({
   component: Reset,
 });
 
-// TODO: Types
-const resetPasswordMutation = graphql(`
-  mutation ResetPasswordMutation($token: String!, $newPassword: String!) {
-    resetPassword(resetToken: $token, newPassword: $newPassword)
-  }
-`);
-
-function resetPassword(credentials: ResetCredentials) {
-  return client.request({
-    document: resetPasswordMutation,
-    variables: {
-      token: credentials.token,
-      newPassword: credentials.password,
-    },
-  });
-}
-
 function useResetPassword() {
   return useMutation({
-    mutationFn: resetPassword,
-  });
-}
-
-const resetPasswordQuery = graphql(`
-  query ResetPasswordQuery($token: String!) {
-    getResetToken(resetToken: $token) {
-      id
-      userId
-    }
-  }
-`);
-
-function getTokenInfo(resetToken: string) {
-  return client.request({
-    document: resetPasswordQuery,
-    variables: {
-      token: resetToken,
-    },
+    mutationFn: (credentials: ResetCredentials) => execute('ResetPassword', {
+      token: credentials.token,
+      newPassword: credentials.password,
+    }),
   });
 }
 
 function useTokenInfo(token: string) {
   return useQuery({
     queryKey: ['reset', token],
-    queryFn: () => getTokenInfo(token),
+    queryFn: () => execute('GetResetTokenInfo', { token }),
   });
 }
 

@@ -21,7 +21,6 @@ export const plugin: PluginFunction<PluginConfig, string> = (
   documents: Types.DocumentFile[],
   config: PluginConfig
 ) => {
-  const identifierName = 'operations';
   const allAst = concatAST(documents.map((v) => v.document) as any);
   const allOperationsNames: Record<
     'query' | 'mutation' | 'subscription' | 'fragment',
@@ -78,5 +77,7 @@ export const plugin: PluginFunction<PluginConfig, string> = (
     })
     .filter(Boolean);
 
-  return '\n' + objectItems.join(';\n\n') + ';';
+  const all = 'export const Operations = { ...Query, ...Mutation };'
+
+  return '\n' + objectItems.join(';\n\n') + ';\n\n' + all;
 };

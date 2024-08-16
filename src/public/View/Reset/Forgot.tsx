@@ -3,12 +3,12 @@ import Login from '@spectrum-icons/workflow/Login';
 import { useMutation } from '@tanstack/react-query';
 import { createRoute, useLinkProps } from '@tanstack/react-router';
 
-import { client, graphql } from '#shared/graphql.js';
 import { AuthView } from '../../Component/AuthView.js';
 import { rootRoute } from '../../RootRoute.js';
 import { loginRoute } from '../Login/Login.js';
 import { EmailSent } from './ResetStatus.js';
 import { ForgotForm, type Credentials } from './ForgotForm.js';
+import { execute } from '#api/Client.js';
 
 export const forgotRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -16,28 +16,14 @@ export const forgotRoute = createRoute({
   component: Forgot,
 });
 
-const forgotPasswordMutation = graphql(`
-  mutation ForgotPasswordMutatuin($userName: String!) {
-    forgotPassword(userName: $userName)
-  }
-`);
-
-function forgotPassword(credentials: Credentials) {
-  return client.request({
-    document: forgotPasswordMutation,
-    variables: {
-      userName: credentials.email,
-    },
-  });
-}
 
 export function Forgot() {
   const { isPending, isSuccess, mutate } = useMutation({
-    mutationFn: forgotPassword,
+    mutationFn: (userName: string) => execute('ForgotPassword', { userName }),
   });
 
-  const handleChange = (userEmail: Credentials) => {
-    mutate(userEmail);
+  const handleChange = (credentials: Credentials) => {
+    mutate(credentials.email);
   };
 
   const loginHref = useLinkProps({ to: loginRoute.to }).href;

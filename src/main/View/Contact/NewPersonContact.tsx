@@ -3,8 +3,8 @@ import PersonalizationField from '@spectrum-icons/workflow/PersonalizationField'
 import { useMutation } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 
+import { execute } from '#api/Client.js';
 import type { PersonInput } from '#shared/gen/Api.js';
-import { client, graphql } from '#shared/graphql.js';
 import { workspaceRoute } from '../Workspace/WorkspaceRoute.js';
 import { PersonContactForm } from './PersonContactForm.js';
 import { usePersonContactForm } from './UsePersonContactForm.js';
@@ -17,31 +17,9 @@ export const newPersonContactRoute = createRoute({
   component: NewPersonContact,
 });
 
-const CreateContactPerson = graphql(`
-  mutation CreateContactPerson($input: PersonInput!, $tenantId: String!) {
-    createContactPerson(input: $input, tenantId: $tenantId) {
-      dob
-      familyName
-      givenName
-      id
-      middleName
-    }
-  }
-`);
-
-function createContactPersonMutation(input: PersonInput, tenantId: string) {
-  return client.request({
-    document: CreateContactPerson,
-    variables: {
-      input,
-      tenantId,
-    },
-  });
-}
-
 function useCreateContactPersonMutation(input: PersonInput, tenantId: string) {
   return useMutation({
-    mutationFn: () => createContactPersonMutation(input, tenantId),
+    mutationFn: () => execute('CreateContactPerson', { input, tenantId }),
   });
 }
 

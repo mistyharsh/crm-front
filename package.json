@@ -20,7 +20,7 @@
   "author": "",
   "license": "SEE LICENSE IN LICENSE",
   "volta": {
-    "node": "22.5.1"
+    "node": "22.6.0"
   },
   "dependencies": {
     "@adobe/react-spectrum": "^3.36.1",
@@ -33,7 +33,7 @@
     "gql.tada": "^1.7.5",
     "graphql": "^16.9.0",
     "graphql-request": "^7.1.0",
-    "ky": "^1.2.4",
+    "ky": "^1.6.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "usehooks-ts": "^3.1.0"

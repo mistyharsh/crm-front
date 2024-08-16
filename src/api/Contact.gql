@@ -1,0 +1,55 @@
+query GetContacts($page: Page!, $tenantId: String!) {
+  getContacts(page: $page, tenantId: $tenantId) {
+    ... on ContactOrg {
+      id
+      name
+    }
+
+    ... on ContactPerson {
+      id
+      givenName
+      familyName
+      middleName
+    }
+  }
+}
+
+mutation CreateContactOrg($input: OrganizationInput!, $tenantId: String!) {
+  createContactOrganization(input: $input, tenantId: $tenantId) {
+    addresses {
+      house
+      isPrimary
+      landmark
+      postalCodeId
+      street
+    }
+    emails {
+      address
+      isPrimary
+    }
+    id
+    name
+    people {
+      dob
+      familyName
+      givenName
+      id
+      middleName
+    }
+    phones {
+      countryId
+      isPrimary
+      number
+    }
+  }
+}
+
+mutation CreateContactPerson($input: PersonInput!, $tenantId: String!) {
+  createContactPerson(input: $input, tenantId: $tenantId) {
+    dob
+    familyName
+    givenName
+    id
+    middleName
+  }
+}
