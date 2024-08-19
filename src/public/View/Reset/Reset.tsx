@@ -23,10 +23,11 @@ export const resetRoute = createRoute({
 
 function useResetPassword() {
   return useMutation({
-    mutationFn: (credentials: ResetCredentials) => execute('ResetPassword', {
-      token: credentials.token,
-      newPassword: credentials.password,
-    }),
+    mutationFn: (credentials: ResetCredentials) =>
+      execute('ResetPassword', {
+        token: credentials.token,
+        newPassword: credentials.password,
+      }),
   });
 }
 

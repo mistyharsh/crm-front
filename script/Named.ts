@@ -1,9 +1,9 @@
 import { capitalCase } from 'change-case-all';
-import { concatAST, GraphQLSchema } from 'graphql';
+import { concatAST, GraphQLSchema, type ASTNode, type NamedTypeNode, type OperationDefinitionNode } from 'graphql';
 import {
   oldVisit,
-  PluginFunction,
-  Types,
+  type PluginFunction,
+  type Types,
 } from '@graphql-codegen/plugin-helpers';
 
 // Shamelessly copied from `@graphql-codegen/named-operations-object`
@@ -17,9 +17,9 @@ const suffixes = {
 };
 
 export const plugin: PluginFunction<PluginConfig, string> = (
-  schema: GraphQLSchema,
+  _schema: GraphQLSchema,
   documents: Types.DocumentFile[],
-  config: PluginConfig
+  _config: PluginConfig
 ) => {
   const allAst = concatAST(documents.map((v) => v.document) as any);
   const allOperationsNames: Record<
@@ -32,21 +32,22 @@ export const plugin: PluginFunction<PluginConfig, string> = (
     fragment: new Set(),
   };
 
-  const duplicateOperationNames = [];
+  const duplicateOperationNames: string[] = [];
 
   oldVisit(allAst, {
     enter: {
-      OperationDefinition: (node) => {
+      OperationDefinition: (node: OperationDefinitionNode) => {
         if (node.name?.value) {
           if (allOperationsNames[node.operation].has(node.name.value)) {
             // @ts-ignore
             duplicateOperationNames.push(node.name.value);
             return;
           }
+
           allOperationsNames[node.operation].add(node.name.value);
         }
       },
-      FragmentDefinition: (node) => {
+      FragmentDefinition: (node: NamedTypeNode) => {
         allOperationsNames.fragment.add(node.name.value);
       },
     },
@@ -60,8 +61,9 @@ export const plugin: PluginFunction<PluginConfig, string> = (
 
   const objectItems = Object.keys(allOperationsNames)
     .map((operationType) => {
-      const relevantOperations: Set<string> = allOperationsNames[operationType];
-      const suffix = suffixes[operationType];
+      const ot = operationType as keyof typeof suffixes;
+      const relevantOperations: Set<string> = allOperationsNames[ot];
+      const suffix = suffixes[ot];
 
       if (relevantOperations && relevantOperations.size > 0) {
         const rootFieldName = capitalCase(operationType);
@@ -77,7 +79,7 @@ export const plugin: PluginFunction<PluginConfig, string> = (
     })
     .filter(Boolean);
 
-  const all = 'export const Operations = { ...Query, ...Mutation };'
+  const all = 'export const Operations = { ...Query, ...Mutation };';
 
   return '\n' + objectItems.join(';\n\n') + ';\n\n' + all;
 };

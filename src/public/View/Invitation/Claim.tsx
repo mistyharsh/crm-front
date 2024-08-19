@@ -31,7 +31,7 @@ function useInvitation(code: string) {
 
 function useClaim() {
   return useMutation({
-    mutationFn:  (credentials: Credentials) => execute('Claim', credentials),
+    mutationFn: (credentials: Credentials) => execute('Claim', credentials),
   });
 }
 

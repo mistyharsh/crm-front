@@ -16,8 +16,8 @@ export const userListRoute = createRoute({
 function useGetUserQuery(tenantId: string) {
   return useQuery({
     queryKey: ['users', tenantId],
-    queryFn: () => execute('GetUsers', { tenantId })
-      .then((data) => data.getUsers),
+    queryFn: () =>
+      execute('GetUsers', { tenantId }).then((data) => data.getUsers),
   });
 }
 

@@ -1,6 +1,6 @@
 import path from 'node:path';
 
-import HTMLWebpackPlugin from 'html-webpack-plugin';
+import rspack from '@rspack/core';
 
 const PORT = 8891;
 const BACKEND = 'http://localhost:8890';
@@ -57,7 +57,7 @@ export default function config(env) {
     },
     plugins: [
       // App behind authentication.
-      new HTMLWebpackPlugin({
+      new rspack.HtmlRspackPlugin({
         template: './index.html',
         filename: 'index.html',
         scriptLoading: 'module',
@@ -65,7 +65,7 @@ export default function config(env) {
       }),
 
       // App without authentication.
-      new HTMLWebpackPlugin({
+      new rspack.HtmlRspackPlugin({
         template: './index.html',
         filename: 'public.html',
         scriptLoading: 'module',

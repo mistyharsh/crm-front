@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "check:types": "tsc -b tsconfig.json",
-    "build": "rspack build --env production",
     "dev": "rspack dev --env development",
+    "dev:storybook": "storybook dev -p 6006",
     "dev:gql": "npm run dev:gqlGen && npm run dev:gqlFormat",
     "dev:gqlGen": "NODE_OPTIONS='--import tsx' graphql-codegen --c ./script/Codegen.ts",
     "dev:gqlFormat": "prettier --write ./src/api",
-    "dev:format": "prettier --write ."
+    "dev:format": "prettier --write .",
+    "build": "rspack build --env production",
+    "build:storybook": "storybook build"
   },
   "imports": {
     "#api/*": "./src/api/*",
@@ -34,6 +36,7 @@
     "graphql": "^16.9.0",
     "graphql-request": "^7.1.0",
     "ky": "^1.6.0",
+    "lucide-react": "^0.428.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "usehooks-ts": "^3.1.0"
@@ -43,12 +46,21 @@
     "@graphql-codegen/typed-document-node": "^5.0.9",
     "@graphql-codegen/typescript": "^4.0.9",
     "@graphql-codegen/typescript-operations": "^4.2.3",
-    "@rspack/cli": "^0.7.5",
-    "@rspack/core": "^0.7.5",
+    "@rspack/cli": "^1.0.0-beta.5",
+    "@rspack/core": "^1.0.0-beta.5",
+    "@storybook/addon-essentials": "^8.2.9",
+    "@storybook/addon-interactions": "^8.2.9",
+    "@storybook/addon-links": "^8.2.9",
+    "@storybook/addon-onboarding": "^8.2.9",
+    "@storybook/addon-webpack5-compiler-swc": "^1.0.5",
+    "@storybook/blocks": "^8.2.9",
+    "@storybook/react": "^8.2.9",
+    "@storybook/test": "^8.2.9",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "html-webpack-plugin": "^5.6.0",
     "prettier": "^3.2.5",
+    "storybook": "^8.2.9",
+    "storybook-react-rsbuild": "^0.0.14",
     "tsx": "^4.17.0",
     "typescript": "^5.4.5"
   }

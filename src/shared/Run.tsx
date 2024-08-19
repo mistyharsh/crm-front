@@ -2,7 +2,7 @@ import { RouterProvider, type Router } from '@tanstack/react-router';
 import { StrictMode, createElement } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import './style.css';
+import './Reset.css';
 
 export type RunOptions = {
   router: Router<any, any>;

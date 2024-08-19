@@ -7,7 +7,8 @@
     { "path": "./src/api/tsconfig.json" },
     { "path": "./src/shared/tsconfig.json" },
     { "path": "./src/main/tsconfig.json" },
-    { "path": "./src/public/tsconfig.json" }
+    { "path": "./src/public/tsconfig.json" },
+    { "path": "./tsconfig.infra.json" }
   ],
   "include": []
 }

@@ -1,0 +1,20 @@
+{
+  "extends": "./config/tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../dist/infra",
+    "rootDir": ".",
+
+    "esModuleInterop": false,
+    "allowJs": true,
+  },
+  "include": [
+    "./rspack.config.js",
+    "./script/**/*",
+    "./.storybook/**/*"
+  ],
+  "references": [
+    {
+      "path": "./src/shared/tsconfig.json"
+    }
+  ]
+}

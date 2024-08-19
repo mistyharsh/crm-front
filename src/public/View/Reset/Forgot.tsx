@@ -3,19 +3,18 @@ import Login from '@spectrum-icons/workflow/Login';
 import { useMutation } from '@tanstack/react-query';
 import { createRoute, useLinkProps } from '@tanstack/react-router';
 
+import { execute } from '#api/Client.js';
 import { AuthView } from '../../Component/AuthView.js';
 import { rootRoute } from '../../RootRoute.js';
 import { loginRoute } from '../Login/Login.js';
-import { EmailSent } from './ResetStatus.js';
 import { ForgotForm, type Credentials } from './ForgotForm.js';
-import { execute } from '#api/Client.js';
+import { EmailSent } from './ResetStatus.js';
 
 export const forgotRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/forgot-password',
   component: Forgot,
 });
-
 
 export function Forgot() {
   const { isPending, isSuccess, mutate } = useMutation({
