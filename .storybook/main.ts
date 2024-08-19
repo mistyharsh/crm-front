@@ -17,7 +17,9 @@ const config: StorybookConfig = {
   },
   rsbuildFinal(config, { configType }) {
     const production = configType === 'PRODUCTION';
-    const rsPack = rspackConfigFn({ production });
+
+    // TODO: Work more.
+    const _rsPack = rspackConfigFn({ production });
 
     return config;
   },
