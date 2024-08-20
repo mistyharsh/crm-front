@@ -45,7 +45,7 @@ export default function config(env) {
       },
       generator: {
         'css/auto': {
-          localIdentName: '[id]-[local]',
+          localIdentName: '[uniqueName]-[id]-[local]',
         },
       },
     },

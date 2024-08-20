@@ -1,8 +1,11 @@
 import { Provider, defaultTheme } from '@adobe/react-spectrum';
+import type { ColorScheme } from '@react-types/provider';
 import type { Preview } from '@storybook/react';
 
 // Side effects imports should be at the top.
 import '#shared/Reset.css';
+import type { ReactNode } from 'react';
+
 
 const preview: Preview = {
   globalTypes: {
@@ -11,10 +14,10 @@ const preview: Preview = {
       description: 'Global color scheme for components',
       defaultValue: 'dark',
       toolbar: {
-        icon: 'circlehollow',
         items: [
-          { value: 'light', title: 'Light', right: '🔆', icon: 'circle' },
-          { value: 'dark', title: 'Dark', right: '🔅', icon: 'circlehollow' },
+          { value: 'light', title: 'Light', right: '🔆', icon: 'lightning' },
+          { value: 'dark', title: 'Dark', right: '🔅', icon: 'lightningoff' },
+          { value: 'both', title: 'Side-by-side', right: '䷖', icon: 'mirror' },
         ],
       },
     },
@@ -31,18 +34,31 @@ const preview: Preview = {
     function withAdobe(Story, context) {
       const colorScheme = context.globals.colorScheme || 'dark';
 
-      return (
-        <Provider
-          scale='medium'
-          minHeight={'100dvh'}
-          theme={defaultTheme}
-          colorScheme={colorScheme}
-        >
-          <Story />
-        </Provider>
-      );
+      if (colorScheme === 'both') {
+        return (
+          <div style={{ display: 'flex', gap: '4rem' }}>
+            {wrapProvider('light', <Story />)}
+            {wrapProvider('dark', <Story />)}
+          </div>
+        );
+      }
+
+      return wrapProvider(colorScheme, <Story />);
     },
   ],
 };
+
+function wrapProvider(scheme: ColorScheme, children: ReactNode) {
+  return (
+    <Provider
+      data-cl={'Provider'}
+      scale='medium'
+      theme={defaultTheme}
+      colorScheme={scheme}
+    >
+      {children}
+    </Provider>
+  );
+}
 
 export default preview;

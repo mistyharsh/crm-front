@@ -26,6 +26,8 @@ export function LoginForm(props: LoginFormProps) {
 
   return (
     <Form
+      minWidth={240}
+      data-cl='LoginForm'
       necessityIndicator='icon'
       validationBehavior='native'
       onSubmit={handleChange}
