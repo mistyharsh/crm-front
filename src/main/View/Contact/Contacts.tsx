@@ -2,7 +2,7 @@ import { Heading, View } from '@adobe/react-spectrum';
 import { useQuery } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 
-import type { Page } from '#shared/gen/Api.js';
+import type { Page } from '#api/Operation.js';
 import { workspaceRoute } from '../Workspace/WorkspaceRoute.js';
 import { ContactList } from './ContactList.js';
 import { FailedGettingContacts } from './ContactListStatus.js';

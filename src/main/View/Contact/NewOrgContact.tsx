@@ -3,7 +3,7 @@ import PersonalizationField from '@spectrum-icons/workflow/PersonalizationField'
 import { useMutation } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 
-import type { OrganizationInput } from '#shared/gen/Api.js';
+import type { OrganizationInput } from '#api/Operation.js';
 import { workspaceRoute } from '../Workspace/WorkspaceRoute.js';
 import { OrgContactForm } from './OrgContactForm.js';
 import { useOrgContactForm } from './UseOrgContactForm.js';

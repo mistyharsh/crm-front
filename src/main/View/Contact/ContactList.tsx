@@ -10,7 +10,7 @@ import {
 } from '@adobe/react-spectrum';
 import SocialNetwork from '@spectrum-icons/workflow/SocialNetwork';
 
-import type { Contact } from '#shared/gen/Api.js';
+import type { Contact } from '#api/Operation.js';
 
 export type ContactListProps = {
   contacts: Contact[];

@@ -1,6 +1,6 @@
 import { Button, Checkbox, Flex, TextField, View } from '@adobe/react-spectrum';
 
-import type { EmailInput, PhoneInput } from '#shared/gen/Api.js';
+import type { EmailInput, PhoneInput } from '#api/Operation.js';
 import { update } from '#shared/Util/Array.js';
 
 export type EmailFieldProps = {

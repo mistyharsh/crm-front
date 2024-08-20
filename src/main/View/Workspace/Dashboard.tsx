@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { createRoute, useLinkProps } from '@tanstack/react-router';
 
 import { execute } from '#api/Client.js';
-import type { Page } from '#shared/gen/Api.js';
+import type { Page } from '#api/Operation.js';
 import { rootRoute } from '../../RootRoute.js';
 import { newContactRoute } from '../Contact/NewOrgContact.js';
 import { workspaceRoute } from './WorkspaceRoute.js';

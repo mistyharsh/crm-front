@@ -5,7 +5,7 @@ import type {
   OrganizationInput,
   PersonInput,
   PhoneInput,
-} from '#shared/gen/Api.js';
+} from '#api/Operation.js';
 
 export type OrgInputFormApi = FormApi<OrganizationInputModel>;
 

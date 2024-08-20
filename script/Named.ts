@@ -1,5 +1,5 @@
 import { capitalCase } from 'change-case-all';
-import { concatAST, GraphQLSchema, type ASTNode, type NamedTypeNode, type OperationDefinitionNode } from 'graphql';
+import { concatAST, GraphQLSchema, type NamedTypeNode, type OperationDefinitionNode } from 'graphql';
 import {
   oldVisit,
   type PluginFunction,

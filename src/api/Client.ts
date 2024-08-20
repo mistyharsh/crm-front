@@ -6,6 +6,8 @@ import { Operations } from './Operation.js';
 
 export type ApiOperations = typeof Operations;
 
+export * from './Operation.js';
+
 export async function execute<
   Operation extends keyof ApiOperations,
   TResult extends ApiOperations[Operation] extends TypedDocumentNode<

@@ -19,7 +19,7 @@ const config: CodegenConfig = {
       config: {
         // documentMode: 'string',
         enumsAsTypes: true,
-        onlyOperationTypes: true,
+        // onlyOperationTypes: true,
         skipTypename: true,
         useTypeImports: true,
       },

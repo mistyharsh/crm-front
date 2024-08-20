@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 
 import { execute } from '#api/Client.js';
-import type { PersonInput } from '#shared/gen/Api.js';
+import type { PersonInput } from '#api/Operation.js';
 import { workspaceRoute } from '../Workspace/WorkspaceRoute.js';
 import { PersonContactForm } from './PersonContactForm.js';
 import { usePersonContactForm } from './UsePersonContactForm.js';

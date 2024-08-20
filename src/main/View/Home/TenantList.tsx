@@ -2,7 +2,7 @@ import { Item, ListView, Text, View } from '@adobe/react-spectrum';
 import SocialNetwork from '@spectrum-icons/workflow/SocialNetwork';
 import { useRouter } from '@tanstack/react-router';
 
-import type { Tenant } from '#shared/gen/Api.js';
+import type { Tenant } from '#api/Operation.js';
 
 export type TenantListProps = {
   tenants: Tenant[];

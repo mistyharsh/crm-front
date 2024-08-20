@@ -9,7 +9,7 @@ import {
   View,
 } from '@adobe/react-spectrum';
 
-import type { PersonInput } from '#shared/gen/Api.js';
+import type { PersonInput } from '#api/Operation.js';
 import { update } from '#shared/Util/Array.js';
 import { AddressListField } from './AddressField';
 import { EmailListField, PhoneListField } from './ContactInformationFields';

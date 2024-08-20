@@ -1,6 +1,6 @@
 import { Button, Flex, TextField, View } from '@adobe/react-spectrum';
 
-import type { AddressInput } from '#shared/gen/Api.js';
+import type { AddressInput } from '#api/Operation.js';
 import { update } from '#shared/Util/Array.js';
 
 export type AddressFieldProps = {

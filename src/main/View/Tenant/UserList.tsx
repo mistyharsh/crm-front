@@ -1,7 +1,7 @@
 import { Flex, Item, ListView, Text } from '@adobe/react-spectrum';
 import SocialNetwork from '@spectrum-icons/workflow/SocialNetwork';
 
-import type { User } from '#shared/gen/Api.js';
+import type { User } from '#api/Operation.js';
 
 export type UserListProps = {
   users: User[];

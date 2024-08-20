@@ -5,7 +5,7 @@ import type {
   EmailInput,
   PersonInput,
   PhoneInput,
-} from '#shared/gen/Api.js';
+} from '#api/Operation.js';
 
 export type PersonInputFormApi = FormApi<PersonInputModel>;
 

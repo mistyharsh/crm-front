@@ -32,7 +32,6 @@
     "@tanstack/react-query": "^5.51.21",
     "@tanstack/react-router": "^1.45.11",
     "clsx": "^2.1.1",
-    "gql.tada": "^1.7.5",
     "graphql": "^16.9.0",
     "graphql-request": "^7.1.0",
     "ky": "^1.6.0",
