@@ -1,13 +1,6 @@
 import { Icon, type IconProps } from '@adobe/react-spectrum';
-import {
-  Camera as LCamera,
-  Apple as LApple,
-  type LucideProps
-} from 'lucide-react';
-import type { CSSProperties, FC } from 'react';
-
-export const Camera = withIcon(LCamera);
-export const Apple = withIcon(LApple);
+import type { LucideProps } from 'lucide-react';
+import { forwardRef, type CSSProperties, type FC } from 'react';
 
 const strokes: Record<NonNullable<IconProps['size']>, number> = {
   XXS: 2,
@@ -18,7 +11,6 @@ const strokes: Record<NonNullable<IconProps['size']>, number> = {
   XL: 1,
   XXL: 1,
 };
-
 
 export type IconWrapperProps = {
   size?: IconProps['size'];
@@ -31,7 +23,7 @@ export type IconWrapperProps = {
  */
 export function withIcon(LucideIcon: FC<LucideProps>) {
 
-  function Wrapper(props: IconWrapperProps) {
+  const Wrapper = forwardRef<SVGSVGElement, IconWrapperProps>(function Wrapper(props, ref) {
     const { size, ...rest } = props;
 
     const strokeWidth = strokes[size ?? 'M'];
@@ -42,17 +34,18 @@ export function withIcon(LucideIcon: FC<LucideProps>) {
     };
 
     return (
-      <LucideIcon {...rest} style={style} strokeWidth={strokeWidth} />
+      <LucideIcon ref={ref} {...rest} style={style} strokeWidth={strokeWidth} />
     );
-  }
+  });
 
-  const IconWrapper = function(props: Omit<IconProps, 'children'>) {
+  const IconWrapper = forwardRef<SVGSVGElement, Omit<IconProps, 'children'>>(function IconWrapper(props, ref) {
+
     return (
       <Icon {...props}>
-        <Wrapper size={props.size} />
+        <Wrapper size={props.size} ref={ref} />
       </Icon>
     );
-  };
+  });
 
   IconWrapper.displayName = LucideIcon.displayName;
 

@@ -1,7 +1,7 @@
 import type { IconProps } from '@adobe/react-spectrum';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Apple, Camera } from './Icon.js';
+import { Apple, Camera } from './Icons.js';
 import type { FC } from 'react';
 
 const meta = {
