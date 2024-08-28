@@ -1,4 +1,8 @@
-import { createRouter } from '@tanstack/react-router';
+import {
+  createRouter,
+  type NavigateOptions,
+  type ToOptions,
+} from '@tanstack/react-router';
 
 import { homeRoute, rootRoute } from './RootRoute.js';
 import { invitationRoute } from './View/Invitation/Claim.js';
@@ -22,5 +26,12 @@ export const router = createRouter({
 declare module '@tanstack/react-router' {
   interface Register {
     router: typeof router;
+  }
+}
+
+declare module '@adobe/react-spectrum' {
+  interface RouterConfig {
+    href: ToOptions;
+    routerOptions: Omit<NavigateOptions, keyof ToOptions>;
   }
 }

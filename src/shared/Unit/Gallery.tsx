@@ -2,10 +2,10 @@ import { Canvas } from '@storybook/blocks';
 
 import * as Stories from './Icon.story.js';
 
-
 export function Gallery() {
-  const filtered = Object.values(Stories)
-    .filter((Story) => Story !== Stories.default);
+  const filtered = Object.values(Stories).filter(
+    (Story) => Story !== Stories.default
+  );
 
   return (
     <div
@@ -17,7 +17,6 @@ export function Gallery() {
       }}
     >
       {filtered.map((Story, index) => {
-
         console.log(Story);
 
         return (

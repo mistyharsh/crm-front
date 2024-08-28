@@ -2,7 +2,7 @@ import { Outlet } from '@tanstack/react-router';
 
 import { AppHeader } from './AppHeader.js';
 import { Sidebar } from './Sidebar.js';
-import { useSidebar } from './useSidebar.js';
+import { useSidebar } from './UseSidebar.js';
 
 import style from './Style.module.css';
 

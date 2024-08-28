@@ -11,7 +11,7 @@ const preview: Preview = {
     colorScheme: {
       name: 'Color Scheme',
       description: 'Global color scheme for components',
-      defaultValue: 'dark',
+      defaultValue: 'both',
       toolbar: {
         items: [
           { value: 'light', title: 'Light', right: '🔆', icon: 'lightning' },

@@ -5,7 +5,7 @@ import Rail from '@spectrum-icons/workflow/Rail';
 import { useContext } from 'react';
 
 import { AppContext } from '#shared/App/Provider.js';
-import type { SidebarState } from './useSidebar';
+import type { SidebarState } from './UseSidebar';
 
 import style from './Style.module.css';
 

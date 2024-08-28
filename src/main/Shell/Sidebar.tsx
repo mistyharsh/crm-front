@@ -1,9 +1,8 @@
 import { Flex, Heading, Link, View } from '@adobe/react-spectrum';
-import { useLinkProps, useMatch } from '@tanstack/react-router';
+import { useMatch } from '@tanstack/react-router';
 import clsx from 'clsx';
 
-import { homeRoute } from '../View/Home/Home.js';
-import type { SidebarState } from './useSidebar.js';
+import type { SidebarState } from './UseSidebar.js';
 import { WorkspaceSidebar } from './WorkspaceSidebar.js';
 
 import style from './Sidebar.module.css';
@@ -27,11 +26,6 @@ export function Sidebar(props: SidebarProps) {
     onVisible(false);
   };
 
-  // TODO: Better integration
-  const homeHref = useLinkProps({
-    to: homeRoute.to,
-  }).href;
-
   return (
     <View elementType='nav' UNSAFE_className={clsx(style.sidebar, state)}>
       {state === 'open' && (
@@ -45,7 +39,7 @@ export function Sidebar(props: SidebarProps) {
       >
         <Link
           UNSAFE_className={style.heading}
-          href={homeHref}
+          href={{ to: '/' }}
           variant='secondary'
           isQuiet
         >

@@ -40,7 +40,7 @@ export const Primary: Story = {
   render: (props) => <Camera {...props} />,
   tags: ['dev', 'autodocs'],
   parameters: {
-    layout: 'centered'
+    layout: 'centered',
   },
 };
 

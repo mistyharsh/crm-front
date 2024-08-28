@@ -22,30 +22,37 @@ export type IconWrapperProps = {
  * icons so that Lucide Icons can respect Spectrum dimensions and colors.
  */
 export function withIcon(LucideIcon: FC<LucideProps>) {
+  const Wrapper = forwardRef<SVGSVGElement, IconWrapperProps>(
+    function Wrapper(props, ref) {
+      const { size, ...rest } = props;
 
-  const Wrapper = forwardRef<SVGSVGElement, IconWrapperProps>(function Wrapper(props, ref) {
-    const { size, ...rest } = props;
+      const strokeWidth = strokes[size ?? 'M'];
 
-    const strokeWidth = strokes[size ?? 'M'];
+      const style = {
+        ...props.style,
+        fill: 'none',
+      };
 
-    const style = {
-      ...props.style,
-      fill: 'none',
-    };
+      return (
+        <LucideIcon
+          ref={ref}
+          {...rest}
+          style={style}
+          strokeWidth={strokeWidth}
+        />
+      );
+    }
+  );
 
-    return (
-      <LucideIcon ref={ref} {...rest} style={style} strokeWidth={strokeWidth} />
-    );
-  });
-
-  const IconWrapper = forwardRef<SVGSVGElement, Omit<IconProps, 'children'>>(function IconWrapper(props, ref) {
-
-    return (
-      <Icon {...props}>
-        <Wrapper size={props.size} ref={ref} />
-      </Icon>
-    );
-  });
+  const IconWrapper = forwardRef<SVGSVGElement, Omit<IconProps, 'children'>>(
+    function IconWrapper(props, ref) {
+      return (
+        <Icon {...props}>
+          <Wrapper size={props.size} ref={ref} />
+        </Icon>
+      );
+    }
+  );
 
   IconWrapper.displayName = LucideIcon.displayName;
 
