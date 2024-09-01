@@ -4,15 +4,18 @@ import { forwardRef, type CSSProperties, type FC } from 'react';
 
 const strokes: Record<NonNullable<IconProps['size']>, number> = {
   XXS: 2,
-  XS: 1.75,
-  S: 1.5,
-  M: 1.25,
-  L: 1,
+  XS: 2,
+  S: 2,
+  M: 1.50,
+  L: 1.25,
   XL: 1,
   XXL: 1,
 };
 
+const extractSizeRE = /spectrum-Icon--size(?<size>\w+)/;
+
 export type IconWrapperProps = {
+  className?: string;
   size?: IconProps['size'];
   style?: CSSProperties;
 };
@@ -26,10 +29,13 @@ export function withIcon(LucideIcon: FC<LucideProps>) {
     function Wrapper(props, ref) {
       const { size, ...rest } = props;
 
-      const strokeWidth = strokes[size ?? 'M'];
+      const maybeSize = extractSizeRE.exec(props.className ?? '')?.groups?.size as IconProps['size'];
+      const strokeWidth = strokes[maybeSize ?? size ?? 'XXS'];
 
       const style = {
         ...props.style,
+
+        // Required to override Spectrum's default fill
         fill: 'none',
       };
 

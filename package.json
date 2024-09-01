@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@adobe/react-spectrum": "^3.36.1",
+    "@react-spectrum/utils": "^3.11.10",
     "@spectrum-icons/ui": "^3.6.9",
     "@spectrum-icons/workflow": "^4.2.14",
     "@tanstack/react-form": "^0.21.0",
@@ -53,6 +54,7 @@
     "@storybook/addon-interactions": "^8.2.9",
     "@storybook/addon-links": "^8.2.9",
     "@storybook/addon-onboarding": "^8.2.9",
+    "@storybook/addon-viewport": "^8.2.9",
     "@storybook/addon-webpack5-compiler-swc": "^1.0.5",
     "@storybook/blocks": "^8.2.9",
     "@storybook/react": "^8.2.9",

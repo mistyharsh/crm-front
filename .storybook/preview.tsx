@@ -3,25 +3,36 @@ import '#shared/Reset.css';
 
 import { Provider, defaultTheme } from '@adobe/react-spectrum';
 import type { ColorScheme } from '@react-types/provider';
+import { MINIMAL_VIEWPORTS, } from '@storybook/addon-viewport';
 import type { Preview } from '@storybook/react';
 import type { ReactNode } from 'react';
 
 const preview: Preview = {
   globalTypes: {
     colorScheme: {
-      name: 'Color Scheme',
+      title: 'Color Scheme',
       description: 'Global color scheme for components',
-      defaultValue: 'both',
+      defaultValue: 'dark',
       toolbar: {
+        title: 'Color Scheme',
+        icon: 'contrast',
+
         items: [
-          { value: 'light', title: 'Light', right: '🔆', icon: 'lightning' },
-          { value: 'dark', title: 'Dark', right: '🔅', icon: 'lightningoff' },
-          { value: 'both', title: 'Side-by-side', right: '䷖', icon: 'mirror' },
+          { value: 'light', title: 'Light', right: '🔆' },
+          { value: 'dark', title: 'Dark', right: '🔅' },
+          { value: 'both', title: 'Side-by-side', right: '🪵' },
         ],
       },
     },
   },
   parameters: {
+    viewport: {
+      viewports: {
+        ...MINIMAL_VIEWPORTS,
+      },
+      defaultOrientation: 'portrait',
+      // defaultViewport: 'responsive',
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,

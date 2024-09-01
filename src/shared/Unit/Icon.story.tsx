@@ -1,7 +1,7 @@
 import type { IconProps } from '@adobe/react-spectrum';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Apple, Camera } from './Icons.js';
+import { LApple, LCamera } from '../Icons.js';
 import type { FC } from 'react';
 
 const meta = {
@@ -19,10 +19,10 @@ const meta = {
       control: 'radio',
     },
   },
-} satisfies Meta<typeof Camera>;
+} satisfies Meta<typeof LCamera>;
 
 export default meta;
-export type Story = StoryObj<typeof Camera>;
+export type Story = StoryObj<typeof LCamera>;
 
 function factory(Icon: FC<Partial<IconProps>>): Story {
   return {
@@ -37,12 +37,12 @@ export const Primary: Story = {
   args: {
     size: 'XXL',
   },
-  render: (props) => <Camera {...props} />,
+  render: (props) => <LCamera {...props} />,
   tags: ['dev', 'autodocs'],
   parameters: {
     layout: 'centered',
   },
 };
 
-export const CameraStory = factory(Camera);
-export const AppleStory = factory(Apple);
+export const Apple = factory(LApple);
+export const Camera = factory(LCamera);
