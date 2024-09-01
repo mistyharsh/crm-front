@@ -1,4 +1,4 @@
-import { App } from '#shared/App/App.js';
+import { App } from '#base/App.js';
 import { Shell } from './Shell/Shell.js';
 
 export function MainApp() {

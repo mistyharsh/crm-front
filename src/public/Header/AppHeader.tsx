@@ -7,10 +7,9 @@ import {
 } from '@adobe/react-spectrum';
 import Contrast from '@spectrum-icons/workflow/Contrast';
 import Light from '@spectrum-icons/workflow/Light';
-
 import { useContext } from 'react';
 
-import { AppContext } from '#shared/App/Provider.js';
+import { AppContext } from '#base/Provider.js';
 
 export type AppHeaderProps = {};
 

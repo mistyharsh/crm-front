@@ -1,5 +1,5 @@
 // Side effects imports should be at the top.
-import '#shared/Reset.css';
+import '#base/Reset.css';
 
 import { Provider, defaultTheme } from '@adobe/react-spectrum';
 import type { ColorScheme } from '@react-types/provider';

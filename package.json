@@ -16,6 +16,7 @@
   },
   "imports": {
     "#api/*": "./src/api/*",
+    "#base/*": "./src/base/*",
     "#shared/*": "./src/shared/*"
   },
   "keywords": [],
