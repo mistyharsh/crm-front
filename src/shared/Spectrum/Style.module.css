@@ -1,0 +1,5 @@
+.button {
+  [class*="Button-label"] {
+    text-align: left;
+  }
+}

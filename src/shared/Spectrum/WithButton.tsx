@@ -6,6 +6,9 @@ import { forwardRef,
   type ReactNode
 } from 'react';
 
+import style from './Style.module.css';
+
+
 export type ExposedProps = {
   children: ReactNode;
   href?: string;
@@ -14,8 +17,9 @@ export type ExposedProps = {
 };
 
 export type DecoratedComponent = ForwardRefExoticComponent<SpectrumButtonProps>;
+export type ButtonLikeComponent<T> = ForwardRefRenderFunction<T, ExposedProps>;
 
-export function withButtonStyles<T = any>(component: ForwardRefRenderFunction<T, ExposedProps>): DecoratedComponent {
+export function withButtonStyles<T = any>(component: ButtonLikeComponent<T>): DecoratedComponent {
   const styles = {
     '--spectrum-button-border-width': '0',
     '--spectrum-button-border-radius': 'var(--spectrum-alias-border-radius-medium)',
@@ -29,6 +33,7 @@ export function withButtonStyles<T = any>(component: ForwardRefRenderFunction<T,
         <Button
           ref={ref}
           {...props}
+          UNSAFE_className={style.button}
           UNSAFE_style={styles}
           elementType={Component}
         />

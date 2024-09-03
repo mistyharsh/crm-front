@@ -1,8 +1,8 @@
-import { ActionBar, ActionButton, Flex, Text, View } from '@adobe/react-spectrum';
+import { ActionButton, Flex, Text, View } from '@adobe/react-spectrum';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { LCamera, LLayoutDashboard, LMenu } from '../Icons.js';
-import { withButtonStyles } from '../Spectrum/Link.js';
+import { withButtonStyles } from '../Spectrum/WithButton.js';
 import { Shell } from './Shell.js';
 
 
