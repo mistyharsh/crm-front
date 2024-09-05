@@ -1,4 +1,4 @@
-import { Content, Dialog, DialogContainer, Flex, Grid, Header, View } from '@adobe/react-spectrum';
+import { Content, Dialog, DialogContainer, Divider, Flex, Grid, Header, View } from '@adobe/react-spectrum';
 import { useState, type ReactNode } from 'react';
 
 import { useDesktop } from '../Spectrum/Query.js';
@@ -26,9 +26,23 @@ export function Shell(props: ShellProps) {
         M: ['sidebar content'],
       }}
       columns={['size-3600', '1fr']}
+      height={'100svh'}
     >
       {isDesktop ? (
-        <View gridArea={'sidebar'} padding={'size-300'}>
+        <View
+          data-cl='Sidebar'
+          gridArea={'sidebar'}
+          overflow={'auto'}
+          position={'relative'}
+        >
+          <Divider
+            size='S'
+            orientation='vertical'
+            position={'absolute'}
+            right={0}
+            top={0}
+            bottom={0}
+          />
           {sidebar?.(isOpen, open, close)}
         </View>
       ) : (

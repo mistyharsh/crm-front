@@ -21,9 +21,10 @@ export function App(props: AppProps) {
     <AppContext.Provider value={{ setScheme }}>
       <QueryClientProvider client={queryClient}>
         <Provider
-          data-cl='app'
+          UNSAFE_className='provider'
+          data-cl='App'
           scale='medium'
-          minHeight={'100dvh'}
+          height={'100svh'}
           theme={defaultTheme}
           colorScheme={scheme}
           router={{

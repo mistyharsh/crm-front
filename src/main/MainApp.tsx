@@ -1,10 +1,10 @@
 import { App } from '#base/App.js';
-import { Shell } from './Shell/Shell.js';
+import { AppShell } from './Shell/AppShell.js';
 
 export function MainApp() {
   return (
     <App>
-      <Shell />
+      <AppShell />
     </App>
   );
 }

@@ -44,4 +44,10 @@ h6 {
 
 .root {
   isolation: isolate;
+
+  font-family: Roboto, sans-serif;
+}
+
+.provider[data-cl='App'] {
+  font-family: "Space Grotesk", sans-serif;
 }

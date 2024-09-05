@@ -11,9 +11,9 @@
 }
 
 .header {
-  position: sticky;
+  /* position: sticky;
   top: 0;
-  padding: 1rem;
+  padding: 1rem; */
 
   display: flex;
   justify-content: space-between;

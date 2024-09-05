@@ -1,56 +1,53 @@
-import { Flex, Link } from '@adobe/react-spectrum';
-import DashboardIcon from '@spectrum-icons/workflow/Dashboard';
+import { Flex, Text } from '@adobe/react-spectrum';
 import UsersIcon from '@spectrum-icons/workflow/User';
-import ContactsIcon from '@spectrum-icons/workflow/UsersAdd';
-import { useParams } from '@tanstack/react-router';
 
-import { contactListRoute } from '../View/Contact/Contacts.js';
-import { userListRoute } from '../View/Tenant/Users.js';
-import { dashboardRoute } from '../View/Workspace/Dashboard.js';
+import { LCastle, LContactRound, LLayoutDashboard } from '#shared/Icons.js';
+import { AppLink } from '../Link.js';
 
-export function WorkspaceSidebar() {
-  const { tenantId } = useParams({ from: '/workspaces/$tenantId' });
+export type WorkspaceSidebarProps = {
+  tenantId: string;
+};
+
+export function WorkspaceSidebar(props: WorkspaceSidebarProps) {
+  const { tenantId } = props;
 
   return (
-    <Flex direction={'column'} gap={'size-200'}>
-      <Flex alignItems='center' gap='size-100'>
-        <DashboardIcon />
-        <Link
-          href={{ to: dashboardRoute.to, params: { tenantId } }}
-          variant='secondary'
-          isQuiet
-        >
-          Dashboard
-        </Link>
-      </Flex>
-      <Flex alignItems='center' gap='size-100'>
-        <ContactsIcon />
-        <Link
-          href={{
-            to: contactListRoute.to,
-            params: { tenantId },
-          }}
-          routerOptions={{}}
-          variant='secondary'
-          isQuiet
-        >
-          Contacts
-        </Link>
-      </Flex>
-      <Flex alignItems='center' gap='size-100'>
+    <Flex direction={'column'} gap={'size-200'} flex={true} margin={'size-200'}>
+      <AppLink
+        to='/workspaces/$tenantId'
+        params={{ tenantId }}
+        variant='primary'
+      >
+        <LLayoutDashboard />
+        <Text>Dashboard</Text>
+      </AppLink>
+
+      <AppLink
+        to='/workspaces/$tenantId/contacts'
+        params={{ tenantId }}
+        variant='primary'
+      >
+        <LCastle />
+        <Text>Customers</Text>
+      </AppLink>
+
+      <AppLink
+        to='/workspaces/$tenantId/contacts'
+        params={{ tenantId }}
+        variant='primary'
+      >
+        <LContactRound />
+        <Text>People</Text>
+      </AppLink>
+
+      <AppLink
+        to='/workspaces/$tenantId/users'
+        params={{ tenantId }}
+        variant='primary'
+      >
         <UsersIcon />
-        <Link
-          href={{
-            to: userListRoute.to,
-            params: { tenantId },
-          }}
-          routerOptions={{ replace: true }}
-          variant='secondary'
-          isQuiet
-        >
-          Users
-        </Link>
-      </Flex>
+        <Text>Users</Text>
+      </AppLink>
     </Flex>
   );
 }
