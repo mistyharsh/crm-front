@@ -1,16 +1,17 @@
 import { ActionButton, Flex, Text, View } from '@adobe/react-spectrum';
 import type { Meta, StoryObj } from '@storybook/react';
+import { type ReactNode } from 'react';
 
 import { LCamera, LLayoutDashboard, LMenu } from '../Icons.js';
-import { withButtonStyles } from '../Spectrum/WithButton.js';
+import { ButtonAsLink } from '../Spectrum/ButtonAsLink.js';
 import { Shell } from './Shell.js';
 
 
-const Link = withButtonStyles(function Inner(props, ref) {
+function Link(props: { href: string, children: ReactNode }) {
   return (
-    <a ref={ref} {...props} />
+    <ButtonAsLink variant={'primary'} {...props} />
   );
-});
+};
 
 
 const meta = {
@@ -59,11 +60,11 @@ function ShellExample() {
       main={<div>Content</div>}
       sidebar={(_isOpen, _open, close) => (
         <Flex direction={'column'} data-cl='SidebarExample' gap={'size-200'}>
-          <Link variant='primary' href='/hello'>
+          <Link href='/dashboard'>
             <LLayoutDashboard />
             <Text>Home</Text>
           </Link>
-          <Link variant='primary' href='/hello'>
+          <Link href='/camera'>
             <LCamera />
             <Text>Camera</Text>
           </Link>
