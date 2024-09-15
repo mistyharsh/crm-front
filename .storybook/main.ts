@@ -20,7 +20,10 @@ const config: StorybookConfig = {
 
     config.source!.alias = {
       ...config.source?.alias,
-      '@tanstack/react-router': path.join(process.cwd(), '.storybook/Router.mock.tsx'),
+      '@tanstack/react-router': path.join(
+        process.cwd(),
+        '.storybook/Router.mock.tsx'
+      ),
     };
 
     return config;

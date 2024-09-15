@@ -16,7 +16,6 @@ import {
 } from './ClaimStatus.js';
 import { type Credentials, InvitationForm } from './InvitationForm.js';
 
-
 export const invitationRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/invitations/$code',
@@ -85,16 +84,10 @@ export function ClaimInvitation() {
     <AuthView className='ClaimInvitation'>
       <Stack gap={'md'}>
         <MailCheck size={48} />
-        <Title order={1}>
-          Claim Invitation
-        </Title>
+        <Title order={1}>Claim Invitation</Title>
         {render()}
         <Divider />
-        <ButtonAsLink
-          to='/login'
-          variant='subtle'
-          children='Back to log-in'
-        />
+        <ButtonAsLink to='/login' variant='subtle' children='Back to log-in' />
       </Stack>
     </AuthView>
   );

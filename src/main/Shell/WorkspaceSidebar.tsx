@@ -1,53 +1,54 @@
-import { Flex, Text } from '@adobe/react-spectrum';
-import UsersIcon from '@spectrum-icons/workflow/User';
+import { Stack } from '@mantine/core';
+import { Castle, ContactRound, LayoutDashboard, Users } from 'lucide-react';
 
-import { LCastle, LContactRound, LLayoutDashboard } from '#shared/Icons.js';
-import { AppLink } from '../Link.js';
+import { ButtonAsLink, type ButtonAsLinkProps } from '../Link.js';
 
 export type WorkspaceSidebarProps = {
   tenantId: string;
+};
+
+const linkProps: ButtonAsLinkProps = {
+  variant: 'subtle',
+  justify: 'start',
+  color: 'gray',
 };
 
 export function WorkspaceSidebar(props: WorkspaceSidebarProps) {
   const { tenantId } = props;
 
   return (
-    <Flex direction={'column'} gap={'size-200'} flex={true} margin={'size-200'}>
-      <AppLink
+    <Stack gap={'md'}>
+      <ButtonAsLink
         to='/workspaces/$tenantId'
         params={{ tenantId }}
-        variant='primary'
-      >
-        <LLayoutDashboard />
-        <Text>Dashboard</Text>
-      </AppLink>
+        leftSection={<LayoutDashboard size={18} />}
+        children='Dashboard'
+        {...linkProps}
+      />
 
-      <AppLink
+      <ButtonAsLink
         to='/workspaces/$tenantId/contacts'
         params={{ tenantId }}
-        variant='primary'
-      >
-        <LCastle />
-        <Text>Customers</Text>
-      </AppLink>
+        leftSection={<Castle size={18} />}
+        children='Customers'
+        {...linkProps}
+      />
 
-      <AppLink
+      <ButtonAsLink
         to='/workspaces/$tenantId/contacts'
         params={{ tenantId }}
-        variant='primary'
-      >
-        <LContactRound />
-        <Text>People</Text>
-      </AppLink>
+        leftSection={<ContactRound size={18} />}
+        children='People'
+        {...linkProps}
+      />
 
-      <AppLink
+      <ButtonAsLink
         to='/workspaces/$tenantId/users'
         params={{ tenantId }}
-        variant='primary'
-      >
-        <UsersIcon />
-        <Text>Users</Text>
-      </AppLink>
-    </Flex>
+        leftSection={<Users size={18} />}
+        children='Users'
+        {...linkProps}
+      />
+    </Stack>
   );
 }

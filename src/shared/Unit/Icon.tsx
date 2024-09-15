@@ -6,7 +6,7 @@ const strokes: Record<NonNullable<IconProps['size']>, number> = {
   XXS: 2,
   XS: 2,
   S: 2,
-  M: 1.50,
+  M: 1.5,
   L: 1.25,
   XL: 1,
   XXL: 1,
@@ -29,7 +29,8 @@ export function withIcon(LucideIcon: FC<LucideProps>) {
     function Wrapper(props, ref) {
       const { size, ...rest } = props;
 
-      const maybeSize = extractSizeRE.exec(props.className ?? '')?.groups?.size as IconProps['size'];
+      const maybeSize = extractSizeRE.exec(props.className ?? '')?.groups
+        ?.size as IconProps['size'];
       const strokeWidth = strokes[maybeSize ?? size ?? 'XXS'];
 
       const style = {

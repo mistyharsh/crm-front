@@ -1,8 +1,7 @@
-import { Item, ListView, Text, View } from '@adobe/react-spectrum';
-import SocialNetwork from '@spectrum-icons/workflow/SocialNetwork';
-import { useRouter } from '@tanstack/react-router';
+import { Avatar, Group, Stack, Text } from '@mantine/core';
 
 import type { Tenant } from '#api/Operation.js';
+import { ButtonAsLink } from '../../Link.js';
 
 export type TenantListProps = {
   tenants: Tenant[];
@@ -11,29 +10,12 @@ export type TenantListProps = {
 export function TenantList(props: TenantListProps) {
   const { tenants } = props;
 
-  const router = useRouter();
-
   return (
-    <ListView
-      items={tenants}
-      selectionMode='none'
-      // width={'size-5000'}
-      aria-label='Select workspace'
-      children={(t) => {
-        const { href } = router.buildLocation({
-          to: '/workspaces/$tenantId',
-          params: {
-            tenantId: t.id.toString(),
-          },
-        });
-
-        return (
-          <Item key={t.id} textValue={t.id.toString()} href={href}>
-            <TenantListItem tenant={t} />
-          </Item>
-        );
-      }}
-    />
+    <Stack gap={'md'}>
+      {tenants.map((t) => (
+        <TenantListItem key={t.id} tenant={t} />
+      ))}
+    </Stack>
   );
 }
 
@@ -41,15 +23,27 @@ export type TenantListItemProps = {
   tenant: Tenant;
 };
 
-export const TenantListItem = (props: TenantListItemProps) => {
+export function TenantListItem(props: TenantListItemProps) {
   const { tenant } = props;
-  const { name, description } = tenant;
+  const { id, name, description } = tenant;
 
   return (
-    <View>
-      <SocialNetwork slot='illustration' />
-      <Text>{name}</Text>
-      <Text slot='description'>{description}</Text>
-    </View>
+    <ButtonAsLink
+      to='/workspaces/$tenantId'
+      params={{ tenantId: id }}
+      h={'auto'}
+      variant='subtle'
+      color={'gray.7'}
+      justify='start'
+      style={{ textAlign: 'left' }}
+    >
+      <Group>
+        <Avatar radius={'sm'} color='initials' name={name} />
+        <Stack gap={'xs'}>
+          <Text fw={'bold'}>{name}</Text>
+          <Text size='sm'>{description}</Text>
+        </Stack>
+      </Group>
+    </ButtonAsLink>
   );
-};
+}

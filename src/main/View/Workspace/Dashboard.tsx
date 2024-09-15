@@ -1,10 +1,9 @@
-import { Flex, Heading, Link, View } from '@adobe/react-spectrum';
+import { Paper, Stack, Title } from '@mantine/core';
 import { useQuery } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 
 import { execute } from '#api/Client.js';
 import type { Page } from '#api/Operation.js';
-import { newContactRoute } from '../Contact/NewOrgContact.js';
 import { workspaceRoute } from './WorkspaceRoute.js';
 
 export const dashboardRoute = createRoute({
@@ -25,25 +24,13 @@ export function Dashboard() {
   const contacts = useGetContactQuery({ number: 0, size: 50 }, tenantId);
 
   return (
-    <View width={'size-3000'}>
-      <View flex borderWidth={'thick'} borderRadius={'medium'}>
-        <Flex
-          direction={'column'}
-          justifyContent={'center'}
-          alignItems={'center'}
-        >
-          <Heading level={1}>Total Contacts</Heading>
-          <Heading level={3}>{contacts.data?.getContacts.length}</Heading>
-        </Flex>
-      </View>
-      <View>
-        <Link href={{ to: '/' }} marginEnd={'size-900'}>
-          Go back
-        </Link>
-        <Link href={{ to: newContactRoute.to, params: { tenantId } }}>
-          New Contact
-        </Link>
-      </View>
-    </View>
+    <Stack className='Dashboard'>
+      <Paper maw={300}>
+        <Stack>
+          <Title order={1}>Total Contacts</Title>
+          <Title order={3}>{contacts.data?.getContacts.length}</Title>
+        </Stack>
+      </Paper>
+    </Stack>
   );
 }

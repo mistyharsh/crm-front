@@ -10,11 +10,7 @@ export function EmailSent() {
 }
 
 export function SuccessfulReset() {
-  return (
-    <Title order={4}>
-      The password has been set successfully
-    </Title>
-  );
+  return <Title order={4}>The password has been set successfully</Title>;
 }
 
 export function InvalidResetToken() {

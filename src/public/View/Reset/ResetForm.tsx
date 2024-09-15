@@ -39,11 +39,7 @@ export function ResetForm(props: ResetFormProps) {
           />
 
           <Button onClick={() => setShowPassword(!showPassword)}>
-            {showPassword ? (
-              <Eye size={16} />
-            ) : (
-              <EyeOff size={16} />
-            )}
+            {showPassword ? <Eye size={16} /> : <EyeOff size={16} />}
           </Button>
         </Group>
         <Button

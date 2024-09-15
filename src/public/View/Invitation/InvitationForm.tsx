@@ -34,10 +34,7 @@ export function InvitationForm(props: InvitationFormProps) {
           value={password}
           onChange={(ev) => setPassword(ev.currentTarget.value)}
         />
-        <Button
-          type='submit'
-          variant='primary'
-        >
+        <Button type='submit' variant='primary'>
           Submit
         </Button>
       </Stack>

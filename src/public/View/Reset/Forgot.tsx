@@ -29,9 +29,7 @@ export function Forgot() {
     <AuthView className='forgot-view'>
       <Stack gap={'md'}>
         <LogIn size={'3rem'} />
-        <Title order={1}>
-          Forgot Password?
-        </Title>
+        <Title order={1}>Forgot Password?</Title>
         {isSuccess ? (
           <EmailSent />
         ) : (

@@ -6,7 +6,7 @@ import {
   type CSSProperties,
   type FC,
   type ForwardedRef,
-  type ReactNode
+  type ReactNode,
 } from 'react';
 
 import style from './Style.module.css';
@@ -20,19 +20,25 @@ export type ForwardedProps = {
 
 export type LinkProps<AddedProps> = SpectrumButtonProps & AddedProps;
 export type Component<AddedProps> = FC<LinkProps<AddedProps>>;
-export type RenderFn<AddedProps> = (props: ForwardedProps, ref: ForwardedRef<HTMLAnchorElement>, added: AddedProps) => ReactNode;
+export type RenderFn<AddedProps> = (
+  props: ForwardedProps,
+  ref: ForwardedRef<HTMLAnchorElement>,
+  added: AddedProps
+) => ReactNode;
 
 const AddedPropsContext = createContext({});
 
 export function withButtonStyles<AddedProps>(renderFn: RenderFn<AddedProps>) {
-
   const Link = forwardRef<HTMLAnchorElement, ForwardedProps>((props, ref) => {
     const mainProps = useContext(AddedPropsContext);
 
     return renderFn(props, ref, mainProps as AddedProps);
   });
 
-  function Wrapper(props: LinkProps<AddedProps>, ref: ForwardedRef<HTMLAnchorElement>) {
+  function Wrapper(
+    props: LinkProps<AddedProps>,
+    ref: ForwardedRef<HTMLAnchorElement>
+  ) {
     return (
       <AddedPropsContext.Provider value={props}>
         <Button

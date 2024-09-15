@@ -83,12 +83,8 @@ export function Reset() {
   return (
     <AuthView className='reset-view'>
       <Stack gap={'md'}>
-        <TicketCheck
-          size={'3rem'}
-        />
-        <Title order={1}>
-          Reset Password
-        </Title>
+        <TicketCheck size={'3rem'} />
+        <Title order={1}>Reset Password</Title>
         {render()}
         <Divider />
         <ButtonAsLink to='/login' variant='subtle'>

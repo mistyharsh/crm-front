@@ -1,4 +1,4 @@
-import { Heading, View } from '@adobe/react-spectrum';
+import { Stack, Title } from '@mantine/core';
 import { useQuery } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 
@@ -31,17 +31,9 @@ export function Home() {
   }
 
   return (
-    <View
-      data-cl='home'
-      backgroundColor={'gray-75'}
-      padding={'size-400'}
-      width={'size-6000'}
-      marginTop={'size-400'}
-    >
-      <Heading level={2} marginBottom={'size-200'}>
-        Select Workspace
-      </Heading>
+    <Stack className='Home' maw={600} p={'md'} m={'lg'} bg={'gray.8'}>
+      <Title order={2} children='Select Workspace' />
       <TenantList tenants={tenantList} />
-    </View>
+    </Stack>
   );
 }

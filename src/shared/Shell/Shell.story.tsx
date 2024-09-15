@@ -2,8 +2,7 @@ import { AppShell, Button, Group, ScrollArea, Stack } from '@mantine/core';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Camera, LayoutDashboard, Menu } from 'lucide-react';
 
-import { Shell } from './Shell2.js';
-
+import { Shell } from './Shell.js';
 
 const meta = {
   title: 'Shell/Shell',
@@ -21,7 +20,7 @@ export const Mobile: Story = {
   parameters: {
     viewport: {
       defaultViewport: 'mobile2',
-    }
+    },
   },
   args: {},
   render: ShellExample,
@@ -31,7 +30,7 @@ export const Desktop: Story = {
   parameters: {
     viewport: {
       defaultViewport: 'desktop',
-    }
+    },
   },
   args: {},
   render: ShellExample,
@@ -71,7 +70,6 @@ function ShellExample() {
                 children='Camera'
               />
             </Stack>
-
           </AppShell.Section>
           <AppShell.Section p={'sm'}>
             <Button onClick={close} children='Close' />

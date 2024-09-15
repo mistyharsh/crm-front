@@ -2,7 +2,7 @@
   --spectrum-button-border-width: 0;
   --spectrum-button-border-radius: var(--spectrum-alias-border-radius-medium);
 
-  [class*="Button-label"] {
+  [class*='Button-label'] {
     text-align: left;
   }
 }

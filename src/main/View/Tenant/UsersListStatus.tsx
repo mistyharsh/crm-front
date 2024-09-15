@@ -1,9 +1,5 @@
-import { Heading } from '@adobe/react-spectrum';
+import { Title } from '@mantine/core';
 
-export function FailedGettingUsers() {
-  return (
-    <Heading level={2} alignSelf={'center'}>
-      Failed to Get Users!!!
-    </Heading>
-  );
+export function UserListFailure() {
+  return <Title order={2}>Failed to Get Users!!!</Title>;
 }

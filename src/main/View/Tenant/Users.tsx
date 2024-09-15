@@ -1,15 +1,15 @@
-import { Heading, View } from '@adobe/react-spectrum';
+import { Stack, Title } from '@mantine/core';
 import { useQuery } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 
+import { execute } from '#api/Client.js';
 import { workspaceRoute } from '../Workspace/WorkspaceRoute.js';
 import { UserList } from './UserList.js';
-import { FailedGettingUsers } from './UsersListStatus.js';
-import { execute } from '#api/Client.js';
+import { UserListFailure } from './UsersListStatus.js';
 
 export const userListRoute = createRoute({
   getParentRoute: () => workspaceRoute,
-  path: '/users/',
+  path: '/users',
   component: TenantUsers,
 });
 
@@ -28,19 +28,18 @@ export function TenantUsers() {
 
   const render = () => {
     if (users.isLoading) {
-      return <Heading level={2}>Loading....</Heading>;
+      return <Title order={2}>Loading....</Title>;
     } else if (users.isError) {
-      return <FailedGettingUsers />;
+      return <UserListFailure />;
     } else if (users.isSuccess) {
       return <UserList users={users.data} />;
     }
   };
+
   return (
-    <View data-cl='home' width={'size-6000'}>
-      <Heading level={2} marginBottom={'size-200'}>
-        Users
-      </Heading>
+    <Stack className='TenantUsers' gap={'md'}>
+      <Title order={2} children='Users' />
       {render()}
-    </View>
+    </Stack>
   );
 }

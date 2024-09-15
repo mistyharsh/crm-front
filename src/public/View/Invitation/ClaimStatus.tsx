@@ -2,19 +2,11 @@ import { Stack, Title } from '@mantine/core';
 import { CircleAlert } from 'lucide-react';
 
 export function SuccessfulInvitationClaim() {
-  return (
-    <Title order={2}>
-      The Invitation has been claimed!!
-    </Title>
-  );
+  return <Title order={2}>The Invitation has been claimed!!</Title>;
 }
 
 export function FailedInvitationClaim() {
-  return (
-    <Title order={2}>
-      Failed to claim the Invitation!!!!
-    </Title>
-  );
+  return <Title order={2}>Failed to claim the Invitation!!!!</Title>;
 }
 
 export function InvalidInvitation() {

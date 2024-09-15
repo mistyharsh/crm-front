@@ -34,10 +34,3 @@ declare module '@tanstack/react-router' {
     router: typeof router;
   }
 }
-
-declare module '@adobe/react-spectrum' {
-  interface RouterConfig {
-    href: ToOptions;
-    routerOptions: Omit<NavigateOptions, keyof ToOptions>;
-  }
-}

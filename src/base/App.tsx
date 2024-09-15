@@ -21,30 +21,30 @@ export function App(props: AppProps) {
     <MantineProvider theme={theme}>
       <AppProvider>
         <QueryClientProvider client={queryClient}>
-            <Provider
-              UNSAFE_className='provider'
-              data-cl='App'
-              scale='medium'
-              height={'100svh'}
-              theme={defaultTheme}
-              colorScheme={'dark'}
-              router={{
-                navigate(to, options: any) {
-                  router.navigate({ to, ...options });
-                },
-                useHref(to) {
-                  if (typeof to === 'string') {
-                    return to;
-                  }
+          <Provider
+            UNSAFE_className='provider'
+            data-cl='App'
+            scale='medium'
+            height={'100svh'}
+            theme={defaultTheme}
+            colorScheme={'dark'}
+            router={{
+              navigate(to, options: any) {
+                router.navigate({ to, ...options });
+              },
+              useHref(to) {
+                if (typeof to === 'string') {
+                  return to;
+                }
 
-                  const loc = router.buildLocation(to);
+                const loc = router.buildLocation(to);
 
-                  return loc.href;
-                },
-              }}
-            >
-              {children}
-            </Provider>
+                return loc.href;
+              },
+            }}
+          >
+            {children}
+          </Provider>
         </QueryClientProvider>
       </AppProvider>
     </MantineProvider>

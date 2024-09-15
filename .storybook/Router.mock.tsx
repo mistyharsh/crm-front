@@ -5,6 +5,6 @@ export function useRouter() {
   return () => ({
     buildLocation() {
       return { href: '/mocked-url' };
-    }
+    },
   });
 }

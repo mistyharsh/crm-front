@@ -19,5 +19,5 @@ export const LCog = withIcon(Cog);
 export const LContactRound = withIcon(ContactRound);
 export const LLayoutDashboard = withIcon(LayoutDashboard);
 export const LSquareUser = withIcon(SquareUser);
-export const LMenu = withIcon(Menu)
+export const LMenu = withIcon(Menu);
 export const LX = withIcon(X);

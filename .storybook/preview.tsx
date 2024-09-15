@@ -4,7 +4,7 @@ import '@mantine/core/styles.css';
 
 import { MantineProvider } from '@mantine/core';
 import { useId } from '@mantine/hooks';
-import { MINIMAL_VIEWPORTS, } from '@storybook/addon-viewport';
+import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 import type { Preview } from '@storybook/react';
 import clsx from 'clsx';
 import { type CSSProperties, type ReactNode } from 'react';
@@ -52,26 +52,14 @@ const preview: Preview = {
       if (colorScheme === 'both') {
         return (
           <div style={{ display: 'flex', gap: '4rem' }}>
+            <MantineSurface scheme='light' storyElm={<Story />} />
 
-            <MantineSurface
-              scheme='light'
-              storyElm={<Story />}
-            />
-
-            <MantineSurface
-              scheme='dark'
-              storyElm={<Story />}
-            />
+            <MantineSurface scheme='dark' storyElm={<Story />} />
           </div>
         );
       }
 
-      return (
-        <MantineSurface
-          scheme={colorScheme}
-          storyElm={<Story />}
-        />
-      );
+      return <MantineSurface scheme={colorScheme} storyElm={<Story />} />;
     },
     // function withAdobe(Story, context) {
     //   const colorScheme = context.globals.colorScheme || 'dark';

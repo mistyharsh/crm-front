@@ -25,10 +25,7 @@ export function LoginForm(props: LoginFormProps) {
   };
 
   return (
-    <form
-      className='LoginForm'
-      onSubmit={handleChange}
-    >
+    <form className='LoginForm' onSubmit={handleChange}>
       <Stack miw={'260px'} gap={'md'}>
         <TextInput
           label='Email'
@@ -36,7 +33,9 @@ export function LoginForm(props: LoginFormProps) {
           type='email'
           description='Your email id'
           value={credentials.email}
-          onChange={(ev) => setCredentials({ ...credentials, email: ev.target.value })}
+          onChange={(ev) =>
+            setCredentials({ ...credentials, email: ev.target.value })
+          }
         />
         <TextInput
           label='Password'
@@ -44,7 +43,9 @@ export function LoginForm(props: LoginFormProps) {
           type='password'
           description='Password'
           value={credentials.password}
-          onChange={(ev) => setCredentials({ ...credentials, password: ev.target.value })}
+          onChange={(ev) =>
+            setCredentials({ ...credentials, password: ev.target.value })
+          }
         />
 
         <Button

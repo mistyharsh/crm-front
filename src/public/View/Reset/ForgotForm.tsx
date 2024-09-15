@@ -31,7 +31,9 @@ export function ForgotForm(props: ForgotFormProps) {
           type='text'
           description='Your email id'
           value={userEmail.email}
-          onChange={(ev) => setUserEmail({ ...userEmail, email: ev.target.value })}
+          onChange={(ev) =>
+            setUserEmail({ ...userEmail, email: ev.target.value })
+          }
         />
         <Button
           type='submit'
