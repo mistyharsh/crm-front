@@ -21,7 +21,7 @@ export function Shell(props: ShellProps) {
       header={{ height: 60 }}
       withBorder={false}
       navbar={{
-        width: 288,
+        width: 240,
         breakpoint: 'md',
         collapsed: {
           desktop: false,

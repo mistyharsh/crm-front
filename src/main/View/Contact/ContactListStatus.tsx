@@ -1,9 +1,5 @@
-import { Heading } from '@adobe/react-spectrum';
+import { Title } from '@mantine/core';
 
 export function FailedGettingContacts() {
-  return (
-    <Heading level={2} alignSelf={'center'}>
-      Failed to Get Contacts!!!
-    </Heading>
-  );
+  return <Title order={2}>Failed to Get Contacts!!!</Title>;
 }

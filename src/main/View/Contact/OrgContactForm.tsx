@@ -1,12 +1,10 @@
-import { Button, ButtonGroup, Form, Heading } from '@adobe/react-spectrum';
+import { Button, Group, Title } from '@mantine/core';
 
-import { AddressListField } from './Component/AddressField.js';
-import {
-  EmailListField,
-  PhoneListField,
-} from './Component/ContactInformationFields.js';
-import { OrganizationNameInput } from './Component/OrganizationField.js';
-import { PersonListField } from './Component/PersonInputs.js';
+import { AddressListField } from './Field/AddressListField.js';
+import { EmailListField } from './Field/EmailField.js';
+import { OrganizationNameInput } from './Field/OrganizationField.js';
+import { PersonListField } from './Field/PersonListField.js';
+import { PhoneListField } from './Field/PhoneField.js';
 import type { OrgInputFormApi } from './UseOrgContactForm.js';
 
 export type OrgContactFormProps = {
@@ -19,15 +17,13 @@ export function OrgContactForm(_props: OrgContactFormProps) {
   const { Field } = form;
 
   return (
-    <Form
-      necessityIndicator='icon'
-      validationBehavior='native'
+    <form
       onSubmit={(e) => {
         e.preventDefault();
         form.handleSubmit();
       }}
     >
-      <Heading level={2}>Organization Information</Heading>
+      <Title order={2}>Organization Information</Title>
       <Field
         name='name'
         children={({ state, handleChange }) => (
@@ -35,14 +31,14 @@ export function OrgContactForm(_props: OrgContactFormProps) {
         )}
       />
 
-      <Heading level={3}>Address</Heading>
+      <Title order={3}>Address</Title>
       <Field
         name='addresses'
         children={({ state, handleChange }) => (
           <AddressListField value={state.value} onChange={handleChange} />
         )}
       />
-      <Heading level={3}>Contact Information</Heading>
+      <Title order={3}>Contact Information</Title>
       <Field
         name='emails'
         children={({ state, handleChange }) => (
@@ -55,21 +51,21 @@ export function OrgContactForm(_props: OrgContactFormProps) {
           <PhoneListField value={state.value} onChange={handleChange} />
         )}
       />
-      <Heading level={2}>Person Information</Heading>
+      <Title order={2}>Person Information</Title>
       <Field
         name='people'
         children={({ state, handleChange }) => (
           <PersonListField value={state.value} onChange={handleChange} />
         )}
       />
-      <ButtonGroup>
+      <Group>
         <Button type='submit' variant='primary'>
           Save
         </Button>
-        <Button type='reset' variant='secondary'>
+        <Button type='reset' variant='light'>
           Reset
         </Button>
-      </ButtonGroup>
-    </Form>
+      </Group>
+    </form>
   );
 }

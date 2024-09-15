@@ -28,6 +28,7 @@
   "dependencies": {
     "@adobe/react-spectrum": "^3.36.1",
     "@mantine/core": "^7.12.2",
+    "@mantine/dates": "^7.12.2",
     "@mantine/hooks": "^7.12.2",
     "@react-spectrum/utils": "^3.11.10",
     "@spectrum-icons/ui": "^3.6.9",

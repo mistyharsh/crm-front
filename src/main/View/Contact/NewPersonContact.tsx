@@ -8,6 +8,8 @@ import type { PersonInput } from '#api/Operation.js';
 import { workspaceRoute } from '../Workspace/WorkspaceRoute.js';
 import { PersonContactForm } from './PersonContactForm.js';
 import { usePersonContactForm } from './UsePersonContactForm.js';
+import { Stack } from '@mantine/core';
+import { BookUser } from 'lucide-react';
 
 export type NewPersonContactProps = {};
 
@@ -33,27 +35,12 @@ export function NewPersonContact(_props: NewPersonContactProps) {
   const contacts = useCreateContactPersonMutation(form.state.values, tenantId);
 
   return (
-    <View
-      data-cl={'newContact'}
-      backgroundColor={'gray-75'}
-      padding={'size-400'}
-      margin={'auto'}
-      width={'size-6000'}
-      marginTop={'size-400'}
-      borderColor={'gray-200'}
-      borderWidth={'thin'}
-    >
-      <Flex direction={'column'}>
-        <PersonalizationField
-          size='XXL'
-          alignSelf={'center'}
-          marginBottom={'size-400'}
-        />
-        <Heading level={1} alignSelf={'self-start'}>
-          New Contact Person
-        </Heading>
-        <PersonContactForm form={form} />
-      </Flex>
-    </View>
+    <Stack className='NewPersonContact'>
+      <BookUser size={'3rem'} strokeWidth={1} />
+      <Heading level={1} alignSelf={'self-start'}>
+        New Contact Person
+      </Heading>
+      <PersonContactForm form={form} />
+    </Stack>
   );
 }

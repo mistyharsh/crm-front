@@ -1,5 +1,6 @@
 query GetContacts($page: Page!, $tenantId: String!) {
   getContacts(page: $page, tenantId: $tenantId) {
+    type: __typename
     ... on ContactOrg {
       id
       name

@@ -292,8 +292,14 @@ export type GetContactsQueryVariables = Exact<{
 
 export type GetContactsQuery = {
   getContacts: Array<
-    | { id: string; name: string }
-    | { id: string; givenName: string; familyName: string; middleName: string }
+    | { id: string; name: string; type: 'ContactOrg' }
+    | {
+        id: string;
+        givenName: string;
+        familyName: string;
+        middleName: string;
+        type: 'ContactPerson';
+      }
   >;
 };
 
@@ -700,6 +706,11 @@ const GetContactsDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                {
+                  kind: 'Field',
+                  alias: { kind: 'Name', value: 'type' },
+                  name: { kind: 'Name', value: '__typename' },
+                },
                 {
                   kind: 'InlineFragment',
                   typeCondition: {

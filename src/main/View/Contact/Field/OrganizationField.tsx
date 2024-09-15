@@ -1,4 +1,4 @@
-import { TextField } from '@adobe/react-spectrum';
+import { TextInput } from '@mantine/core';
 
 export type OrganizationNameProps = {
   value: string;
@@ -8,6 +8,10 @@ export type OrganizationNameProps = {
 export function OrganizationNameInput(props: OrganizationNameProps) {
   const { value, onChange } = props;
   return (
-    <TextField label='Organization Name' value={value} onChange={onChange} />
+    <TextInput
+      label='Organization Name'
+      value={value}
+      onChange={(e) => onChange(e.currentTarget.value)}
+    />
   );
 }
