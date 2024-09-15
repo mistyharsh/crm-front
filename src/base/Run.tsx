@@ -3,6 +3,7 @@ import { StrictMode, createElement } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import './Reset.css';
+import '@mantine/core/styles.css';
 
 export type RunOptions = {
   router: Router<any, any>;

@@ -1,12 +1,12 @@
-import { Flex, Heading, Divider, Link } from '@adobe/react-spectrum';
-import Login from '@spectrum-icons/workflow/Login';
+import { Divider, Stack, Title } from '@mantine/core';
 import { useMutation } from '@tanstack/react-query';
-import { createRoute, useLinkProps } from '@tanstack/react-router';
+import { createRoute } from '@tanstack/react-router';
+import { LogIn } from 'lucide-react';
 
 import { execute } from '#api/Client.js';
 import { AuthView } from '../../Component/AuthView.js';
+import { ButtonAsLink } from '../../Link.js';
 import { rootRoute } from '../../RootRoute.js';
-import { loginRoute } from '../Login/Login.js';
 import { ForgotForm, type Credentials } from './ForgotForm.js';
 import { EmailSent } from './ResetStatus.js';
 
@@ -25,25 +25,23 @@ export function Forgot() {
     mutate(credentials.email);
   };
 
-  const loginHref = useLinkProps({ to: loginRoute.to }).href;
-
   return (
     <AuthView className='forgot-view'>
-      <Flex direction='column'>
-        <Login size='XXL' alignSelf={'center'} marginBottom={'size-400'} />
-        <Heading level={1} alignSelf='self-start'>
+      <Stack gap={'md'}>
+        <LogIn size={'3rem'} />
+        <Title order={1}>
           Forgot Password?
-        </Heading>
+        </Title>
         {isSuccess ? (
           <EmailSent />
         ) : (
           <ForgotForm inProgress={isPending} onSubmit={handleChange} />
         )}
-        <Divider size='S' marginTop={'size-400'} marginBottom={'size-200'} />
-        <Link href={loginHref} isQuiet variant='secondary'>
+        <Divider />
+        <ButtonAsLink to='/login' variant='subtle'>
           Back to Login
-        </Link>
-      </Flex>
+        </ButtonAsLink>
+      </Stack>
     </AuthView>
   );
 }

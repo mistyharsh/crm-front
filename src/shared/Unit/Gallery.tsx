@@ -17,8 +17,6 @@ export function Gallery() {
       }}
     >
       {filtered.map((Story, index) => {
-        console.log(Story);
-
         return (
           <Canvas
             key={index}

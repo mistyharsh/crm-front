@@ -1,42 +1,28 @@
-import {
-  Header,
-  ActionButton,
-  useProvider,
-  Flex,
-  View,
-} from '@adobe/react-spectrum';
-import Contrast from '@spectrum-icons/workflow/Contrast';
-import Light from '@spectrum-icons/workflow/Light';
-import { useContext } from 'react';
-
-import { AppContext } from '#base/Provider.js';
+import { useAppProvider } from '#base/Provider.js';
+import { Box, Button, Group } from '@mantine/core';
+import { MoonStar, SunMedium } from 'lucide-react';
 
 export type AppHeaderProps = {};
 
 export function AppHeader(_props: AppHeaderProps) {
-  const app = useContext(AppContext);
-  const { colorScheme } = useProvider();
-
-  const onColorSchemeChange = app.setScheme;
+  const { scheme, setScheme } = useAppProvider();
 
   return (
-    <Header>
-      <View
-        backgroundColor={'gray-75'}
-        padding={'size-100'}
-        borderColor={'gray-200'}
-        borderBottomWidth={'thin'}
-      >
-        <Flex direction={'row'} justifyContent={'end'}>
-          <ActionButton
-            onPress={() =>
-              onColorSchemeChange(colorScheme === 'dark' ? 'light' : 'dark')
-            }
-          >
-            {colorScheme === 'dark' ? <Contrast /> : <Light />}
-          </ActionButton>
-        </Flex>
-      </View>
-    </Header>
+    <Box
+      bg={'gray.1'}
+      p={'sm'}
+      bd={'gray.2'}
+      component='header'
+    >
+      <Group justify={'end'}>
+        <Button
+          onClick={() =>
+            setScheme(scheme === 'dark' ? 'light' : 'dark')
+          }
+        >
+          {scheme === 'dark' ? <MoonStar size={24} /> : <SunMedium size={24} />}
+        </Button>
+      </Group>
+    </Box>
   );
 }

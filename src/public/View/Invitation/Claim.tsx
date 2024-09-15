@@ -1,12 +1,12 @@
-import { Divider, Flex, Heading, Link } from '@adobe/react-spectrum';
-import Engagement from '@spectrum-icons/workflow/Engagement';
+import { Divider, Stack, Title } from '@mantine/core';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { createRoute, useLinkProps, useNavigate } from '@tanstack/react-router';
-
+import { MailCheck } from 'lucide-react';
 import { useEffect } from 'react';
 
 import { execute } from '#api/Client.js';
 import { AuthView } from '../../Component/AuthView.js';
+import { ButtonAsLink } from '../../Link.js';
 import { rootRoute } from '../../RootRoute.js';
 import { loginRoute } from '../Login/Login.js';
 import {
@@ -15,6 +15,7 @@ import {
   SuccessfulInvitationClaim,
 } from './ClaimStatus.js';
 import { type Credentials, InvitationForm } from './InvitationForm.js';
+
 
 export const invitationRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -60,7 +61,7 @@ export function ClaimInvitation() {
   const render = () => {
     // If the info is being retrieved
     if (info.isLoading) {
-      return <Heading level={2}>Loading....</Heading>;
+      return <Title order={2}>Loading....</Title>;
     } else if (info.isError) {
       return <InvalidInvitation />;
     } else if (claim.isError) {
@@ -81,18 +82,20 @@ export function ClaimInvitation() {
   };
 
   return (
-    <AuthView className='claim-invitation-view'>
-      <Flex direction='column'>
-        <Engagement size='XXL' alignSelf={'center'} marginBottom={'size-400'} />
-        <Heading level={1} alignSelf='self-start'>
+    <AuthView className='ClaimInvitation'>
+      <Stack gap={'md'}>
+        <MailCheck size={48} />
+        <Title order={1}>
           Claim Invitation
-        </Heading>
+        </Title>
         {render()}
-        <Divider size='S' marginTop={'size-400'} marginBottom={'size-200'} />
-        <Link href={loginHref} isQuiet variant='secondary'>
-          Back to log-in
-        </Link>
-      </Flex>
+        <Divider />
+        <ButtonAsLink
+          to='/login'
+          variant='subtle'
+          children='Back to log-in'
+        />
+      </Stack>
     </AuthView>
   );
 }

@@ -1,17 +1,8 @@
-import { ActionButton, Flex, Text, View } from '@adobe/react-spectrum';
+import { AppShell, Button, Group, ScrollArea, Stack } from '@mantine/core';
 import type { Meta, StoryObj } from '@storybook/react';
-import { type ReactNode } from 'react';
+import { Camera, LayoutDashboard, Menu } from 'lucide-react';
 
-import { LCamera, LLayoutDashboard, LMenu } from '../Icons.js';
-import { ButtonAsLink } from '../Spectrum/ButtonAsLink.js';
-import { Shell } from './Shell.js';
-
-
-function Link(props: { href: string, children: ReactNode }) {
-  return (
-    <ButtonAsLink variant={'primary'} {...props} />
-  );
-};
+import { Shell } from './Shell2.js';
 
 
 const meta = {
@@ -50,28 +41,42 @@ function ShellExample() {
   return (
     <Shell
       header={(_isOpen, open) => (
-        <View padding={'size-200'}>
-          <ActionButton onPress={open} isHidden={{ M: true }}>
-            <Text>Menu</Text>
-            <LMenu color='informative' />
-          </ActionButton>
-        </View>
+        <Group p='sm'>
+          <Button
+            hiddenFrom='md'
+            variant='outline'
+            onClick={open}
+            leftSection={<Menu size={16} />}
+            children='Menu'
+          />
+        </Group>
       )}
       main={<div>Content</div>}
       sidebar={(_isOpen, _open, close) => (
-        <Flex direction={'column'} data-cl='SidebarExample' gap={'size-200'}>
-          <Link href='/dashboard'>
-            <LLayoutDashboard />
-            <Text>Home</Text>
-          </Link>
-          <Link href='/camera'>
-            <LCamera />
-            <Text>Camera</Text>
-          </Link>
-          <ActionButton onPress={close}>
-            <Text>Close</Text>
-          </ActionButton>
-        </Flex>
+        <>
+          <AppShell.Section grow component={ScrollArea} p={'sm'}>
+            <Stack p='sm'>
+              <Button
+                component='a'
+                justify='start'
+                href='/dashboard'
+                leftSection={<LayoutDashboard size={16} />}
+                children='Home'
+              />
+              <Button
+                component='a'
+                justify='start'
+                href='/camera'
+                leftSection={<Camera size={16} />}
+                children='Camera'
+              />
+            </Stack>
+
+          </AppShell.Section>
+          <AppShell.Section p={'sm'}>
+            <Button onClick={close} children='Close' />
+          </AppShell.Section>
+        </>
       )}
     />
   );

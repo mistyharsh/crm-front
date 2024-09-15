@@ -1,6 +1,6 @@
 import { Outlet } from '@tanstack/react-router';
 
-import { Shell } from '#shared/Shell/Shell.js';
+import { Shell } from '#shared/Shell/Shell2.js';
 import { Navigation } from './Navigation.js';
 import { AppHeader } from './AppHeader.js';
 

@@ -1,11 +1,12 @@
-import { Divider, Flex, Heading, Link } from '@adobe/react-spectrum';
-import SuccessMetric from '@spectrum-icons/workflow/SuccessMetric';
+import { Divider, Stack, Title } from '@mantine/core';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { createRoute, useLinkProps, useNavigate } from '@tanstack/react-router';
+import { TicketCheck } from 'lucide-react';
 import { useEffect } from 'react';
 
 import { execute } from '#api/Client.js';
 import { AuthView } from '../../Component/AuthView.js';
+import { ButtonAsLink } from '../../Link.js';
 import { rootRoute } from '../../RootRoute.js';
 import { loginRoute } from '../Login/Login.js';
 import { ResetForm, type ResetCredentials } from './ResetForm.js';
@@ -61,7 +62,7 @@ export function Reset() {
 
   const render = () => {
     if (info.isLoading) {
-      return <Heading level={2}>Loading....</Heading>;
+      return <Title order={2}>Loading....</Title>;
     } else if (info.isError) {
       return <InvalidResetToken />;
     } else if (reset.isSuccess) {
@@ -81,21 +82,19 @@ export function Reset() {
 
   return (
     <AuthView className='reset-view'>
-      <Flex direction='column'>
-        <SuccessMetric
-          size='XXL'
-          alignSelf={'center'}
-          marginBottom={'size-400'}
+      <Stack gap={'md'}>
+        <TicketCheck
+          size={'3rem'}
         />
-        <Heading level={1} alignSelf='self-start'>
+        <Title order={1}>
           Reset Password
-        </Heading>
+        </Title>
         {render()}
-        <Divider size='S' marginTop={'size-400'} marginBottom={'size-200'} />
-        <Link href={loginHref} isQuiet variant='secondary'>
+        <Divider />
+        <ButtonAsLink to='/login' variant='subtle'>
           Back to login
-        </Link>
-      </Flex>
+        </ButtonAsLink>
+      </Stack>
     </AuthView>
   );
 }

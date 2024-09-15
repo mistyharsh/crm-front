@@ -1,14 +1,5 @@
-import {
-  ActionButton,
-  Button,
-  Flex,
-  Form,
-  TextField,
-  ProgressCircle,
-} from '@adobe/react-spectrum';
-import Visiblity from '@spectrum-icons/workflow/Visibility';
-import VisiblityOff from '@spectrum-icons/workflow/VisibilityOff';
-
+import { Button, Group, Stack, TextInput } from '@mantine/core';
+import { Eye, EyeOff } from 'lucide-react';
 import { type FormEvent, useState } from 'react';
 
 export type ResetCredentials = {
@@ -35,46 +26,35 @@ export function ResetForm(props: ResetFormProps) {
   };
 
   return (
-    <Form
-      necessityIndicator='icon'
-      validationBehavior='native'
-      onSubmit={handleSubmit}
-    >
-      <Flex alignItems={'center'}>
-        <TextField
-          width={'size-6000'}
-          label='New Password'
-          name='newPassword'
-          type={showPassword ? 'text' : 'password'}
-          isRequired
-          description='Your new password'
-          value={password}
-          onChange={setPassword}
+    <form onSubmit={handleSubmit}>
+      <Stack gap={'md'}>
+        <Group gap={'sm'} align='end'>
+          <TextInput
+            label='New Password'
+            name='newPassword'
+            type={showPassword ? 'text' : 'password'}
+            description='Your new password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <Button onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? (
+              <Eye size={16} />
+            ) : (
+              <EyeOff size={16} />
+            )}
+          </Button>
+        </Group>
+        <Button
+          type='submit'
+          variant='filled'
+          color='gray'
+          fullWidth
+          loading={inProgress}
+          children='Submit'
         />
-        <ActionButton
-          marginBottom={'3px'}
-          onPress={() => setShowPassword(!showPassword)}
-        >
-          {showPassword ? (
-            <Visiblity aria-label='XXL' size='XXL' />
-          ) : (
-            <VisiblityOff aria-label='XXL' size='XXL' />
-          )}
-        </ActionButton>
-      </Flex>
-      <Button
-        type='reset'
-        variant='primary'
-        width='single-line-width'
-        style='fill'
-        alignSelf={'center'}
-      >
-        {inProgress ? (
-          <ProgressCircle size='S' staticColor='white' isIndeterminate />
-        ) : (
-          'Submit'
-        )}
-      </Button>
-    </Form>
+      </Stack>
+    </form>
   );
 }

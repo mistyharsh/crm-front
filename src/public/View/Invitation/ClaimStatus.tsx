@@ -1,30 +1,30 @@
-import { Heading, View } from '@adobe/react-spectrum';
-import AlertCircleFilled from '@spectrum-icons/workflow/AlertCircleFilled';
+import { Stack, Title } from '@mantine/core';
+import { CircleAlert } from 'lucide-react';
 
 export function SuccessfulInvitationClaim() {
   return (
-    <Heading level={2} alignSelf={'center'}>
+    <Title order={2}>
       The Invitation has been claimed!!
-    </Heading>
+    </Title>
   );
 }
 
 export function FailedInvitationClaim() {
   return (
-    <Heading level={2} alignSelf={'center'}>
+    <Title order={2}>
       Failed to claim the Invitation!!!!
-    </Heading>
+    </Title>
   );
 }
 
 export function InvalidInvitation() {
   return (
-    <View>
-      <Heading level={1} alignSelf={'center'}>
-        <AlertCircleFilled />
+    <Stack gap={'md'}>
+      <Title order={1}>
+        <CircleAlert />
         404
-      </Heading>
-      <Heading level={4}>Reset password link not found</Heading>
-    </View>
+      </Title>
+      <Title order={4}>Reset password link not found</Title>
+    </Stack>
   );
 }

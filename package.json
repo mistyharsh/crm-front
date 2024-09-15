@@ -6,7 +6,7 @@
   "scripts": {
     "check:types": "tsc -b tsconfig.json",
     "dev": "rspack dev --env development",
-    "dev:storybook": "storybook dev -p 6006",
+    "dev:storybook": "storybook dev --ci -p 6006",
     "dev:gql": "npm run dev:gqlGen && npm run dev:gqlFormat",
     "dev:gqlGen": "NODE_OPTIONS='--import tsx' graphql-codegen --c ./script/Codegen.ts",
     "dev:gqlFormat": "prettier --write ./src/api",
@@ -27,6 +27,8 @@
   },
   "dependencies": {
     "@adobe/react-spectrum": "^3.36.1",
+    "@mantine/core": "^7.12.2",
+    "@mantine/hooks": "^7.12.2",
     "@react-spectrum/utils": "^3.11.10",
     "@spectrum-icons/ui": "^3.6.9",
     "@spectrum-icons/workflow": "^4.2.14",

@@ -1,4 +1,4 @@
-import { Form, TextField, Button, ProgressCircle } from '@adobe/react-spectrum';
+import { Button, Stack, TextInput } from '@mantine/core';
 import { useState, type FormEvent } from 'react';
 
 export type Credentials = {
@@ -25,45 +25,37 @@ export function LoginForm(props: LoginFormProps) {
   };
 
   return (
-    <Form
-      minWidth={240}
-      data-cl='LoginForm'
-      necessityIndicator='icon'
-      validationBehavior='native'
+    <form
+      className='LoginForm'
       onSubmit={handleChange}
     >
-      <TextField
-        label='Email'
-        name='email'
-        type='email'
-        isRequired
-        description='Your email id'
-        value={credentials.email}
-        onChange={(email) => setCredentials({ ...credentials, email })}
-      />
-      <TextField
-        label='Password'
-        name='password'
-        type='password'
-        isRequired
-        description='Password'
-        value={credentials.password}
-        onChange={(password) => setCredentials({ ...credentials, password })}
-      />
+      <Stack miw={'260px'} gap={'md'}>
+        <TextInput
+          label='Email'
+          name='email'
+          type='email'
+          description='Your email id'
+          value={credentials.email}
+          onChange={(ev) => setCredentials({ ...credentials, email: ev.target.value })}
+        />
+        <TextInput
+          label='Password'
+          name='password'
+          type='password'
+          description='Password'
+          value={credentials.password}
+          onChange={(ev) => setCredentials({ ...credentials, password: ev.target.value })}
+        />
 
-      <Button
-        type='submit'
-        variant='accent'
-        width='single-line-width'
-        style='fill'
-        alignSelf={'center'}
-      >
-        {inProgress ? (
-          <ProgressCircle size='S' staticColor='white' isIndeterminate />
-        ) : (
-          'Login'
-        )}
-      </Button>
-    </Form>
+        <Button
+          type='submit'
+          variant='filled'
+          color='gray'
+          fullWidth
+          loading={inProgress}
+          children='Login'
+        />
+      </Stack>
+    </form>
   );
 }

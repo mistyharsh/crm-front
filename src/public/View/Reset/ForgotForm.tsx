@@ -1,5 +1,4 @@
-import { Button, Form, ProgressCircle, TextField } from '@adobe/react-spectrum';
-
+import { Button, Stack, TextInput } from '@mantine/core';
 import { type FormEvent, useState } from 'react';
 
 export type Credentials = {
@@ -24,33 +23,25 @@ export function ForgotForm(props: ForgotFormProps) {
   };
 
   return (
-    <Form
-      necessityIndicator='icon'
-      validationBehavior='native'
-      onSubmit={handleChange}
-    >
-      <TextField
-        label='Enter email id'
-        name='email'
-        type='text'
-        isRequired
-        description='Your email id'
-        value={userEmail.email}
-        onChange={(email) => setUserEmail({ ...userEmail, email })}
-      />
-      <Button
-        type='submit'
-        variant='primary'
-        width='single-line-width'
-        style='fill'
-        alignSelf={'center'}
-      >
-        {inProgress ? (
-          <ProgressCircle size='S' staticColor='white' isIndeterminate />
-        ) : (
-          'Submit'
-        )}
-      </Button>
-    </Form>
+    <form onSubmit={handleChange}>
+      <Stack miw={'260px'} gap={'md'}>
+        <TextInput
+          label='Enter email id'
+          name='email'
+          type='text'
+          description='Your email id'
+          value={userEmail.email}
+          onChange={(ev) => setUserEmail({ ...userEmail, email: ev.target.value })}
+        />
+        <Button
+          type='submit'
+          variant='filled'
+          color='gray'
+          fullWidth
+          loading={inProgress}
+          children='Login'
+        />
+      </Stack>
+    </form>
   );
 }

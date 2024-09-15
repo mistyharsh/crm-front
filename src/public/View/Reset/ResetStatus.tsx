@@ -1,41 +1,41 @@
-import { Heading, View } from '@adobe/react-spectrum';
-import AlertCircleFilled from '@spectrum-icons/workflow/AlertCircleFilled';
+import { Stack, Title } from '@mantine/core';
+import { CircleAlert } from 'lucide-react';
 
 export function EmailSent() {
   return (
-    <Heading level={4} alignSelf={'center'}>
+    <Title order={4}>
       Link to reset your password has been sent to you email. Please check.
-    </Heading>
+    </Title>
   );
 }
 
 export function SuccessfulReset() {
   return (
-    <Heading level={4} alignSelf={'center'}>
+    <Title order={4}>
       The password has been set successfully
-    </Heading>
+    </Title>
   );
 }
 
 export function InvalidResetToken() {
   return (
-    <View>
-      <Heading level={1} alignSelf={'center'}>
-        <AlertCircleFilled />
+    <Stack gap={'md'}>
+      <Title order={1}>
+        <CircleAlert />
         404
-      </Heading>
-      <Heading level={4}>Reset password link not found</Heading>
-    </View>
+      </Title>
+      <Title order={4}>Reset password link not found</Title>
+    </Stack>
   );
 }
 
 export function FailedResetPassword() {
   return (
-    <View>
-      <Heading level={1} alignSelf={'center'}>
-        <AlertCircleFilled />
+    <Stack gap={'md'}>
+      <Title order={1}>
+        <CircleAlert />
         Failed to reset the password! Try again.
-      </Heading>
-    </View>
+      </Title>
+    </Stack>
   );
 }
