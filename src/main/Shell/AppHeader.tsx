@@ -11,10 +11,10 @@ export function AppHeader(props: AppHeaderProps) {
   const { onOpen } = props;
 
   return (
-    <Group gap={'md'} className='AppHeader'>
+    <Group p={'sm'} gap={'md'} justify='end' className='AppHeader'>
       <Button
         hiddenFrom='md'
-        variant='outline'
+        variant='default'
         onClick={onOpen}
         leftSection={<Menu size={16} />}
         children='Menu'

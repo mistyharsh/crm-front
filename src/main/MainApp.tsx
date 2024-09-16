@@ -1,10 +1,9 @@
-import { App } from '#base/App.js';
+import { useActiveTenant, useTenantList } from './Data/UseTenant.js';
 import { AppShell } from './Shell/AppShell.js';
 
 export function MainApp() {
-  return (
-    <App>
-      <AppShell />
-    </App>
-  );
+  const { data } = useTenantList();
+  const tenant = useActiveTenant();
+
+  return <AppShell tenants={data} tenant={tenant} />;
 }

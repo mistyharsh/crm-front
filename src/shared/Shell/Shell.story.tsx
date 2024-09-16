@@ -32,8 +32,8 @@ export const Desktop: Story = {
       defaultViewport: 'desktop',
     },
   },
-  args: {},
   render: ShellExample,
+  args: {},
 };
 
 function ShellExample() {
@@ -52,7 +52,7 @@ function ShellExample() {
       )}
       main={<div>Content</div>}
       sidebar={(_isOpen, _open, close) => (
-        <>
+        <AppShell.Navbar bg={'dark.6'}>
           <AppShell.Section grow component={ScrollArea} p={'sm'}>
             <Stack p='sm'>
               <Button
@@ -74,7 +74,7 @@ function ShellExample() {
           <AppShell.Section p={'sm'}>
             <Button onClick={close} children='Close' />
           </AppShell.Section>
-        </>
+        </AppShell.Navbar>
       )}
     />
   );

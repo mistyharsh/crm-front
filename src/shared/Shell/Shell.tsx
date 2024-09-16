@@ -1,4 +1,4 @@
-import { AppShell } from '@mantine/core';
+import { AppShell, type AppShellNavbarConfiguration } from '@mantine/core';
 import { useState, type ReactNode } from 'react';
 
 export type ShellProps = {
@@ -10,31 +10,31 @@ export type ShellProps = {
 export function Shell(props: ShellProps) {
   const { sidebar, header, main } = props;
 
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   const close = () => setCollapsed(true);
   const open = () => setCollapsed(false);
+
+  const navbar: AppShellNavbarConfiguration = {
+    width: 240,
+    breakpoint: 'md',
+    collapsed: {
+      desktop: false,
+      mobile: collapsed,
+    },
+  };
 
   return (
     <AppShell
       layout='alt'
       header={{ height: 60 }}
       withBorder={false}
-      navbar={{
-        width: 240,
-        breakpoint: 'md',
-        collapsed: {
-          desktop: false,
-          mobile: collapsed,
-        },
-      }}
+      navbar={sidebar && navbar}
     >
       <AppShell.Header>
         {header && header(!collapsed, open, close)}
       </AppShell.Header>
-      <AppShell.Navbar bg={'dark.6'}>
-        {sidebar && sidebar(!collapsed, open, close)}
-      </AppShell.Navbar>
+      {sidebar && sidebar(!collapsed, open, close)}
       <AppShell.Main>{main}</AppShell.Main>
     </AppShell>
   );

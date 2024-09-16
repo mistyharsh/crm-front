@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 
 import './Reset.css';
 import '@mantine/core/styles.css';
+import { App } from './App.js';
 
 export type RunOptions = {
   router: Router<any, any>;
@@ -19,7 +20,9 @@ export function withStrictMode(props: StrictAppProps) {
   return function StrictApp() {
     return (
       <StrictMode>
-        <RouterProvider router={router} />
+        <App>
+          <RouterProvider router={router} />
+        </App>
       </StrictMode>
     );
   };
@@ -28,7 +31,7 @@ export function withStrictMode(props: StrictAppProps) {
 export function run(options: RunOptions) {
   const { router } = options;
 
-  const app = withStrictMode({ router });
+  const App = withStrictMode({ router });
 
   const domElm = document.createElement('div');
   const root = createRoot(domElm);
@@ -36,5 +39,5 @@ export function run(options: RunOptions) {
   domElm.className = 'root';
   document.body.appendChild(domElm);
 
-  root.render(createElement(app));
+  root.render(createElement(App));
 }

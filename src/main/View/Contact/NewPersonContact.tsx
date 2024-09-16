@@ -1,15 +1,13 @@
-import { Flex, Heading, View } from '@adobe/react-spectrum';
-import PersonalizationField from '@spectrum-icons/workflow/PersonalizationField';
+import { Stack, Title } from '@mantine/core';
 import { useMutation } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
+import { BookUser } from 'lucide-react';
 
 import { execute } from '#api/Client.js';
 import type { PersonInput } from '#api/Operation.js';
 import { workspaceRoute } from '../Workspace/WorkspaceRoute.js';
 import { PersonContactForm } from './PersonContactForm.js';
 import { usePersonContactForm } from './UsePersonContactForm.js';
-import { Stack } from '@mantine/core';
-import { BookUser } from 'lucide-react';
 
 export type NewPersonContactProps = {};
 
@@ -37,9 +35,7 @@ export function NewPersonContact(_props: NewPersonContactProps) {
   return (
     <Stack className='NewPersonContact'>
       <BookUser size={'3rem'} strokeWidth={1} />
-      <Heading level={1} alignSelf={'self-start'}>
-        New Contact Person
-      </Heading>
+      <Title order={1} children='New Contact Person' />
       <PersonContactForm form={form} />
     </Stack>
   );

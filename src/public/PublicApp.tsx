@@ -1,13 +1,8 @@
 import { Outlet } from '@tanstack/react-router';
 
-import { App } from '#base/App.js';
+import { Shell } from '#shared/Shell/Shell.js';
 import { AppHeader } from './Header/AppHeader.js';
 
 export function PublicApp() {
-  return (
-    <App>
-      <AppHeader />
-      <Outlet />
-    </App>
-  );
+  return <Shell header={() => <AppHeader />} main={<Outlet />} />;
 }

@@ -1,8 +1,7 @@
 import { Stack, Title } from '@mantine/core';
-import { useQuery } from '@tanstack/react-query';
 import { createRoute } from '@tanstack/react-router';
 
-import { execute } from '#api/Client.js';
+import { useTenantList } from '../../Data/UseTenant.js';
 import { rootRoute } from '../../RootRoute.js';
 import { TenantList } from './TenantList.js';
 
@@ -11,13 +10,6 @@ export const homeRoute = createRoute({
   component: Home,
   path: '/',
 });
-
-function useTenantList() {
-  return useQuery({
-    queryKey: ['Tenants'],
-    queryFn: () => execute('Tenants').then((data) => data.getMyTenants),
-  });
-}
 
 export function Home() {
   const { data: tenantList, isLoading, isSuccess } = useTenantList();
