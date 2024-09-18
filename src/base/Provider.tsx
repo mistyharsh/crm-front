@@ -18,6 +18,7 @@ export type AppProviderProps = {
 };
 
 export function AppProvider(props: AppProviderProps) {
+  const { children } = props;
   const scheme = useMantineColorScheme();
   const colorScheme = useComputedColorScheme();
 
@@ -26,9 +27,7 @@ export function AppProvider(props: AppProviderProps) {
     setScheme: scheme.setColorScheme,
   };
 
-  return (
-    <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
-  );
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
 
 export function useAppProvider() {

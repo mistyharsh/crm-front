@@ -27,11 +27,11 @@ export function Navigation(props: NavigationProps) {
   const tenantId = tenant?.id;
 
   return (
-    <AppShellNavbar bg={'dark.6'}>
+    <AppShellNavbar bg={'neutral.1'}>
       {tenant && (
         <AppShellSection p={'md'}>
-          <Box bg={'dark'}>
-            <Title order={1} fw={700} fz={'h4'} p={'sm'} c={'white'}>
+          <Box>
+            <Title order={1} fw={700} fz={'h4'} p={'sm'}>
               {tenant.name}
             </Title>
           </Box>

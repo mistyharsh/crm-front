@@ -51,7 +51,7 @@ export function LoginForm(props: LoginFormProps) {
         <Button
           type='submit'
           variant='filled'
-          color='gray'
+          color='violet'
           fullWidth
           loading={inProgress}
           children='Login'
