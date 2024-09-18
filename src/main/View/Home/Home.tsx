@@ -1,4 +1,4 @@
-import { Stack, Title } from '@mantine/core';
+import { Box, Paper, Stack, Title } from '@mantine/core';
 import { createRoute } from '@tanstack/react-router';
 
 import { useTenantList } from '../../Data/UseTenant.js';
@@ -23,9 +23,11 @@ export function Home() {
   }
 
   return (
-    <Stack className='Home' maw={600} p={'md'} m={'lg'} bg={'gray.8'}>
-      <Title order={2} children='Select Workspace' />
-      <TenantList tenants={tenantList} />
-    </Stack>
+    <Paper withBorder className='Home' radius={'md'} maw={600} p={'md'} m={'lg'}>
+      <Stack>
+        <Title order={2} children='Select Workspace' />
+        <TenantList tenants={tenantList} />
+      </Stack>
+    </Paper>
   );
 }

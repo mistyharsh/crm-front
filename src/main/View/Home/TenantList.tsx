@@ -33,9 +33,10 @@ export function TenantListItem(props: TenantListItemProps) {
       params={{ tenantId: id }}
       h={'auto'}
       variant='subtle'
-      color={'gray.7'}
+      color={'dark'}
       justify='start'
       style={{ textAlign: 'left' }}
+      p={'sm'}
     >
       <Group>
         <Avatar radius={'sm'} color='initials' name={name} />
