@@ -1,0 +1,11 @@
+.navigation {
+  background-color: var(--gray-100);
+}
+
+.title {
+  color: var(--gray-900);
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-wrap: nowrap;
+}

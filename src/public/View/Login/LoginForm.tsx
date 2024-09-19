@@ -26,12 +26,11 @@ export function LoginForm(props: LoginFormProps) {
 
   return (
     <form className='LoginForm' onSubmit={handleChange}>
-      <Stack miw={'260px'} gap={'md'}>
+      <Stack miw={'260px'} gap={'lg'}>
         <TextInput
           label='Email'
-          name='email'
           type='email'
-          description='Your email id'
+          placeholder='Enter your email address'
           value={credentials.email}
           onChange={(ev) =>
             setCredentials({ ...credentials, email: ev.target.value })
@@ -39,9 +38,8 @@ export function LoginForm(props: LoginFormProps) {
         />
         <TextInput
           label='Password'
-          name='password'
           type='password'
-          description='Password'
+          placeholder='Enter your password'
           value={credentials.password}
           onChange={(ev) =>
             setCredentials({ ...credentials, password: ev.target.value })
@@ -51,7 +49,6 @@ export function LoginForm(props: LoginFormProps) {
         <Button
           type='submit'
           variant='filled'
-          color='violet'
           fullWidth
           loading={inProgress}
           children='Login'

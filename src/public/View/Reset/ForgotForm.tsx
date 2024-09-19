@@ -24,12 +24,12 @@ export function ForgotForm(props: ForgotFormProps) {
 
   return (
     <form onSubmit={handleChange}>
-      <Stack miw={'260px'} gap={'md'}>
+      <Stack miw={'260px'} gap={'lg'}>
         <TextInput
-          label='Enter email id'
+          label='Email'
           name='email'
           type='text'
-          description='Your email id'
+          placeholder='Enter your email address'
           value={userEmail.email}
           onChange={(ev) =>
             setUserEmail({ ...userEmail, email: ev.target.value })
@@ -38,10 +38,9 @@ export function ForgotForm(props: ForgotFormProps) {
         <Button
           type='submit'
           variant='filled'
-          color='gray'
           fullWidth
           loading={inProgress}
-          children='Login'
+          children='Request reset link'
         />
       </Stack>
     </form>

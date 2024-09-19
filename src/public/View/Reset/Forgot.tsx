@@ -27,7 +27,7 @@ export function Forgot() {
 
   return (
     <AuthView className='forgot-view'>
-      <Stack gap={'md'}>
+      <Stack gap={'lg'}>
         <LogIn size={'3rem'} />
         <Title order={1}>Forgot Password?</Title>
         {isSuccess ? (

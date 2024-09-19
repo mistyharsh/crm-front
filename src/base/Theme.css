@@ -1,0 +1,134 @@
+/* Static tokens */
+:root[data-mantine-color-scheme] {
+  --mantine-color-dark-0: #ebebeb;
+  --mantine-color-dark-1: #d1d1d1;
+  --mantine-color-dark-2: #b2b2b2;
+  --mantine-color-dark-3: #909090;
+  --mantine-color-dark-4: #707070;
+  --mantine-color-dark-5: #545454;
+  --mantine-color-dark-6: #3f3f3f;
+  --mantine-color-dark-7: #323232;
+  --mantine-color-dark-8: #262626;
+  --mantine-color-dark-9: #1d1d1d;
+
+  --mantine-font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+:root[data-mantine-color-scheme='light'] {
+  /* #222222 */
+  --gray-800-rgb: 34, 34, 34;
+
+  --gray-50: #fff;
+  --gray-75: #fdfdfd;
+  --gray-100: #f8f8f8;
+  --gray-200: #e6e6e6;
+  --gray-300: #d5d5d5;
+  --gray-400: #b1b1b1;
+  --gray-500: #909090;
+  --gray-600: #6d6d6d;
+  --gray-700: #464646;
+  --gray-800: rgb(var(--gray-800-rgb));
+  --gray-900: #000000;
+
+  --mantine-color-body: var(--gray-75);
+}
+
+:root[data-mantine-color-scheme='dark'] {
+  /* #ebebeb */
+  --gray-800-rgb: 235, 235, 235;
+
+  --gray-50: #1d1d1d;
+  --gray-75: #262626;
+  --gray-100: #323232;
+  --gray-200: #3f3f3f;
+  --gray-300: #545454;
+  --gray-400: #707070;
+  --gray-500: #909090;
+  --gray-600: #b2b2b2;
+  --gray-700: #d1d1d1;
+  --gray-800: rgb(var(--gray-800-rgb));
+  --gray-900: #ffffff;
+
+  --mantine-color-body: var(--gray-50);
+}
+
+/* All semantic tokens */
+:root[data-mantine-color-scheme] {
+  --mantine-color-gray-0: var(--gray-50);
+  --mantine-color-gray-1: var(--gray-100);
+  --mantine-color-gray-2: var(--gray-200);
+  --mantine-color-gray-3: var(--gray-300);
+  --mantine-color-gray-4: var(--gray-400);
+  --mantine-color-gray-5: var(--gray-500);
+  --mantine-color-gray-6: var(--gray-600);
+  --mantine-color-gray-7: var(--gray-700);
+  --mantine-color-gray-8: var(--gray-800);
+  --mantine-color-gray-9: var(--gray-900);
+
+  --mantine-color-text: var(--gray-800);
+  --mantine-color-body: var(--gray-75);
+  --mantine-color-placeholder: var(--gray-600);
+
+  /* Default variant */
+  /* Background color, on hover and text color */
+  --mantine-color-default: var(--gray-100);
+  --mantine-color-default-hover: var(--gray-200);
+  --mantine-color-default-color: var(--gray-800);
+
+  --mantine-color-dimmed: var(--gray-700);
+
+  --mantine-color-dark-text: var(--gray-800);
+  --mantine-color-dark-filled: var(--gray-700);
+  --mantine-color-dark-filled-hover: var(--gray-800);
+
+  --mantine-color-dark-light: rgba(var(--gray-800-rgb), 0.1);
+  --mantine-color-dark-light-hover: rgba(var(--gray-800-rgb), 0.12);
+  --mantine-color-dark-light-color: var(--gray-800);
+
+  --mantine-color-dark-outline: var(--gray-800);
+  --mantine-color-dark-outline-hover: rgba(var(--gray-800-rgb), 0.5);
+
+  --mantine-color-gray-text: var(--gray-100);
+  --mantine-color-gray-filled: var(--gray-800);
+  --mantine-color-gray-filled-hover: var(--gray-900);
+
+  /* Button 'gray' subtle variant with light scheme */
+  --mantine-color-gray-light: rgba(var(--gray-800-rgb), 0.1);
+  --mantine-color-gray-light-hover: rgba(var(--gray-800-rgb), 0.12);
+  --mantine-color-gray-light-color: var(--gray-800);
+  --mantine-color-gray-outline: var(--gray-800);
+  --mantine-color-gray-outline-hover: rgba(var(--gray-800-rgb), 0.05);
+
+  --mantine-primary-color-0: var(--mantine-color-teal-0);
+  --mantine-primary-color-1: var(--mantine-color-teal-1);
+  --mantine-primary-color-2: var(--mantine-color-teal-2);
+  --mantine-primary-color-3: var(--mantine-color-teal-3);
+  --mantine-primary-color-4: var(--mantine-color-teal-4);
+  --mantine-primary-color-5: var(--mantine-color-teal-5);
+  --mantine-primary-color-6: var(--mantine-color-teal-6);
+  --mantine-primary-color-7: var(--mantine-color-teal-7);
+  --mantine-primary-color-8: var(--mantine-color-teal-8);
+  --mantine-primary-color-9: var(--mantine-color-teal-9);
+  --mantine-primary-color-filled: var(--mantine-color-teal-filled);
+  --mantine-primary-color-filled-hover: var(--mantine-color-teal-filled-hover);
+  --mantine-primary-color-light: var(--mantine-color-teal-light);
+  --mantine-primary-color-light-hover: var(--mantine-color-teal-light-hover);
+  --mantine-primary-color-light-color: var(--mantine-color-teal-light-color);
+}
+
+:root[data-mantine-color-scheme="dark"] {
+  --mantine-color-anchor: var(--mantine-color-teal-4);
+}
+
+:root[data-mantine-color-scheme="light"] {
+  --mantine-color-anchor: var(--mantine-color-teal-6);
+}
+
+.mantine-Tooltip-tooltip {
+  --tooltip-bg: var(--gray-800);
+  --tooltip-color: var(--gray-100);
+}
+
+.mantine-Divider-root {
+  --divider-color: var(--gray-300);
+}

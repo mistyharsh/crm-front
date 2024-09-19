@@ -47,7 +47,7 @@ export function Login() {
 
   return (
     <AuthView className='login-view'>
-      <Stack>
+      <Stack gap={'lg'}>
         <Group mb={'lg'}>
           <FlameKindling size={'3rem'} />
         </Group>

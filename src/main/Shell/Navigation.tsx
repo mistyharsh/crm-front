@@ -1,21 +1,15 @@
 import {
   AppShellNavbar,
   AppShellSection,
-  Avatar,
-  Box,
-  Button,
   Divider,
-  Group,
   ScrollArea,
   Title,
-  Tooltip,
 } from '@mantine/core';
-import { ArrowLeftRight } from 'lucide-react';
 
 import type { Tenant } from '#api/Operation.js';
-import { SchemeToggle } from '#base/SchemeToggle.js';
-import { ButtonAsLink } from '../Link.js';
+import { BottomBar } from './BottomBar.js';
 import { WorkspaceSidebar } from './WorkspaceSidebar.js';
+import style from './Shell.module.css';
 
 export type NavigationProps = {
   tenant?: Tenant;
@@ -27,14 +21,13 @@ export function Navigation(props: NavigationProps) {
   const tenantId = tenant?.id;
 
   return (
-    <AppShellNavbar>
+    <AppShellNavbar className={style.navigation}>
       {tenant && (
-        <AppShellSection p={'md'}>
-          <Box>
-            <Title order={1} fw={700} fz={'h4'} p={'sm'}>
-              {tenant.name}
-            </Title>
-          </Box>
+        <AppShellSection>
+          <Title className={style.title} order={1} p={'md'} fw={700} fz={'h3'} textWrap='nowrap'>
+            {tenant.name}
+          </Title>
+          <Divider />
         </AppShellSection>
       )}
 
@@ -47,38 +40,7 @@ export function Navigation(props: NavigationProps) {
       </AppShellSection>
 
       <AppShellSection p={'md'}>
-        <Group wrap='nowrap'>
-          <Tooltip label='Profile' color='gray.6'>
-            <ButtonAsLink
-              to='/workspaces/$tenantId'
-              params={{ tenantId: '' }}
-              variant='transparent'
-              p={0}
-            >
-              <Avatar
-                radius={'sm'}
-                size={'md'}
-                color='initials'
-                name={'John Doe'}
-              />
-            </ButtonAsLink>
-          </Tooltip>
-          <Tooltip label='Change Workspace'>
-            <ButtonAsLink to='/' variant='default' px={'sm'}>
-              <ArrowLeftRight size={20} />
-            </ButtonAsLink>
-          </Tooltip>
-          <SchemeToggle />
-          <Button
-            variant='default'
-            px={'sm'}
-            hiddenFrom='md'
-            onClick={onClose}
-            ml={'auto'}
-          >
-            Close
-          </Button>
-        </Group>
+        <BottomBar onClose={onClose} />
       </AppShellSection>
     </AppShellNavbar>
   );

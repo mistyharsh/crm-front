@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 
 import './Reset.css';
 import '@mantine/core/styles.css';
+import './Theme.css';
 import { App } from './App.js';
 
 export type RunOptions = {
