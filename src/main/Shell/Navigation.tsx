@@ -27,7 +27,7 @@ export function Navigation(props: NavigationProps) {
   const tenantId = tenant?.id;
 
   return (
-    <AppShellNavbar bg={'neutral.1'}>
+    <AppShellNavbar>
       {tenant && (
         <AppShellSection p={'md'}>
           <Box>

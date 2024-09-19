@@ -23,7 +23,14 @@ export function Home() {
   }
 
   return (
-    <Paper withBorder className='Home' radius={'md'} maw={600} p={'md'} m={'lg'}>
+    <Paper
+      withBorder
+      className='Home'
+      radius={'md'}
+      maw={600}
+      p={'md'}
+      m={'lg'}
+    >
       <Stack>
         <Title order={2} children='Select Workspace' />
         <TenantList tenants={tenantList} />
