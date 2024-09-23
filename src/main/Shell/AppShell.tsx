@@ -8,7 +8,7 @@ import { Navigation } from './Navigation.js';
 export type AppShellProps = {
   tenants: Tenant[];
 
-  /** Active tenant Id */
+  /** Active tenant */
   tenant?: Tenant;
 };
 

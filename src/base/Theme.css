@@ -1,5 +1,5 @@
 /* Static tokens */
-:root[data-mantine-color-scheme] {
+[data-mantine-color-scheme] {
   --mantine-color-dark-0: #ebebeb;
   --mantine-color-dark-1: #d1d1d1;
   --mantine-color-dark-2: #b2b2b2;
@@ -14,7 +14,7 @@
   --mantine-font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-:root[data-mantine-color-scheme='light'] {
+[data-mantine-color-scheme='light'] {
   /* #222222 */
   --gray-800-rgb: 34, 34, 34;
 
@@ -31,9 +31,10 @@
   --gray-900: #000000;
 
   --mantine-color-body: var(--gray-75);
+  --mantine-color-anchor: var(--mantine-color-teal-6);
 }
 
-:root[data-mantine-color-scheme='dark'] {
+[data-mantine-color-scheme='dark'] {
   /* #ebebeb */
   --gray-800-rgb: 235, 235, 235;
 
@@ -50,10 +51,11 @@
   --gray-900: #ffffff;
 
   --mantine-color-body: var(--gray-50);
+  --mantine-color-anchor: var(--mantine-color-teal-4);
 }
 
 /* All semantic tokens */
-:root[data-mantine-color-scheme] {
+[data-mantine-color-scheme] {
   --mantine-color-gray-0: var(--gray-50);
   --mantine-color-gray-1: var(--gray-100);
   --mantine-color-gray-2: var(--gray-200);
@@ -116,19 +118,19 @@
   --mantine-primary-color-light-color: var(--mantine-color-teal-light-color);
 }
 
-:root[data-mantine-color-scheme="dark"] {
-  --mantine-color-anchor: var(--mantine-color-teal-4);
-}
-
-:root[data-mantine-color-scheme="light"] {
-  --mantine-color-anchor: var(--mantine-color-teal-6);
-}
-
 .mantine-Tooltip-tooltip {
   --tooltip-bg: var(--gray-800);
   --tooltip-color: var(--gray-100);
 }
 
 .mantine-Divider-root {
-  --divider-color: var(--gray-300);
+  --divider-color: var(--gray-200);
+}
+
+.mantine-Input-wrapper {
+  --input-bd: var(--gray-400);
+  --input-bg: var(--mantine-color-gray-0);
+
+  --input-disabled-bg: var(--gray-500);
+  --input-disabled-color: var(--gray-700);
 }

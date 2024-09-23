@@ -15,7 +15,11 @@ export function App(props: AppProps) {
   const { children } = props;
 
   return (
-    <MantineProvider theme={theme} withCssVariables={false} cssVariablesResolver={resolver}>
+    <MantineProvider
+      theme={theme}
+      withCssVariables={false}
+      cssVariablesResolver={resolver}
+    >
       <QueryClientProvider client={queryClient}>
         <AppProvider>{children}</AppProvider>
       </QueryClientProvider>

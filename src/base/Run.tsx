@@ -2,10 +2,9 @@ import { RouterProvider, type Router } from '@tanstack/react-router';
 import { StrictMode, createElement } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import './Reset.css';
-import '@mantine/core/styles.css';
-import './Theme.css';
 import { App } from './App.js';
+
+import './Base.css';
 
 export type RunOptions = {
   router: Router<any, any>;

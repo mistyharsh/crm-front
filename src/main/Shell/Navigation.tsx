@@ -24,7 +24,14 @@ export function Navigation(props: NavigationProps) {
     <AppShellNavbar className={style.navigation}>
       {tenant && (
         <AppShellSection>
-          <Title className={style.title} order={1} p={'md'} fw={700} fz={'h3'} textWrap='nowrap'>
+          <Title
+            className={style.title}
+            order={1}
+            p={'md'}
+            fw={700}
+            fz={'h3'}
+            textWrap='nowrap'
+          >
             {tenant.name}
           </Title>
           <Divider />

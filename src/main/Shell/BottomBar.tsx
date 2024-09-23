@@ -13,17 +13,17 @@ export function BottomBar(props: BottomBarProps) {
 
   return (
     <Group wrap='nowrap'>
-      <Tooltip label='Profile' color='gray.6'>
+      <Tooltip label='Profile'>
         <ButtonAsLink
           to='/workspaces/$tenantId'
           params={{ tenantId: '' }}
-          variant='transparent'
+          variant='outline'
           p={0}
         >
           <Avatar
             radius={'sm'}
             size={'md'}
-            color='initials'
+            color='teal'
             name={'John Doe'}
           />
         </ButtonAsLink>
