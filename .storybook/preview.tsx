@@ -50,7 +50,6 @@ const preview: Preview = {
   ],
 };
 
-
 export type MantineSurfaceProps = {
   className?: string;
   storyElm: ReactNode;

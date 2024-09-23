@@ -134,3 +134,8 @@
   --input-disabled-bg: var(--gray-500);
   --input-disabled-color: var(--gray-700);
 }
+
+.mantine-InputWrapper-label {
+  --input-label-size: 13px;
+  font-weight: 700;
+}

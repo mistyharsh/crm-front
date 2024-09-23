@@ -17,20 +17,20 @@ export const newPersonContactRoute = createRoute({
   component: NewPersonContact,
 });
 
-function useCreateContactPersonMutation(input: PersonInput, tenantId: string) {
+function useCreateContactPersonMutation(tenantId: string) {
   return useMutation({
-    mutationFn: () => execute('CreateContactPerson', { input, tenantId }),
+    mutationFn: (input: PersonInput) =>
+      execute('CreateContactPerson', { input, tenantId }),
   });
 }
 
 export function NewPersonContact(_props: NewPersonContactProps) {
   const { tenantId } = newPersonContactRoute.useParams();
 
-  const form = usePersonContactForm(() => {
-    contacts.mutate();
+  const contacts = useCreateContactPersonMutation(tenantId);
+  const form = usePersonContactForm((value) => {
+    contacts.mutate(value);
   });
-
-  const contacts = useCreateContactPersonMutation(form.state.values, tenantId);
 
   return (
     <Stack className='NewPersonContact'>

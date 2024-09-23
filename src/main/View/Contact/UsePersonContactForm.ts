@@ -6,16 +6,16 @@ import type {
   PersonInput,
   PhoneInput,
 } from '#api/Operation.js';
-import type { NameTuple } from './Field/NameField';
+import type { NameTuple } from './Field/NameField.js';
 
 export type PersonInputFormApi = FormApi<PersonInputModel>;
 
 export type PersonInputModel = {
+  addresses: AddressInput[];
   dob: Date | null;
+  emails: EmailInput[];
   gender: string;
   name: NameTuple;
-  addresses: AddressInput[];
-  emails: EmailInput[];
   phones: PhoneInput[];
 };
 
@@ -30,7 +30,7 @@ const emptyValue: PersonInputModel = {
 
 export function usePersonContactForm(
   onSubmit: (value: PersonInput) => void
-): FormApi<PersonInputModel> {
+): PersonInputFormApi {
   return useForm<PersonInputModel>({
     defaultValues: emptyValue,
     onSubmit: ({ value }) => {

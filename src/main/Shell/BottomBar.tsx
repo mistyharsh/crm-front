@@ -20,12 +20,7 @@ export function BottomBar(props: BottomBarProps) {
           variant='outline'
           p={0}
         >
-          <Avatar
-            radius={'sm'}
-            size={'md'}
-            color='teal'
-            name={'John Doe'}
-          />
+          <Avatar radius={'sm'} size={'md'} color='teal' name={'John Doe'} />
         </ButtonAsLink>
       </Tooltip>
       <Tooltip label='Change Workspace'>
