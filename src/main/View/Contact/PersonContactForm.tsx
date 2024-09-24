@@ -1,13 +1,13 @@
 import { Button, Group, Title } from '@mantine/core';
 
+import { FormGrid } from '#shared/Grid/FormGrid.js';
 import { AddressListField } from './Field/AddressListField.js';
 import { EmailListField } from './Field/EmailField.js';
 import { NameField } from './Field/NameField.js';
 import { DateOfBirthField, GenderField } from './Field/PersonField.js';
-import { PhoneListField } from './Field/PhoneField.js';
+import { PhoneListField } from './Field/PhoneListField.js';
 import type { PersonInputFormApi } from './UsePersonContactForm.js';
-import style from './PersonContactForm.module.css';
-import { Baseline } from 'lucide-react';
+import { User } from 'lucide-react';
 
 export type PersonContactFormProps = {
   form: PersonInputFormApi;
@@ -24,35 +24,40 @@ export function PersonContactForm(props: PersonContactFormProps) {
         form.handleSubmit();
       }}
     >
-      <div className={style.grid}>
-        <Title className={style.grow} order={4} children='Basic Information' />
+      <FormGrid>
+        <Group gap={'xs'} className={FormGrid.grow}>
+          <User size={20} />
+          <Title display={'flex'}  order={4}>
+            Basic Information
+          </Title>
+        </Group>
         <Field
           name='name'
           children={({ state, handleChange }) => (
             <NameField
-              className={style.gridChild}
+              className={FormGrid.subgrid}
               value={state.value}
               onChange={handleChange}
             />
           )}
         />
 
-        <Title className={style.grow} order={4} children='Contact Details' />
+        <Title className={FormGrid.grow} order={4} children='Contact Details' />
 
         <Field
           name='phones'
           children={({ state, handleChange }) => (
-            <PhoneListField value={state.value} onChange={handleChange} />
+            <PhoneListField className={FormGrid.grow} value={state.value} onChange={handleChange} />
           )}
         />
 
         <Field
           name='emails'
           children={({ state, handleChange }) => (
-            <EmailListField value={state.value} onChange={handleChange} />
+            <EmailListField className={FormGrid.grow} value={state.value} onChange={handleChange} />
           )}
         />
-      </div>
+      </FormGrid>
 
       <Field
         name='dob'

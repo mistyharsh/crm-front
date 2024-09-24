@@ -5,7 +5,7 @@ import type { PersonInput } from '#api/Client.js';
 import { AddressListField } from './AddressListField.js';
 import { EmailListField } from './EmailField.js';
 import { NameField } from './NameField.js';
-import { PhoneListField } from './PhoneField.js';
+import { PhoneListField } from './PhoneListField.js';
 
 export type PersonFieldProps = {
   value: PersonInput;

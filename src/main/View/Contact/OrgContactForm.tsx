@@ -4,7 +4,7 @@ import { AddressListField } from './Field/AddressListField.js';
 import { EmailListField } from './Field/EmailField.js';
 import { OrganizationNameInput } from './Field/OrganizationField.js';
 import { PersonListField } from './Field/PersonListField.js';
-import { PhoneListField } from './Field/PhoneField.js';
+import { PhoneListField } from './Field/PhoneListField.js';
 import type { OrgInputFormApi } from './UseOrgContactForm.js';
 
 export type OrgContactFormProps = {

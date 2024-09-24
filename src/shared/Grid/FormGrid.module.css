@@ -1,0 +1,18 @@
+.grid {
+  display: grid;
+  min-width: 480px;
+
+  grid-template-columns: 1fr 1fr;
+  grid-gap: var(--mantine-spacing-md);
+}
+
+.grow {
+  grid-column: span 2;
+}
+
+.subgrid {
+  display: grid;
+  grid-column: span 2;
+  grid-template-columns: subgrid;
+  grid-gap: var(--mantine-spacing-md);
+}

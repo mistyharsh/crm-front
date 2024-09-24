@@ -1,4 +1,5 @@
 import { TextInput } from '@mantine/core';
+import clsx from 'clsx';
 
 export type NameTuple = [string, string, string];
 
@@ -12,7 +13,7 @@ export function NameField(props: NameFieldProps) {
   const { className, value, onChange } = props;
 
   return (
-    <div className={className}>
+    <div className={clsx('NameField', className)}>
       <TextInput
         label='First name'
         value={value[0]}
@@ -20,13 +21,13 @@ export function NameField(props: NameFieldProps) {
           onChange([ev.currentTarget.value, value[1], value[2]])
         }
       />
-      <TextInput
+      {/* <TextInput
         label='Middle name'
         value={value[1]}
         onChange={(ev) =>
           onChange([value[0], ev.currentTarget.value, value[2]])
         }
-      />
+      /> */}
       <TextInput
         label='Surname'
         value={value[2]}

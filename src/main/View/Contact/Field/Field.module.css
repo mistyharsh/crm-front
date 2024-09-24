@@ -1,6 +1,0 @@
-.phone {
-  display: grid;
-  gap: var(--mantine-spacing-md);
-  grid-template-columns: 120px 1fr auto;
-  align-items: end;
-}
