@@ -1,7 +1,8 @@
-import { Button, Stack, TextInput } from '@mantine/core';
+import { Button, Stack } from '@mantine/core';
 import { Plus } from 'lucide-react';
 
 import type { EmailInput } from '#api/Client.js';
+import { EmailField } from '#shared/Contact/EmailField.js';
 import { update } from '#shared/Util/Array.js';
 
 export type EmailListFieldProps = {
@@ -17,6 +18,7 @@ const emptyValue: EmailInput = {
 
 export function EmailListField(props: EmailListFieldProps) {
   const { className, value, onChange } = props;
+
   const addEmail = () => {
     const updateEmail = value.concat(emptyValue);
     onChange(updateEmail);
@@ -26,11 +28,9 @@ export function EmailListField(props: EmailListFieldProps) {
     onChange(update(value, index, newEmail));
   };
 
-  const list = [...value, emptyValue];
-
   return (
     <Stack className={className}>
-      {list.map((email, index) => (
+      {value.map((email, index) => (
         <EmailField
           key={`email-${index}`}
           value={email}
@@ -44,28 +44,9 @@ export function EmailListField(props: EmailListFieldProps) {
           h={24}
           onClick={addEmail}
           leftSection={<Plus size={16} />}
-          children='Add more'
+          children='Add email'
         />
       </div>
     </Stack>
-  );
-}
-
-export type EmailFieldProps = {
-  value: EmailInput;
-  onChange: (mail: EmailInput) => void;
-};
-
-export function EmailField(props: EmailFieldProps) {
-  const { value, onChange } = props;
-  return (
-    <TextInput
-      label='Email'
-      value={value.address}
-      onChange={(ev) =>
-        onChange({ ...value, address: ev.currentTarget.value })
-      }
-      type='email'
-    />
   );
 }

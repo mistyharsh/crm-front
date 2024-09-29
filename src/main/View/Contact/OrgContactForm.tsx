@@ -1,7 +1,7 @@
 import { Button, Group, Title } from '@mantine/core';
 
 import { AddressListField } from './Field/AddressListField.js';
-import { EmailListField } from './Field/EmailField.js';
+import { EmailListField } from './Field/EmailListField.js';
 import { OrganizationNameInput } from './Field/OrganizationField.js';
 import { PersonListField } from './Field/PersonListField.js';
 import { PhoneListField } from './Field/PhoneListField.js';

@@ -3,7 +3,7 @@ import { DatePickerInput } from '@mantine/dates';
 import type { PersonInput } from '#api/Client.js';
 
 import { AddressListField } from './AddressListField.js';
-import { EmailListField } from './EmailField.js';
+import { EmailListField } from './EmailListField.js';
 import { NameField } from './NameField.js';
 import { PhoneListField } from './PhoneListField.js';
 

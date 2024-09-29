@@ -2,9 +2,8 @@ import { Button, Stack } from '@mantine/core';
 import { Plus } from 'lucide-react';
 
 import type { PhoneInput } from '#api/Client.js';
-import { PhoneField } from '#shared/Field/PhoneField.js';
+import { PhoneField } from '#shared/Contact/PhoneField.js';
 import { update } from '#shared/Util/Array.js';
-
 
 export type PhoneListFieldProps = {
   className?: string;
@@ -30,11 +29,9 @@ export function PhoneListField(props: PhoneListFieldProps) {
     onChange(update(value, index, newPhone));
   };
 
-  const list = [...value, emptyValue];
-
   return (
     <Stack className={className}>
-      {list.map((phone, index) => (
+      {value.map((phone, index) => (
         <PhoneField
           key={`phone-${index}`}
           value={phone}
@@ -49,7 +46,7 @@ export function PhoneListField(props: PhoneListFieldProps) {
           h={24}
           onClick={addPhone}
           leftSection={<Plus size={16} />}
-          children='Add more'
+          children='Add phone'
         />
       </div>
     </Stack>

@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { X } from 'lucide-react';
 
 import type { PhoneInput } from '#api/Client.js';
-import style from './PhoneField.module.css';
+import style from './Contact.module.css';
 
 const data = [
   { value: 'eur', label: '🇪🇺 EUR' },

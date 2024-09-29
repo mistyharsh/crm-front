@@ -20,9 +20,21 @@ export type PersonInputModel = {
 };
 
 const emptyValue: PersonInputModel = {
-  addresses: [],
-  emails: [],
-  phones: [],
+  addresses: [{
+    house: '',
+    street: '',
+    landmark: '',
+    postalCodeId: '',
+  }],
+  emails: [{
+    address: '',
+    isPrimary: true,
+  }],
+  phones: [{
+    countryId: '',
+    number: '',
+    isPrimary: true,
+  }],
   dob: null,
   name: ['', '', ''],
   gender: '',

@@ -1,8 +1,10 @@
 import { Button, Stack } from '@mantine/core';
+import { Plus } from 'lucide-react';
 
 import type { AddressInput } from '#api/Client.js';
 import { update } from '#shared/Util/Array.js';
-import { AddressField } from './AddressField.js';
+import { AddressField } from '#shared/Contact/AddressField.js';
+import { FormGrid } from '#shared/Grid/FormGrid.js';
 
 export type AddressListFieldProps = {
   value: AddressInput[];
@@ -28,10 +30,7 @@ export function AddressListField(props: AddressListFieldProps) {
   };
 
   return (
-    <Stack>
-      <Button onClick={addAddress} variant='outline'>
-        Add
-      </Button>
+    <>
       {value.map((address, index) => (
         <AddressField
           key={`address-${index}`}
@@ -39,6 +38,16 @@ export function AddressListField(props: AddressListFieldProps) {
           onChange={(newAddress) => updatedAddress(index, newAddress)}
         />
       ))}
-    </Stack>
+      <div className={FormGrid.grow}>
+        <Button
+          variant='transparent'
+          p={0}
+          h={24}
+          onClick={addAddress}
+          leftSection={<Plus size={16} />}
+          children='Add address'
+        />
+      </div>
+    </>
   );
 }

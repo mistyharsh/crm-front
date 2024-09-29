@@ -2,7 +2,7 @@ import { Button, Group, Title } from '@mantine/core';
 
 import { FormGrid } from '#shared/Grid/FormGrid.js';
 import { AddressListField } from './Field/AddressListField.js';
-import { EmailListField } from './Field/EmailField.js';
+import { EmailListField } from './Field/EmailListField.js';
 import { NameField } from './Field/NameField.js';
 import { DateOfBirthField, GenderField } from './Field/PersonField.js';
 import { PhoneListField } from './Field/PhoneListField.js';
@@ -57,28 +57,29 @@ export function PersonContactForm(props: PersonContactFormProps) {
             <EmailListField className={FormGrid.grow} value={state.value} onChange={handleChange} />
           )}
         />
+
+        <Field
+          name='addresses'
+          children={({ state, handleChange }) => (
+            <AddressListField value={state.value} onChange={handleChange} />
+          )}
+        />
+
+        <Field
+          name='dob'
+          children={({ state, handleChange }) => (
+            <DateOfBirthField value={state.value} onChange={handleChange} />
+          )}
+        />
+
+        <Field
+          name='gender'
+          children={({ state, handleChange }) => (
+            <GenderField value={state.value} onChange={handleChange} />
+          )}
+        />
       </FormGrid>
 
-      <Field
-        name='dob'
-        children={({ state, handleChange }) => (
-          <DateOfBirthField value={state.value} onChange={handleChange} />
-        )}
-      />
-
-      <Field
-        name='gender'
-        children={({ state, handleChange }) => (
-          <GenderField value={state.value} onChange={handleChange} />
-        )}
-      />
-
-      <Field
-        name='addresses'
-        children={({ state, handleChange }) => (
-          <AddressListField value={state.value} onChange={handleChange} />
-        )}
-      />
       <Group>
         <Button type='submit' variant='filled'>
           Save

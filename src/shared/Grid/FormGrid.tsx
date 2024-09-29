@@ -30,3 +30,6 @@ FormGrid.grow = style.grow;
  * Set the child span across entire row and providing a subgrid.
  */
 FormGrid.subgrid = style.subgrid;
+
+FormGrid.column1 = style.column1;
+FormGrid.column2 = style.column2;
