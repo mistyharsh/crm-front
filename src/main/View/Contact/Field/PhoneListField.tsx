@@ -1,8 +1,8 @@
-import { Button, Stack } from '@mantine/core';
-import { Plus } from 'lucide-react';
+import { Stack } from '@mantine/core';
 
 import type { PhoneInput } from '#api/Client.js';
 import { PhoneField } from '#shared/Contact/PhoneField.js';
+import { AddMoreButton } from '#shared/Form/AddMoreButton.js';
 import { update } from '#shared/Util/Array.js';
 
 export type PhoneListFieldProps = {
@@ -40,14 +40,7 @@ export function PhoneListField(props: PhoneListFieldProps) {
         />
       ))}
       <div>
-        <Button
-          variant='transparent'
-          p={0}
-          h={24}
-          onClick={addPhone}
-          leftSection={<Plus size={16} />}
-          children='Add phone'
-        />
+        <AddMoreButton onClick={addPhone} text='Add phone' />
       </div>
     </Stack>
   );

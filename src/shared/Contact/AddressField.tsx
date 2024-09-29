@@ -2,7 +2,7 @@ import { Select, TextInput } from '@mantine/core';
 import clsx from 'clsx';
 
 import type { AddressInput } from '#api/Client.js';
-import { FormGrid } from '#shared/Grid/FormGrid.js';
+import { FormGrid } from '#shared/Form/FormGrid.js';
 import style from './Contact.module.css';
 
 export type AddressFieldProps = {

@@ -1,8 +1,8 @@
-import { Button, Stack } from '@mantine/core';
-import { Plus } from 'lucide-react';
+import { Stack } from '@mantine/core';
 
 import type { EmailInput } from '#api/Client.js';
 import { EmailField } from '#shared/Contact/EmailField.js';
+import { AddMoreButton } from '#shared/Form/AddMoreButton.js';
 import { update } from '#shared/Util/Array.js';
 
 export type EmailListFieldProps = {
@@ -38,14 +38,7 @@ export function EmailListField(props: EmailListFieldProps) {
         />
       ))}
       <div>
-        <Button
-          variant='transparent'
-          p={0}
-          h={24}
-          onClick={addEmail}
-          leftSection={<Plus size={16} />}
-          children='Add email'
-        />
+        <AddMoreButton onClick={addEmail} text='Add email' />
       </div>
     </Stack>
   );

@@ -1,18 +1,19 @@
-import { Button, Stack } from '@mantine/core';
-import { Plus } from 'lucide-react';
+import clsx from 'clsx';
 
 import type { AddressInput } from '#api/Client.js';
-import { update } from '#shared/Util/Array.js';
 import { AddressField } from '#shared/Contact/AddressField.js';
-import { FormGrid } from '#shared/Grid/FormGrid.js';
+import { FormGrid } from '#shared/Form/FormGrid.js';
+import { AddMoreButton } from '#shared/Form/AddMoreButton.js';
+import { update } from '#shared/Util/Array.js';
 
 export type AddressListFieldProps = {
+  className?: string;
   value: AddressInput[];
   onChange: (addressList: AddressInput[]) => void;
 };
 
 export function AddressListField(props: AddressListFieldProps) {
-  const { value, onChange } = props;
+  const { className, value, onChange } = props;
 
   const addAddress = () => {
     const updatedAddress = value.concat({
@@ -30,7 +31,7 @@ export function AddressListField(props: AddressListFieldProps) {
   };
 
   return (
-    <>
+    <div className={clsx('AddressListField', className)}>
       {value.map((address, index) => (
         <AddressField
           key={`address-${index}`}
@@ -39,15 +40,8 @@ export function AddressListField(props: AddressListFieldProps) {
         />
       ))}
       <div className={FormGrid.grow}>
-        <Button
-          variant='transparent'
-          p={0}
-          h={24}
-          onClick={addAddress}
-          leftSection={<Plus size={16} />}
-          children='Add address'
-        />
+        <AddMoreButton onClick={addAddress} text='Add address' />
       </div>
-    </>
+    </div>
   );
 }

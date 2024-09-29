@@ -1,13 +1,14 @@
-import { Button, Group, Title } from '@mantine/core';
+import { Button, Group } from '@mantine/core';
+import { Cake, MapPin, Send, User } from 'lucide-react';
 
-import { FormGrid } from '#shared/Grid/FormGrid.js';
+import { FormGrid } from '#shared/Form/FormGrid.js';
+import { SectionTitle } from '#shared/Form/SectionTitle.js';
 import { AddressListField } from './Field/AddressListField.js';
 import { EmailListField } from './Field/EmailListField.js';
 import { NameField } from './Field/NameField.js';
 import { DateOfBirthField, GenderField } from './Field/PersonField.js';
 import { PhoneListField } from './Field/PhoneListField.js';
 import type { PersonInputFormApi } from './UsePersonContactForm.js';
-import { User } from 'lucide-react';
 
 export type PersonContactFormProps = {
   form: PersonInputFormApi;
@@ -25,12 +26,8 @@ export function PersonContactForm(props: PersonContactFormProps) {
       }}
     >
       <FormGrid>
-        <Group gap={'xs'} className={FormGrid.grow}>
-          <User size={20} />
-          <Title display={'flex'}  order={4}>
-            Basic Information
-          </Title>
-        </Group>
+        <SectionTitle title='Basic Information' icon={User} />
+
         <Field
           name='name'
           children={({ state, handleChange }) => (
@@ -42,7 +39,7 @@ export function PersonContactForm(props: PersonContactFormProps) {
           )}
         />
 
-        <Title className={FormGrid.grow} order={4} children='Contact Details' />
+        <SectionTitle title='Contact details' icon={Send} />
 
         <Field
           name='phones'
@@ -58,12 +55,16 @@ export function PersonContactForm(props: PersonContactFormProps) {
           )}
         />
 
+        <SectionTitle title='Address' icon={MapPin} />
+
         <Field
           name='addresses'
           children={({ state, handleChange }) => (
-            <AddressListField value={state.value} onChange={handleChange} />
+            <AddressListField className={FormGrid.subgrid} value={state.value} onChange={handleChange} />
           )}
         />
+
+        <SectionTitle title='Personal details' icon={Cake} />
 
         <Field
           name='dob'
